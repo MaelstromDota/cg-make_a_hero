@@ -1,0 +1,194 @@
+"DOTAAbilities"
+{
+	"item_recipe_sange_and_yasha"
+	{
+		"ItemPurchasable"				"0"
+		"ItemRecipe"					"0"
+	}
+	"item_sange_and_yasha"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_recipe_kaya_and_sange"
+	{
+		"ItemPurchasable"				"0"
+		"ItemRecipe"					"0"
+	}
+	"item_kaya_and_sange"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_recipe_yasha_and_kaya"
+	{
+		"ItemPurchasable"				"0"
+		"ItemRecipe"					"0"
+	}
+	"item_yasha_and_kaya"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_recipe_sange_and_yasha_2_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"ItemCost"						"0"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_sange_and_yasha_2_lua"
+		"AbilityTextureName"			"item_recipe"
+		"ItemRequirements"
+		{
+			"01"						"item_sange_2_lua;item_yasha_2_lua"
+		}
+	}
+	"item_sange_and_yasha_2_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/sange_yasha_kaya"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityCooldown"				"30.0"
+		"AbilityCastPoint"				"0.0"
+		"AbilityManaCost"				"125"
+		"AbilityCastRange"				"800"
+		"ItemShopTags"					"damage;str;unique;evasion;int;agi;attack_speed;move_speed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"sange;heaven's halberd;yasha;manta style"
+		"ShouldBeSuggested"				"1"
+		"AbilitySharedCooldown"			"halberd_manta"
+		"AbilityTextureName"			"item_sange_and_yasha_2"
+		"AbilityValues"
+		{
+			"bonus_strength"			"35"
+			"status_resistance"			"15"
+			"hp_regen_amp"				"30"
+			"bonus_agility"				"45"
+			"bonus_intellect"			"20"
+			"bonus_damage"				"20"
+			"bonus_health_regen"		"15"
+			"bonus_evasion"				"25"
+			"disarm_duration"			"4"
+			"bonus_attack_speed"		"35"
+			"bonus_movement_speed"		"12"
+			"images_count"				"2"
+			"illusion_duration"			"25"
+			"damage_outgoing_melee"		"40"
+			"damage_incoming_total_pct"	"250"
+			"damage_outgoing_ranged"	"35"
+			"invuln_duration"			"0.1"
+			"vision_radius"				"1000"
+			"bonus_armor"				"8"
+		}
+	}
+	"item_recipe_kaya_and_sange_2_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"ItemCost"						"0"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_kaya_and_sange_2_lua"
+		"AbilityTextureName"			"item_recipe"
+		"ItemRequirements"
+		{
+			"01"						"item_kaya_2_lua;item_sange_2_lua"
+		}
+	}
+	"item_kaya_and_sange_2_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/sange_yasha_kaya"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityCastRange"				"800"
+		"AbilityCooldown"				"16"
+		"AbilityCastPoint"				"0.0"
+		"AbilityManaCost"				"100"
+		"ItemShopTags"					"agi;str;int;hard_to_tag;damage;unique;evasion"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"kaya;eb;ethereal blade;eblade;sange;heaven's halberd"
+		"ShouldBeSuggested"				"1"
+		"AbilitySharedCooldown"			"ethereal_halberd"
+		"AbilityTextureName"			"item_kaya_and_sange_2"
+		"AbilityValues"
+		{
+			"bonus_agility"				"20"
+			"bonus_strength"			"35"
+			"bonus_intellect"			"40"
+			"spell_amp"					"15"
+			"spell_lifesteal_amp"		"25"
+			"mana_regen_multiplier"		"85"
+			"blast_movement_slow"		"-80"
+			"duration"					"4.0"
+			"blast_agility_multiplier"	"1.75"
+			"blast_damage_base"			"100"
+			"ethereal_damage_bonus"		"-40"
+			"projectile_speed"			"1275"
+			"status_resistance"			"15"
+			"hp_regen_amp"				"30"
+			"bonus_damage"				"20"
+			"bonus_health_regen"		"15"
+			"bonus_evasion"				"20"
+			"disarm_duration"			"4"
+		}
+	}
+	"item_recipe_yasha_and_kaya_2_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"ItemCost"						"0"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_yasha_and_kaya_2_lua"
+		"AbilityTextureName"			"item_recipe"
+		"ItemRequirements"
+		{
+			"01"						"item_yasha_2_lua;item_kaya_2_lua"
+		}
+	}
+	"item_yasha_and_kaya_2_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/sange_yasha_kaya"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityCooldown"				"30.0"
+		"AbilityCastPoint"				"0.0"
+		"AbilityManaCost"				"125"
+		"AbilityCastRange"				"800"
+		"ItemShopTags"					"agi;attack_speed;move_speed;str;int;hard_to_tag;damage"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"yasha;manta style"
+		"ShouldBeSuggested"				"1"
+		"AbilitySharedCooldown"			"manta_ethereal"
+		"AbilityTextureName"			"item_yasha_and_kaya_2"
+		"AbilityValues"
+		{
+			"bonus_strength"			"35"
+			"bonus_agility"				"50"
+			"bonus_intellect"			"50"
+			"bonus_attack_speed"		"35"
+			"bonus_movement_speed"		"12"
+			"images_count"				"2"
+			"illusion_duration"			"25"
+			"damage_outgoing_melee"		"40"
+			"damage_incoming_total_pct"	"250"
+			"damage_outgoing_ranged"	"30"
+			"invuln_duration"			"0.1"
+			"vision_radius"				"1000"
+			"bonus_armor"				"8"
+			"spell_amp"					"15"
+			"spell_lifesteal_amp"		"25"
+			"mana_regen_multiplier"		"85"
+			"blast_movement_slow"		"-80"
+			"duration"					"4.0"
+			"blast_agility_multiplier"	"1.75"
+			"blast_damage_base"			"150"
+			"ethereal_damage_bonus"		"-40"
+			"projectile_speed"			"1275"
+		}
+	}
+}

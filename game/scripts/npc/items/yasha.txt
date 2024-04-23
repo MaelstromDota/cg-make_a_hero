@@ -1,0 +1,57 @@
+"DOTAAbilities"
+{
+	"item_recipe_manta"
+	{
+		"ItemPurchasable"				"0"
+		"ItemRecipe"					"0"
+	}
+	"item_manta"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_recipe_yasha_2_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"ItemCost"						"0"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_yasha_2_lua"
+		"AbilityTextureName"			"item_recipe"
+		"ItemRequirements"
+		{
+			"01"						"item_yasha;item_ultimate_orb;item_wraith_band_lua"
+		}
+	}
+	"item_yasha_2_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/sange_yasha_kaya"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityCooldown"				"30.0"
+		"AbilityCastPoint"				"0.0"
+		"AbilityManaCost"				"125"
+		"ItemShopTags"					"agi;attack_speed;move_speed;str;int;hard_to_tag;damage"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"yasha;manta style"
+		"ShouldBeSuggested"				"1"
+		"AbilitySharedCooldown"			"manta"
+		"AbilityTextureName"			"item_yasha_2"
+		"AbilityValues"
+		{
+			"bonus_strength"			"15"
+			"bonus_agility"				"40"
+			"bonus_intellect"			"15"
+			"bonus_attack_speed"		"30"
+			"bonus_movement_speed"		"10"
+			"images_count"				"2"
+			"illusion_duration"			"20"
+			"damage_outgoing_melee"		"35"
+			"damage_incoming_total_pct"	"300"
+			"damage_outgoing_ranged"	"30"
+			"invuln_duration"			"0.1"
+			"vision_radius"				"1000"
+			"bonus_armor"				"6"
+		}
+	}
+}

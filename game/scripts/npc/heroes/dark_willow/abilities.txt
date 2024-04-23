@@ -1,0 +1,40 @@
+"DOTAAbilities"
+{
+	"dark_willow_shadow_realm_lua"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/heroes/dark_willow"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityCastGestureSlot"		"ABSOLUTE"
+		"HasScepterUpgrade"				"1"
+		"AbilityCooldown"				"20 18 16 14"
+		"AbilityCastPoint"				"0"
+		"AbilityManaCost"				"70 80 90 100"
+		"AbilityTextureName"			"dark_willow_shadow_realm"
+		"AbilityValues"
+		{
+			"duration"
+			{
+				"value"					"5"
+				"LinkedSpecialBonus"	"+2"
+			}
+			"damage"					"120 200 280 360"
+			"attack_range_bonus"		"600"
+			"max_damage_duration"
+			{
+				"value"					"3.5"
+				"CalculateSpellDamageTooltip" "0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+			}
+			"max_attacks"
+			{
+				"value"					"1"
+				"special_bonus_scepter"	"+3"
+			}
+		}
+	}
+}

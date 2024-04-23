@@ -1,0 +1,63 @@
+"DOTAAbilities"
+{
+	"item_recipe_ethereal_blade"
+	{
+		"ItemPurchasable"				"0"
+		"ItemRecipe"					"0"
+	}
+	"item_ethereal_blade"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_recipe_kaya_2_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"ItemCost"						"0"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_kaya_2_lua"
+		"AbilityTextureName"			"item_recipe"
+		"ItemRequirements"
+		{
+			"01"						"item_kaya;item_ghost;item_null_talisman_lua"
+		}
+	}
+	"item_kaya_2_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/sange_yasha_kaya"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"22.0"
+		"AbilityManaCost"				"100"
+		"ItemShopTags"					"agi;str;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"kaya;eb;ethereal blade;eblade"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"AbilitySharedCooldown"			"ethereal"
+		"ShouldBeSuggested"				"1"
+		"AbilityTextureName"			"item_kaya_2"
+		"AbilityValues"
+		{
+			"bonus_agility"				"10"
+			"bonus_strength"			"10"
+			"bonus_intellect"			"35"
+			"spell_amp"					"12"
+			"spell_lifesteal_amp"		"24"
+			"mana_regen_multiplier"		"85"
+			"blast_movement_slow"		"-80"
+			"duration"					"4.0"
+			"blast_agility_multiplier"	"1.5"
+			"blast_damage_base"			"50"
+			"ethereal_damage_bonus"		"-40"
+			"projectile_speed"			"1275"
+		}
+	}
+}

@@ -1,0 +1,78 @@
+LinkLuaModifier("modifier_ogre_magi_multicast_lua", "abilities/heroes/ogre_magi", LUA_MODIFIER_MOTION_NONE)
+
+ogre_magi_multicast_lua = ogre_magi_multicast_lua or class(ability_lua_base)
+function ogre_magi_multicast_lua:GetIntrinsicModifierName() return "modifier_ogre_magi_multicast_lua" end
+
+modifier_ogre_magi_multicast_lua = modifier_ogre_magi_multicast_lua or class({})
+function modifier_ogre_magi_multicast_lua:IsHidden() return true end
+function modifier_ogre_magi_multicast_lua:IsPurgable() return false end
+function modifier_ogre_magi_multicast_lua:DeclareFunctions() return {MODIFIER_EVENT_ON_ABILITY_FULLY_CAST} end
+function modifier_ogre_magi_multicast_lua:OnAbilityFullyCast(kv)
+	if not IsServer() then return end
+	if kv.unit ~= self:GetParent() or kv.unit:PassivesDisabled() or kv.ability:GetMainBehavior() == DOTA_ABILITY_BEHAVIOR_TOGGLE or kv.ability:IsBehavior(DOTA_ABILITY_BEHAVIOR_CHANNELLED) or (kv.ability:GetMaxAbilityCharges(kv.ability:GetMaxLevel()) > 0 or kv.ability:GetCurrentAbilityCharges() > 0) or (kv.ability:IsItem() and (kv.ability:GetCurrentCharges() > 0 or kv.ability:GetInitialCharges() > 0 or kv.ability:GetSecondaryCharges() > 0)) then return end
+	if table.contains({"brewmaster_primal_split", "shredder_chakram"}, kv.ability:GetAbilityName()) then return end
+	local max_multicast = 0
+	if RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_2_times") then max_multicast = 2
+	elseif RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_3_times") then max_multicast = 3
+	elseif RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_4_times") then max_multicast = 4
+	else return end
+	local multicast = 1
+	local fx = ParticleManager:CreateParticle("particles/units/heroes/hero_ogre_magi/ogre_magi_multicast.vpcf", PATTACH_OVERHEAD_FOLLOW, kv.unit)
+	ParticleManager:SetParticleControl(fx, 1, Vector(multicast, multicast==max_multicast and 1 or 2, 0))
+	ParticleManager:ReleaseParticleIndex(fx)
+	local pos = kv.ability:GetCursorPosition()
+	local delay = (kv.ability:IsItem() or table.contains({"ogre_magi_bloodlust"}, kv.ability:GetAbilityName())) and kv.target ~= nil and 0 or self:GetAbility():GetSpecialValueFor("multicast_delay")
+	Timers:CreateTimer({endTime=delay, callback=function()
+		multicast = multicast + 1
+		local target = kv.target
+		if (kv.ability:IsItem() or table.contains({"ogre_magi_ignite", "ogre_magi_bloodlust"}, kv.ability:GetAbilityName())) and kv.target ~= nil then
+			target = table.choice(FindUnitsInRadius(kv.unit:GetTeamNumber(), kv.unit:GetAbsOrigin(), nil, kv.ability:GetEffectiveCastRange(pos, target)+self:GetAbility():GetSpecialValueFor("multicast_buffer_range"), kv.ability:GetAbilityTargetTeam(), kv.ability:GetAbilityTargetType(), kv.ability:GetAbilityTargetFlags(), FIND_ANY_ORDER, false))
+		end
+		kv.unit:SetCursorCastTarget(target)
+		kv.unit:SetCursorPosition(pos)
+		kv.ability:OnSpellStart()
+		local fx = ParticleManager:CreateParticle("particles/units/heroes/hero_ogre_magi/ogre_magi_multicast.vpcf", PATTACH_OVERHEAD_FOLLOW, kv.unit)
+		ParticleManager:SetParticleControl(fx, 1, Vector(multicast, multicast==max_multicast and 1 or 2, 0))
+		ParticleManager:ReleaseParticleIndex(fx)
+		kv.unit:EmitSound("Hero_OgreMagi.Fireblast.x"..math.min(math.max(multicast-1, 1), 3))
+		if multicast < max_multicast then return delay end
+		return nil
+	end}, nil, self)
+end
+
+LinkLuaModifier("modifier_ogre_magi_dumb_luck_lua", "abilities/heroes/ogre_magi", LUA_MODIFIER_MOTION_NONE)
+
+ogre_magi_dumb_luck_lua = ogre_magi_dumb_luck_lua or class(ability_lua_base)
+function ogre_magi_dumb_luck_lua:GetIntrinsicModifierName() return "modifier_ogre_magi_dumb_luck_lua" end
+
+modifier_ogre_magi_dumb_luck_lua = modifier_ogre_magi_dumb_luck_lua or class({})
+function modifier_ogre_magi_dumb_luck_lua:IsHidden() return true end
+function modifier_ogre_magi_dumb_luck_lua:IsPurgable() return false end
+function modifier_ogre_magi_dumb_luck_lua:DeclareFunctions() return {MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE, MODIFIER_PROPERTY_STATS_INTELLECT_BONUS, MODIFIER_PROPERTY_MANA_BONUS, MODIFIER_PROPERTY_MANA_REGEN_CONSTANT} end
+function modifier_ogre_magi_dumb_luck_lua:OnCreated()
+	if not IsServer() then return end
+	self:GetParent():UpdatePrimaryAttribute(DOTA_ATTRIBUTE_STRENGTH)
+	self:GetParent():CalculateStatBonus(true)
+end
+function modifier_ogre_magi_dumb_luck_lua:OnDestroy()
+	if not IsServer() then return end
+	self:GetParent():ResetPrimaryAttribute()
+end
+function modifier_ogre_magi_dumb_luck_lua:GetModifierOverrideAbilitySpecial(kv)
+	if kv.ability:GetAbilityName() ~= "ogre_magi_multicast_lua" then return end
+	return BoolToNum(string.find(kv.ability_special_value, "multicast_%d_times") ~= nil)
+end
+function modifier_ogre_magi_dumb_luck_lua:GetModifierOverrideAbilitySpecialValue(kv)
+	if kv.ability:GetAbilityName() ~= "ogre_magi_multicast_lua" or string.find(kv.ability_special_value, "multicast_%d_times") == nil then return end
+	local kv = kv.ability:GetLevelSpecialValueNoOverride(kv.ability_special_value, kv.ability_special_level)
+	return kv + math.floor(self:GetParent():GetStrength()/self:GetAbility():GetSpecialValueFor("str_per_chance"))
+end
+function modifier_ogre_magi_dumb_luck_lua:GetModifierManaBonus() return self:GetAbility():GetSpecialValueFor("mana_per_str") * self:GetParent():GetStrength() end
+function modifier_ogre_magi_dumb_luck_lua:GetModifierConstantManaRegen() return self:GetAbility():GetSpecialValueFor("mana_regen_per_str") * self:GetParent():GetStrength() end
+function modifier_ogre_magi_dumb_luck_lua:GetModifierBonusStats_Intellect()
+	if self.lock then return end
+	self.lock = true
+	local intellect = self:GetParent():GetIntellect()
+	self.lock = false
+	return -intellect
+end

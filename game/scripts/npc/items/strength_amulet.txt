@@ -1,0 +1,41 @@
+"DOTAAbilities"
+{
+	"item_recipe_strength_amulet_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"ItemCost"						"0"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_strength_amulet_lua"
+		"AbilityTextureName"			"item_recipe"
+		"ItemRequirements"
+		{
+			"01"						"item_bottle;item_reaver"
+		}
+	}
+	"item_strength_amulet_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/strength_amulet"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"ItemShopTags"					"str;damage;armor;health"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"strength amulet;strange amulet"
+		"ShouldBeSuggested"				"1"
+		"ItemStackable"					"0"
+		"ItemInitialCharges"			"0"
+		"ItemDisplayCharges"			"1"
+		"AbilityCooldown"				"45"
+		"AbilityTextureName"			"item_strength_amulet"
+		"AbilityValues"
+		{
+			"bonus_strength"			"35"
+			"bonus_strength_per_charge"	"2"
+			"bonus_armor_per_charge"	"2"
+			"bonus_health_per_charge"	"65"
+			"active_duration"			"5"
+			"active_strength_multiplier" "75"
+		}
+	}
+}

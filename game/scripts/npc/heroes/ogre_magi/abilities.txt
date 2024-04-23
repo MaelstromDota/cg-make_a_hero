@@ -1,0 +1,33 @@
+"DOTAAbilities"
+{
+	"ogre_magi_multicast_lua"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/heroes/ogre_magi"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityTextureName"			"ogre_magi_multicast"
+		"AbilityValues"
+		{
+			"multicast_delay"			"0.6"
+			"multicast_buffer_range"	"600"
+			"multicast_2_times"			"75 75 75"
+			"multicast_3_times"			"0 30 30"
+			"multicast_4_times"			"0 0 15"
+		}
+	}
+	"ogre_magi_dumb_luck_lua"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/heroes/ogre_magi"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"MaxLevel"						"1"
+		"AbilityTextureName"			"ogre_magi_dumb_luck"
+		"AbilityValues"
+		{
+			"mana_per_str"				"6"
+			"mana_regen_per_str"		"0.03"
+			"str_per_chance"			"20"
+		}
+	}
+}

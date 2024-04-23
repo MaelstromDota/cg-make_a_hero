@@ -1,0 +1,55 @@
+"DOTAAbilities"
+{
+	"item_recipe_bfury_2_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"ItemCost"						"1800"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_bfury_2_lua"
+		"AbilityTextureName"			"item_recipe"
+		"ItemRequirements"
+		{
+			"01"						"item_bfury;item_sange;item_yasha"
+		}
+	}
+	"item_bfury_2_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/bfury"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE | DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityCastRange"				"350"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"4.0"
+		"ItemShopTags"					"damage;health_regen;mana_regen;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"bf;battle fury"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		"MaxUpgradeLevel"				"3"
+		"ItemBaseLevel"					"2"
+		"AbilityTextureName"			"item_bfury_2"
+		"AbilityValues"
+		{
+			"bonus_damage"				"85"
+			"bonus_health_regen"		"12"
+			"bonus_mana_regen"			"8"
+			"cleave_damage_percent"		"80"
+			"quelling_bonus"			"30"
+			"quelling_bonus_ranged"		"12"
+			"cleave_starting_width"		"150"
+			"cleave_ending_width"		"360"
+			"cleave_distance"			"650"
+			"bonus_agility"				"20"
+			"bonus_attack_speed"		"20"
+			"movement_speed_percent_bonus"	"16"
+			"bonus_strength"			"20"
+			"status_resistance"			"15"
+			"hp_regen_amp"				"25"
+			"chop_radius"				"200"
+		}
+	}
+}

@@ -1,0 +1,58 @@
+"DOTAAbilities"
+{
+	"item_recipe_helm_of_the_overlord"
+	{
+		"ItemPurchasable"				"0"
+		"ItemRecipe"					"0"
+	}
+	"item_helm_of_the_overlord"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_recipe_helm_of_the_overlord_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"ItemCost"						"2150"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_helm_of_the_overlord_lua"
+		"AbilityTextureName"			"item_recipe_helm_of_the_overlord"
+		"ItemRequirements"
+		{
+			"01"						"item_helm_of_the_dominator_lua;item_vladmir;item_blessed_essence_lua"
+		}
+	}
+	"item_helm_of_the_overlord_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/helm_of_the_dominator"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxUpgradeLevel"				"2"
+		"ItemBaseLevel"					"2"
+		"AbilityManaCost"				"0"
+		"ItemShopTags"					"damage;armor;unique;hard_to_tag"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"hoto;helm of the overlord"
+		"ShouldBeSuggested"				"1"
+		"AbilityTextureName"			"item_helm_of_the_overlord"
+		"AbilityValues"
+		{
+			"bonus_stats"				"23"
+			"bonus_armor"				"10"
+			"bonus_regen"				"10"
+			"bonus_health"				"500"
+			"damage_per_primary"		"3"
+			"health_per_strength"		"45"
+			"hp_regen_per_strength"		"1.5"
+			"attack_speed_per_agility"	"1.2"
+			"armor_per_agility"			"0.3"
+			"spell_amplify_per_intellect" "0.2"
+			"armor_aura"				"3.0"
+			"mana_regen_aura"			"2"
+			"lifesteal_aura"			"18"
+			"damage_aura"				"18"
+			"aura_radius"				"1200"
+			"bonus_movement_speed"		"60"
+		}
+	}
+}

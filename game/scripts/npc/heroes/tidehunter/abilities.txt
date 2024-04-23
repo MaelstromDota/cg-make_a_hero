@@ -1,0 +1,31 @@
+"DOTAAbilities"
+{
+	"tidehunter_kraken_shell_lua"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/heroes/tidehunter"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityCooldown"				"3"
+		"AbilityTextureName"			"tidehunter_kraken_shell"
+		"AbilityValues"
+		{
+			"damage_reduction"
+			{
+				"value"					"16 34 52 70"
+				"special_bonus_unique_tidehunter_4"	"+40"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"damage_cleanse"
+			{
+				"value"					"600 550 500 450"
+				"special_bonus_unique_tidehunter_6"	"-100"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"damage_reset_interval"
+			{
+				"value"					"7.0"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+		}
+	}
+}

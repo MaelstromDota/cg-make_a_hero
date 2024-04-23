@@ -1,0 +1,39 @@
+"DOTAAbilities"
+{
+	"item_recipe_aether_eye_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"ItemCost"						"650"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_aether_eye_lua"
+		"AbilityTextureName"			"item_recipe"
+		"ItemRequirements"
+		{
+			"01"						"item_gem;item_aether_lens"
+		}
+	}
+	"item_aether_eye_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/aether_eye"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ItemShopTags"					"int;regen_mana;move_speed;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"aether eye"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		"UIPickupSound"					"Item.PickUpGemShop"
+		"UIDropSound"					"Item.DropGemShop"
+		"WorldDropSound"				"Item.DropGemWorld"
+		"AbilityTextureName"			"item_aether_eye"
+		"AbilityValues"
+		{
+			"bonus_mana"				"370"
+			"bonus_mana_regen"			"3.5"
+			"cast_range_bonus"			"250"
+			"cast_range_bonus_per_enemy"	"65"
+		}
+	}
+}

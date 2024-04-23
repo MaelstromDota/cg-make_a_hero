@@ -1,0 +1,41 @@
+"DOTAAbilities"
+{
+	"obsidian_destroyer_equilibrium_lua"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/heroes/obsidian_destroyer"
+		"AbilityTextureName"			"obsidian_destroyer_equilibrium_lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityCooldown"				"28"
+		"AbilityManaCost"				"50"
+		"HasScepterUpgrade"				"1"
+		"AbilityTextureName"			"obsidian_destroyer_equilibrium"
+		"AbilityValues"
+		{
+			"mana_steal"				"8 16 24 32 40"
+			"mana_steal_cap_pct"		"8"
+			"mana_steal_active"
+			{
+				"value"					"80 115 150 185"
+				"RequiresScepter"		"1"
+			}
+			"movement_slow"
+			{
+				"value"					"-44 -56 -68 -80"
+				"RequiresScepter"		"1"
+			}
+			"slow_duration"
+			{
+				"value"					"2"
+				"RequiresScepter"		"1"
+			}
+			"duration"
+			{
+				"value"					"5.5"
+				"RequiresScepter"		"1"
+			}
+		}
+	}
+}

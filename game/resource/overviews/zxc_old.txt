@@ -1,0 +1,8 @@
+zxc_old
+{
+	material materials/overviews/zxc_old.vmat
+	pos_x -8222
+	pos_y 9146
+	scale 16.713
+}
+

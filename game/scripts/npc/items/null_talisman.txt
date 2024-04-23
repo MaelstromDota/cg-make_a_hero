@@ -1,0 +1,49 @@
+"DOTAAbilities"
+{
+	"item_recipe_null_talisman"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_null_talisman"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_recipe_null_talisman_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"ItemCost"						"210"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_null_talisman_lua"
+		"AbilityTextureName"			"item_recipe_null_talisman"
+		"ItemRequirements"
+		{
+			"01"						"item_circlet;item_mantle"
+		}
+	}
+	"item_null_talisman_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/null_talisman"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"Model"							"models/props_gameplay/red_box.vmdl"
+		"ItemShopTags"					"damage;int;agi;str"
+		"ItemQuality"					"common"
+		"ItemAliases"					"null talisman"
+		"ShouldBeInitiallySuggested"	"1"
+		"ShouldBeSuggested"				"1"
+		"AbilityTextureName"			"item_null_talisman"
+		"AbilityCooldown"				"18"
+		"AbilityValues"
+		{
+			"bonus_strength"			"3"
+			"bonus_agility"				"3"
+			"bonus_intellect"			"8"
+			"bonus_max_mana_percentage"	"5"
+			"bonus_mana_regen"			"1"
+			"active_mp_regen"			"3"
+			"duration"					"5"
+		}
+	}
+}

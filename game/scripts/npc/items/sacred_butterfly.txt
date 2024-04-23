@@ -1,0 +1,35 @@
+"DOTAAbilities"
+{
+	"item_recipe_sacred_butterfly_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"ItemCost"						"750"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_sacred_butterfly_lua"
+		"AbilityTextureName"			"item_recipe"
+		"ItemRequirements"
+		{
+			"01"						"item_butterfly;item_butterfly"
+		}
+	}
+	"item_sacred_butterfly_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/sacred_butterfly"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ItemShopTags"					"agi;damage;evasion;attack_speed"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"sacred bfly;sacred butterfly"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		"AbilityTextureName"			"item_sacred_butterfly"
+		"AbilityValues"
+		{
+			"bonus_agility"				"70"
+			"bonus_evasion"				"40"
+			"bonus_attack_speed"		"60"
+			"bonus_damage"				"50"
+		}
+	}
+}

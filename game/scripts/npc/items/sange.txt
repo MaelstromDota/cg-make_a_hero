@@ -1,0 +1,55 @@
+"DOTAAbilities"
+{
+	"item_recipe_heavens_halberd"
+	{
+		"ItemPurchasable"				"0"
+		"ItemRecipe"					"0"
+	}
+	"item_heavens_halberd"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_recipe_sange_2_lua"
+	{
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"ItemCost"						"0"
+		"ItemShopTags"					""
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_sange_2_lua"
+		"AbilityTextureName"			"item_recipe"
+		"ItemRequirements"
+		{
+			"01"						"item_sange;item_talisman_of_evasion;item_bracer_lua"
+		}
+	}
+	"item_sange_2_lua"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/sange_yasha_kaya"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"ItemShopTags"					"damage;str;unique;evasion;int;agi"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"sange;heaven's halberd"
+		"ShouldBeSuggested"				"1"
+		"AbilitySharedCooldown"			"halberd"
+		"AbilityTextureName"			"item_sange_2"
+		"AbilityCastRange"				"600"
+		"AbilityCooldown"				"18"
+		"AbilityCastPoint"				"0.0"
+		"AbilityValues"
+		{
+			"bonus_strength"			"20"
+			"status_resistance"			"15"
+			"hp_regen_amp"				"25"
+			"bonus_agility"				"5"
+			"bonus_intellect"			"5"
+			"bonus_damage"				"10"
+			"bonus_health_regen"		"10"
+			"bonus_evasion"				"20"
+			"disarm_duration"			"4"
+		}
+	}
+}
