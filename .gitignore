@@ -45,6 +45,7 @@ Temporary Items
 # Editors
 .idea/*
 .vscode/*
+*.code-workspace
 
 #Dota 2 stuff
 *.bin
