@@ -465,6 +465,7 @@ function CDOTA_BaseNPC:TrueKill(inflictor, attacker)
 		"modifier_dazzle_shallow_grave",
 		"modifier_troll_warlord_battle_trance",
 		"modifier_fountain_aura_buff",
+		"modifier_fountain_buff_lua",
 	}
 	for _, mod in pairs(self:FindAllModifiers()) do
 		if (mod.GetMinHealth or mod.GetModifierIncomingDamage_Percentage or mod.GetModifierIncomingSpellDamageConstant or mod.GetModifierAvoidDamage or mod.GetModifierAvoidSpell or mod.GetModifierTotal_ConstantBlock or mod.GetAbsoluteNoDamagePure or table.contains(additionals, mod:GetName())) and not table.contains(exceptions, mod:GetName()) then

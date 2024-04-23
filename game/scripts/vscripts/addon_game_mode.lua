@@ -44,6 +44,7 @@ end
 
 function CustomHeroArena:InitGameMode()
 	self:InitGameRules()
+	self:InitFountains()
 end
 
 function CustomHeroArena:InitGameRules()
@@ -72,4 +73,11 @@ function CustomHeroArena:InitGameRules()
 	GameRules:GetGameModeEntity():SetGiveFreeTPOnDeath(false)
 	Convars:SetInt("tv_delay", 0)
 	SendToServerConsole("tv_delay 0")
+end
+
+function CustomHeroArena:InitFountains()
+	for _, fountain in pairs(Entities:FindAllByClassname("ent_dota_fountain")) do
+		fountain:AddNewModifier(fountain, nil, "modifier_fountain_aura_lua", {})
+		fountain:RemoveModifierByName("modifier_fountain_aura")
+	end
 end

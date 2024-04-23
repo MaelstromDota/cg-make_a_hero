@@ -280,7 +280,7 @@ function CustomHeroArenaFilters:ModifierFilter(event)
 	if name == "modifier_fountain_invulnerability" and (DUEL_INFO["positions_before_duel"][unit:entindex()] ~= nil or unit.respawninfo ~= nil) then
 		return false
 	end
-	if name == "modifier_fountain_aura_buff" and unit.respawninfo ~= nil then
+	if name == "modifier_fountain_buff_lua" and unit.respawninfo ~= nil then
 		return false
 	end
 	if name == "modifier_bashed" then
@@ -322,7 +322,7 @@ function CustomHeroArenaFilters:DamageFilter(event)
 			event.damage = 0
 			return true
 		end
-		if attacker:GetTeamNumber() ~= DOTA_TEAM_NEUTRALS and attacker:GetTeamNumber() ~= victim:GetTeamNumber() and (attacker:HasModifier("modifier_fountain_aura_buff") or victim:HasModifier("modifier_fountain_aura_buff")) then
+		if attacker:GetTeamNumber() ~= DOTA_TEAM_NEUTRALS and attacker:GetTeamNumber() ~= victim:GetTeamNumber() and (attacker:HasModifier("modifier_fountain_buff_lua") or victim:HasModifier("modifier_fountain_buff_lua")) then
 			event.damage = 0
 			return true
 		end

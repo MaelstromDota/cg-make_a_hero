@@ -68,7 +68,7 @@
 			"MagicResistGain"			"0.33"
 			"MoveSpeedGain"				"1"
 			"BountyGain"				"5"
-			"XPGain"					"15"
+			"XPGain"					"20"
 			"DefaultState"				"Invade"
 			"AttachWearables"
 			{

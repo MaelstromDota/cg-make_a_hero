@@ -281,7 +281,7 @@ function CustomHeroArenaEvents:OnRuneActivated(event)
 			ability:OnRuneActivated(rune)
 		end
 	end
-	for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9 do
+	for _, i in pairs(table.combine(INVENTORY_SLOTS, BACKPACK_SLOTS)) do
 		local item = hero:GetItemInSlot(i)
 		if item and item.OnRuneActivated then
 			item:OnRuneActivated(rune)
