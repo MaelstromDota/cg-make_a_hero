@@ -92,12 +92,8 @@
 			"initial_cooldown"			"30"
 		}
 	}
-	"obsidian_destroyer_equilibrium"
+	"storm_spirit_ball_lightning"
 	{
-		"AbilityValues"
-		{
-			"proc_chance"	"18"
-			"mana_restore"	"25 30 35 40"
-		}
+		"AbilityCooldown"				"5"
 	}
 }

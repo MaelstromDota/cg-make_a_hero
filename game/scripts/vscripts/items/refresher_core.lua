@@ -79,5 +79,6 @@ function modifier_item_refresher_core_recharge_lua:GetModifierPercentageManacost
 function modifier_item_refresher_core_recharge_lua:GetModifierPercentageCooldown() return self.cooldown_reduction end
 function modifier_item_refresher_core_recharge_lua:GetModifierPercentageCasttime(kv)
 	if not IsServer() then return end
+	if kv.ability == nil then return end
 	return kv.ability:GetCastPoint() * self.cast_point_reduction / 100
 end

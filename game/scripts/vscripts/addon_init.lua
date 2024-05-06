@@ -16,6 +16,8 @@ LinkLuaModifier("modifier_primary_attribute_lua", "lib/modifiers", LUA_MODIFIER_
 LinkLuaModifier("modifier_fountain_aura_lua", "main/modifiers", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_fountain_buff_lua", "main/modifiers", LUA_MODIFIER_MOTION_NONE)
 
+LinkLuaModifier("modifier_test_lua", "main/modifiers", LUA_MODIFIER_MOTION_NONE)
+
 LinkLuaModifier("modifier_item_third_eye_lua", "items/third_eye", LUA_MODIFIER_MOTION_NONE)
 
 require("lib/client")
