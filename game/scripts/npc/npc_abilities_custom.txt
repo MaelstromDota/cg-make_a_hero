@@ -96,6 +96,10 @@
 	}
 	"storm_spirit_ball_lightning"
 	{
-		"AbilityCooldown"				"5"
+		"AbilityCooldown"				"15 10 5"
+	}
+	"lone_druid_spirit_bear"
+	{
+		"AbilityCooldown"				"90 80 70 60"
 	}
 }
