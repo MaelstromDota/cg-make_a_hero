@@ -162,31 +162,31 @@ function NeutralCampsFixer:HideCreep(unit)
 end
 
 function NeutralCampsFixer:OnThink()
-	-- local now = GameRules:GetDOTATime(true, false)
-	-- for entindex, data in pairs(self.HIDDEN_NEUTRALS) do
-	-- 	local position = data["position"]
-	-- 	if GridNav:IsLocationVisibleForAnyTeam(position) or #FindUnitsInRadius(DOTA_TEAM_NEUTRALS, position, nil, 2600, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD, FIND_ANY_ORDER, false) >= 1 then
-	-- 		self:RespawnCreep(entindex)
-	-- 	end
-	-- end
-	-- for _, unit in pairs(FindUnitsInRadius(DOTA_TEAM_NEUTRALS, Vector(0, 0, 0), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_CREEP, DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD, FIND_ANY_ORDER, false)) do
-	-- 	if not unit:IsBoss() and (unit.__neutralcampsfixer_hide_cooldown == nil or now-unit.__neutralcampsfixer_hide_cooldown > 5) and (unit.__neutralcampsfixer_take_damage == nil or now-unit.__neutralcampsfixer_take_damage > 5) then
-	-- 		local position = unit:GetAbsOrigin()
-	-- 		if not GridNav:IsLocationVisibleForAnyTeam(position) and #FindUnitsInRadius(DOTA_TEAM_NEUTRALS, position, nil, 3200, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD, FIND_ANY_ORDER, false) <= 0 then
-	-- 			local has_external_modifier = false
-	-- 			for _, mod in pairs(unit:FindAllModifiers()) do
-	-- 				local caster = mod:GetCaster()
-	-- 				if caster ~= unit and caster ~= nil then
-	-- 					has_external_modifier = true
-	-- 					break
-	-- 				end
-	-- 			end
-	-- 			if not has_external_modifier then
-	-- 				self:HideCreep(unit)
-	-- 			end
-	-- 		end
-	-- 	end
-	-- end
+	local now = GameRules:GetDOTATime(true, false)
+	for entindex, data in pairs(self.HIDDEN_NEUTRALS) do
+		local position = data["position"]
+		if GridNav:IsLocationVisibleForAnyTeam(position) or #FindUnitsInRadius(DOTA_TEAM_NEUTRALS, position, nil, 2600, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD, FIND_ANY_ORDER, false) >= 1 then
+			self:RespawnCreep(entindex)
+		end
+	end
+	for _, unit in pairs(FindUnitsInRadius(DOTA_TEAM_NEUTRALS, Vector(0, 0, 0), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_CREEP, DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD, FIND_ANY_ORDER, false)) do
+		if not unit:IsBoss() and (unit.__neutralcampsfixer_hide_cooldown == nil or now-unit.__neutralcampsfixer_hide_cooldown > 5) and (unit.__neutralcampsfixer_take_damage == nil or now-unit.__neutralcampsfixer_take_damage > 5) then
+			local position = unit:GetAbsOrigin()
+			if not GridNav:IsLocationVisibleForAnyTeam(position) and #FindUnitsInRadius(DOTA_TEAM_NEUTRALS, position, nil, 3200, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD, FIND_ANY_ORDER, false) <= 0 then
+				local has_external_modifier = false
+				for _, mod in pairs(unit:FindAllModifiers()) do
+					local caster = mod:GetCaster()
+					if caster ~= unit and caster ~= nil then
+						has_external_modifier = true
+						break
+					end
+				end
+				if not has_external_modifier then
+					self:HideCreep(unit)
+				end
+			end
+		end
+	end
 	return 1
 end
 
