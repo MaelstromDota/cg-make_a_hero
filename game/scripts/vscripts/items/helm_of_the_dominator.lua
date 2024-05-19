@@ -61,7 +61,7 @@ function modifier_item_helm_of_the_dominator_buff_lua:HandleCustomTransmitterDat
 end
 function modifier_item_helm_of_the_dominator_buff_lua:GetModifierBaseDamageOutgoing_Percentage() return self.bonus_damage_pct * self.primary end
 function modifier_item_helm_of_the_dominator_buff_lua:GetModifierExtraHealthPercentage() return self.bonus_health_pct * self.strength end
-function modifier_item_helm_of_the_dominator_buff_lua:GetModifierConstantHealthRegen() return self.bonus_health_regen * self.strength end
+function modifier_item_helm_of_the_dominator_buff_lua:GetModifierConstantHealthRegen() if not self:GetParent():IsOther() then return self.bonus_health_regen * self.strength end end
 function modifier_item_helm_of_the_dominator_buff_lua:GetModifierAttackSpeedBonus_Constant() return self.bonus_attack_speed * self.agility end
 function modifier_item_helm_of_the_dominator_buff_lua:GetModifierPhysicalArmorBonus() return self.bonus_armor * self.agility end
 function modifier_item_helm_of_the_dominator_buff_lua:GetModifierSpellAmplify_Percentage() return self.bonus_spell_amplify * self.intellect end
