@@ -19,7 +19,7 @@ function item_power_amulet_lua:OnDeath()
 end
 function item_power_amulet_lua:OnSpellStart()
 	for _, enemy in pairs(FindUnitsInRadius(self:GetCaster():GetTeamNumber(), self:GetCaster():GetAbsOrigin(), nil, self:GetEffectiveCastRange(self:GetCaster():GetAbsOrigin(), self:GetCaster()), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)) do
-		enemy:AddNewModifier(self:GetCaster(), self, "modifier_stunned", {duration=self:GetSpecialValueFor("stun_per_charge")*self:GetCurrentCharges()})
+		enemy:AddNewModifier(self:GetCaster(), self, "modifier_stunned", {duration=math.min(self:GetSpecialValueFor("stun_per_charge")*self:GetCurrentCharges(), self:GetSpecialValueFor("max_stun"))})
 	end
 	self:GetCaster():HealWithParams(self:GetSpecialValueFor("heal")+self:GetSpecialValueFor("heal_per_charge")*self:GetCurrentCharges(), self, false, true, self:GetCaster(), false)
 	self:GetCaster():EmitSound("DOTA_Item.UrnOfShadows.Activate")

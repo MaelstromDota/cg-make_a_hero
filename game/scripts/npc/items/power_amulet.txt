@@ -37,6 +37,7 @@
 			"armor_reduction_per_charge" "1"
 			"armor_reduction_duration"	"6"
 			"stun_per_charge"			"0.1"
+			"max_stun"					"2"
 			"heal"						"450"
 			"heal_per_charge"			"25"
 		}
