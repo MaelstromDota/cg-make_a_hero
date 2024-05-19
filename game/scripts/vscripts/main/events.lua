@@ -84,7 +84,9 @@ function CustomHeroArenaEvents:OnNPCSpawned(event)
 				npc:CopyAbilities()
 			end}, nil, self)
 		end
-		npc:AddNewModifier(npc, nil, "modifier_global_override_lua", {})
+		if npc:IsHero() then
+			npc:AddNewModifier(npc, nil, "modifier_global_override_lua", {})
+		end
 		npc.bFirstSpawn = false
 	elseif npc.respawninfo ~= nil then
 		FindClearSpaceForUnit(npc, GetGroundPosition(npc.respawninfo["origin"], npc), false)

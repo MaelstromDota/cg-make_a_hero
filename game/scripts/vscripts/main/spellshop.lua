@@ -264,5 +264,3 @@ function CustomHeroArenaSpellShop:Init()
 		CustomNetTables:SetTableValue("spells_info", heroname, herospells)
 	end
 end
-
-CustomHeroArenaSpellShop:Init()

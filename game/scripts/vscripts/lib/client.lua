@@ -543,7 +543,7 @@ function DOTABaseNPC:IsPortal()
 end
 if IsClient() then
 	function DOTABaseNPC:GetCursorCastTarget()
-		return self._cast_target
+		return self._cast_target ~= -1 and EntIndexToHScript(self._cast_target) or nil
 	end
 	function DOTABaseNPC:GetCursorPosition()
 		return self._cast_position or Vector(0, 0, 0)

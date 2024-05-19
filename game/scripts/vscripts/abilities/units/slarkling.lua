@@ -160,7 +160,7 @@ function modifier_slarkling_essence_shift_lua:DeclareFunctions() return {MODIFIE
 function modifier_slarkling_essence_shift_lua:OnCreated()
 	if not IsServer() then return end
 	self.cache_stacks = self:GetStackCount()
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.1)
 end
 function modifier_slarkling_essence_shift_lua:OnIntervalThink()
 	if self:GetParent():HasModifier('modifier_slarkling_essence_shift_lua_stack_buff') then

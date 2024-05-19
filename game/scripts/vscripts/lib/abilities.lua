@@ -11,7 +11,7 @@ function modifier_ability_lua_base:GetAttributes() return MODIFIER_ATTRIBUTE_MUL
 function modifier_ability_lua_base:OnCreated()
 	if not IsServer() then return end
 	self.modifiers = {}
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.1)
 end
 function modifier_ability_lua_base:OnIntervalThink()
 	if self:GetAbility().GetIntrinsicModifiers ~= nil then

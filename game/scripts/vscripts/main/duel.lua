@@ -75,7 +75,7 @@ function CustomHeroArenaDuel:DuelBorderThink()
 			DUEL_INFO["positions"][unit:entindex()] = info
 		end
 	end
-	return 0.03
+	return 0.1
 end
 
 local function GetAverageNetWorthForPlayers(players)

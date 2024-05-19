@@ -13,19 +13,19 @@ function modifier_global_override_lua:OnCreated()
 	self:OnIntervalThink()
 end
 function modifier_global_override_lua:OnIntervalThink()
-	self:GetParent()._cast_target = self:GetCaster():GetCursorCastTarget()
+	local target = self:GetCaster():GetCursorCastTarget()
+	self:GetParent()._cast_target = target and target:entindex() or -1
 	self:GetParent()._cast_position = self:GetCaster():GetCursorPosition()
 	self:SetHasCustomTransmitterData(false)
 	self:SetHasCustomTransmitterData(true)
 	self:SendBuffRefreshToClients()
 end
 function modifier_global_override_lua:AddCustomTransmitterData()
-	local target = self:GetParent()._cast_target
 	local position = self:GetParent()._cast_position
-	return {target = target and target:entindex() or -1, target_x = position.x, target_y = position.y, target_z = position.z}
+	return {target = self:GetParent()._cast_target, target_x = position.x, target_y = position.y, target_z = position.z}
 end
 function modifier_global_override_lua:HandleCustomTransmitterData(kv)
-	self:GetParent()._cast_target = EntIndexToHScript(kv.target)
+	self:GetParent()._cast_target = kv.target
 	self:GetParent()._cast_position = Vector(target_x, target_y, target_z)
 end
 function modifier_global_override_lua:GetModifierOverrideAbilitySpecial(kv)

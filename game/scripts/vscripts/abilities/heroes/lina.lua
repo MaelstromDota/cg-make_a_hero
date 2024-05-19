@@ -11,7 +11,7 @@ function modifier_lina_fiery_soul_lua:AllowIllusionDuplicate() return false end
 function modifier_lina_fiery_soul_lua:DestroyOnExpire() return false end
 function modifier_lina_fiery_soul_lua:DeclareFunctions() return {MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT, MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE} end
 function modifier_lina_fiery_soul_lua:OnCreated()
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.1)
 end
 function modifier_lina_fiery_soul_lua:OnIntervalThink()
 	if self:GetRemainingTime() <= 0 and self:GetRemainingTime() > -1 then

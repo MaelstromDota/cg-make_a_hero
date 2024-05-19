@@ -18,11 +18,8 @@ function cast_unit:OnAbilityPhaseStart()
 			abil = self:GetCaster():AddAbility("teleport_portal_lua")
 			abil:SetAbilityIndex(DOTA_MAX_ABILITIES-2)
 			abil:SetLevel(1)
-			abil:SetHidden(false)
 		end
-		Timers:CreateTimer({endTime=FrameTime(), callback=function()
-			abil:OrderAbilityOnTarget(target)
-		end}, nil, self)
+		abil:OrderAbilityOnTarget(target)
 	end
 	self:GetCaster():RemoveAbilityByHandle(self)
 	return false

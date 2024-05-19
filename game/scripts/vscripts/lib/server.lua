@@ -709,7 +709,7 @@ function CDOTA_Buff:LinkModifier(modifier, modifier_data)
 			if self.link and not self.link:IsNull() and self.link:GetRemainingTime() ~= self:GetRemainingTime() then
 				self.link:SetDuration(self:GetRemainingTime(), true)
 			end
-			return FrameTime()
+			return 0.05
 		end
 	end}, nil, self)
 end

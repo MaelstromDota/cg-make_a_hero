@@ -157,19 +157,12 @@ end
 
 modifier_boss_night_stalker_darkness_lua = modifier_boss_night_stalker_darkness_lua or class({})
 function modifier_boss_night_stalker_darkness_lua:IsPurgable() return false end
-function modifier_boss_night_stalker_darkness_lua:CheckState() return {[MODIFIER_STATE_FLYING] = true} end
+function modifier_boss_night_stalker_darkness_lua:CheckState() return {[MODIFIER_STATE_FLYING] = true, [MODIFIER_STATE_FORCED_FLYING_VISION] = true} end
 function modifier_boss_night_stalker_darkness_lua:DeclareFunctions() return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE, MODIFIER_PROPERTY_TRANSLATE_ACTIVITY_MODIFIERS} end
 function modifier_boss_night_stalker_darkness_lua:OnCreated()
 	self.bonus_damage = self:GetAbility():GetSpecialValueFor("bonus_damage")
 	if not IsServer() then return end
 	GameRules:BeginNightstalkerNight(self:GetDuration())
-	self:StartIntervalThink(FrameTime())
-end
-function modifier_boss_night_stalker_darkness_lua:OnRefresh()
-	self:OnCreated()
-end
-function modifier_boss_night_stalker_darkness_lua:OnIntervalThink()
-	AddFOWViewer(self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), self:GetParent():GetCurrentVisionRange(), FrameTime() * 1.5, false)
 end
 function modifier_boss_night_stalker_darkness_lua:OnDestroy()
 	if not IsServer() then return end

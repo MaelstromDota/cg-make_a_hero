@@ -55,7 +55,7 @@ function modifier_item_ring_of_the_void_debuff_stack_lua:OnCreated()
 	self.fx = ParticleManager:CreateParticleForTeam("particles/units/heroes/hero_batrider/batrider_stickynapalm_stack.vpcf", PATTACH_OVERHEAD_FOLLOW, self:GetParent(), self:GetCaster():GetTeamNumber())
 	ParticleManager:SetParticleControl(self.fx, 1, Vector(math.floor(self:GetStackCount() / 10), self:GetStackCount() % 10, 0))
 	self:AddParticle(self.fx, false, false, -1, false, false)
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.1)
 end
 function modifier_item_ring_of_the_void_debuff_stack_lua:OnStackCountChanged(iStackCount)
 	if not IsServer() then return end
