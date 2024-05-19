@@ -34,7 +34,7 @@
 		{
 			"bonus_intellect"			"35"
 			"bonus_intellect_per_charge" "4"
-			"active_damage"				"425"
+			"active_damage"				"350"
 			"active_damage_pct"			"0.8"
 			"max_active_damage_pct"		"55"
 		}

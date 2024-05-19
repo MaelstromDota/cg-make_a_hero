@@ -41,10 +41,10 @@
 			"bonus_armor"				"7"
 			"bonus_regen"				"7"
 			"bonus_health"				"500"
-			"damage_pct_per_primary"	"1.5"
+			"damage_pct_per_primary"	"1.8"
 			"health_pct_per_strength"	"0.5"
 			"hp_regen_per_strength"		"0.3"
-			"attack_speed_per_agility"	"0.35"
+			"attack_speed_per_agility"	"0.4"
 			"armor_per_agility"			"0.2"
 			"spell_amplify_per_intellect" "0.2"
 		}

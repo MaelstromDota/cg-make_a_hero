@@ -40,7 +40,7 @@
 			"bonus_stats"				"6"
 			"bonus_armor"				"6"
 			"bonus_regen"				"6"
-			"damage_pct_per_primary"	"0.8"
+			"damage_pct_per_primary"	"0.85"
 			"health_pct_per_strength"	"0.3"
 			"hp_regen_per_strength"		"0.15"
 			"attack_speed_per_agility"	"0.35"
