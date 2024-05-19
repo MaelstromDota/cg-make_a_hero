@@ -61,6 +61,6 @@ function CDOTABaseAbility:OnVectorCastStart(vStartLocation, vDirection) end
 function CDOTABaseAbility:IsDualVectorDirection() return false end
 function CDOTABaseAbility:IgnoreVectorArrowWidth() return false end
 
-if GameRules:State_Get() ~= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+if GameRules:State_Get() < DOTA_GAMERULES_STATE_PRE_GAME then
 	VectorTargeting:Init()
 end

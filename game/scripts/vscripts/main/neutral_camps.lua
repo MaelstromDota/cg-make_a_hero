@@ -48,6 +48,6 @@ function NeutralCamps:OnThink()
 	return NEUTRAL_CAMPS_RESPAWN
 end
 
-if GameRules:State_Get() ~= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+if GameRules:State_Get() < DOTA_GAMERULES_STATE_PRE_GAME then
 	NeutralCamps:Init()
 end

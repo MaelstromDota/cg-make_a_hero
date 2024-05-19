@@ -217,7 +217,7 @@ if not inited then
 	end
 end
 function CBaseEntity:IsTrueHero(ignore_clones)
-	return not self:IsNull() and self:IsRealHero() and not self:IsIllusion() and not self:IsMonkey() and not self:HasModifier("modifier_vengefulspirit_command_aura_illusion") and (ignore_clones or (not self:IsClone() and not self:IsTempestDouble()))
+	return not self:IsNull() and self:IsRealHero() and not self:IsIllusion() and not self:IsMonkey() and not self:IsSpiritBear() and not self:HasModifier("modifier_vengefulspirit_command_aura_illusion") and (ignore_clones or (not self:IsClone() and not self:IsTempestDouble()))
 end
 function CBaseEntity:HandleData()
 	local unit_data = GetUnitKeyValuesByName(self:GetUnitName())
@@ -247,6 +247,9 @@ function CBaseEntity:HandleData()
 		end
 		if unit_data["Phased"] ~= nil and unit_data["Phased"] == 1 then
 			self:AddNewModifier(nil, nil, "modifier_phased", {})
+		end
+		if unit_data["FlyingVision"] ~= nil and unit_data["FlyingVision"] == 1 then
+			self:AddNewModifier(nil, nil, "modifier_flying_vision_lua", {})
 		end
 		if unit_data["Dummy"] ~= nil and table.contains({1, 2}, unit_data["Dummy"]) then
 			self:MakeDummy(false, unit_data["Dummy"] == 1, unit_data["Dummy"] == 1)
@@ -542,6 +545,20 @@ end
 function CDOTA_BaseNPC:AI()
 	return self.hAI
 end
+function CDOTA_BaseNPC:TriggerAbilitiesCustomCallback(name, ...)
+	for i=0, DOTA_MAX_ABILITIES-1 do
+		local ability = self:GetAbilityByIndex(i)
+		if ability and type(ability[name]) == "function" then
+			ability[name](ability, ...)
+		end
+	end
+	for _, i in pairs(table.combine(INVENTORY_SLOTS, BACKPACK_SLOTS)) do
+		local item = self:GetItemInSlot(i)
+		if item and type(item[name]) == "function" then
+			item[name](item, ...)
+		end
+	end
+end
 local function swap_indexes(self)
 	local playerOwnerEntity = self:GetSource()
 	local index_difference = table.compare(table.map(self:GetSpells(), function(_, spell) return spell:GetAbilityName() end), table.map(playerOwnerEntity:GetSpells(), function(_, spell) return spell:GetAbilityName() end), true)
@@ -742,6 +759,12 @@ function CDOTAGameRules:PingAtMinimapAll(point, ping_type, color)
 	for _, team in pairs(TEAMS) do
 		GameRules:PingAtMinimap(team, point, ping_type, color)
 	end
+end
+function CDOTAGameRules:StartDay()
+	return GameRules:SetTimeOfDay(0.25)
+end
+function CDOTAGameRules:StartNight()
+	return GameRules:SetTimeOfDay(0.75)
 end
 
 -- GridNav

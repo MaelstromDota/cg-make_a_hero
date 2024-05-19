@@ -46,8 +46,8 @@
 			"illusion_multiplier_pct"	"150"
 			"explosion_min_range"		"195"
 			"explosion_radius"			"320"
-			"explosion_damage"			"375"
-			"explosion_damage_per_int"	"0.8"
+			"explosion_damage"			"475"
+			"explosion_damage_per_int"	"0.65"
 			"spell_amp"					"25"
 			"resist_debuff_duration"	"16"
 		}

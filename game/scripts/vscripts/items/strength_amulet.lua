@@ -4,8 +4,17 @@ LinkLuaModifier("modifier_item_strength_amulet_active_lua", "items/strength_amul
 item_strength_amulet_lua = item_strength_amulet_lua or class(ability_lua_base)
 function item_strength_amulet_lua:GetIntrinsicModifierName() return "modifier_item_strength_amulet_lua" end
 function item_strength_amulet_lua:OnRuneActivated(rune)
-	self:SetCurrentCharges(self:GetCurrentCharges() + (self:GetCurrentCharges() < 5 and 2 or 1))
+	self:SetCurrentCharges(self:GetCurrentCharges() + 1)
 	self:GetCaster():CalculateStatBonus(true)
+end
+function item_strength_amulet_lua:OnLotusPickup(lotus_pool)
+	self:SetCurrentCharges(self:GetCurrentCharges() + 2)
+	self:GetCaster():CalculateStatBonus(true)
+end
+function item_strength_amulet_lua:OnWatcherCaptured(watcher, captured)
+	if not captured then return end
+	if watcher:GetUnitName() == "npc_dota_lantern_flying_large" then return end
+	self:SetCurrentCharges(self:GetCurrentCharges() + 1)
 end
 function item_strength_amulet_lua:OnDeath()
 	self:SetCurrentCharges(math.max(math.floor(self:GetCurrentCharges()/2), 0))

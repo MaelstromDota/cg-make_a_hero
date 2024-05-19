@@ -450,15 +450,21 @@ function DOTABaseAbility:GetTalentValueFor(value)
 	end
 	return val
 end
+function GetKVValue(value, lvl)
+	if lvl == 0 then return 0 end
+	if type(value) == "number" then
+		return value
+	end
+	local points = string.split(value, " ")
+	return tonumber(points[math.min(lvl, #points)])
+end
 function DOTABaseAbility:GetKVValueFor(path)
-	if self:GetLevel() == 0 then return 0 end
 	local kv = self:GetAbilityKeyValues()
 	local value = kv
 	for _, p in pairs(path) do
 		value = value[p]
 	end
-	local points = string.split(value, " ")
-	return tonumber(points[math.min(self:GetLevel(), #points)])
+	return GetKVValue(value, self:GetLevel())
 end
 function OrderToBehavior(order)
 	if order == DOTA_UNIT_ORDER_CAST_NO_TARGET then return DOTA_ABILITY_BEHAVIOR_NO_TARGET
@@ -473,6 +479,14 @@ end
 function IsCastOrder(order)
 	return order >= DOTA_UNIT_ORDER_CAST_POSITION and order <= DOTA_UNIT_ORDER_CAST_NO_TARGET
 end
+if IsClient() then
+	function DOTABaseAbility:GetCursorTarget()
+		return self:GetCaster():GetCursorCastTarget()
+	end
+	function DOTABaseAbility:GetCursorPosition()
+		return self:GetCaster():GetCursorPosition()
+	end
+end
 
 -- items
 local DOTABaseItem = IsServer() and CDOTA_Item or C_DOTA_Item
@@ -485,8 +499,14 @@ local BaseEntity = IsServer() and CBaseEntity or C_BaseEntity
 function BaseEntity:IsOutpost()
 	return self:GetClassname() == "npc_dota_watch_tower"
 end
-function BaseEntity:IsPool()
-	return self:GetClassname() == "npc_dota_mango_tree"
+function BaseEntity:IsLotusPool()
+	return self:GetClassname() == "npc_dota_mango_tree" and self:GetModelName() == "models/props_gameplay/fountain_of_life/fountain_of_life.vmdl"
+end
+function BaseEntity:IsWatcher()
+	return self:GetClassname() == "npc_dota_lantern" and not (self.IsPortal and self:IsPortal())
+end
+function BaseEntity:IsFountain()
+	return self:GetClassname() == "ent_dota_fountain"
 end
 function BaseEntity:HasShard()
 	return self:HasModifier("modifier_item_aghanims_shard")
@@ -512,11 +532,22 @@ end
 function DOTABaseNPC:IsRoshan()
 	return table.contains({"npc_dota_roshan", "npc_dota_roshan_halloween", "npc_dota_roshan_halloween_minion", "npc_dota_mutation_pocket_roshan"}, self:GetUnitName())
 end
-function DOTABaseNPC:IsFountain()
-	return self:GetClassname() == "ent_dota_fountain"
-end
 function DOTABaseNPC:IsSiegeCreep()
 	return self:GetClassname() == "npc_dota_creep_siege"
+end
+function DOTABaseNPC:IsSpiritBear()
+	return self:GetClassname() == "npc_dota_lone_druid_bear"
+end
+function DOTABaseNPC:IsPortal()
+	return self:GetUnitLabel() == "teleport_portal"
+end
+if IsClient() then
+	function DOTABaseNPC:GetCursorCastTarget()
+		return self._cast_target
+	end
+	function DOTABaseNPC:GetCursorPosition()
+		return self._cast_position or Vector(0, 0, 0)
+	end
 end
 if not inited then
 	DOTABaseNPC.IsBoss = function(self)

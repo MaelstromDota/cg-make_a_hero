@@ -1,3 +1,9 @@
+modifier_flying_vision_lua = modifier_flying_vision_lua or class({})
+function modifier_flying_vision_lua:IsHidden() return true end
+function modifier_flying_vision_lua:IsPurgable() return false end
+function modifier_flying_vision_lua:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
+function modifier_flying_vision_lua:CheckState() return {[MODIFIER_STATE_FORCED_FLYING_VISION] = true} end
+
 modifier_invulnerable_lua = modifier_invulnerable_lua or class({})
 function modifier_invulnerable_lua:IsHidden() return true end
 function modifier_invulnerable_lua:IsPurgable() return false end
@@ -24,8 +30,23 @@ function modifier_fake_invulnerable:GetAbsoluteNoDamageMagical() return 1 end
 function modifier_fake_invulnerable:GetAbsoluteNoDamagePure() return 1 end
 function modifier_fake_invulnerable:GetModifierStatusResistance() return 100 end
 
-modifier_fake_invulnerable_both = modifier_fake_invulnerable_both or class(modifier_fake_invulnerable)
-function modifier_fake_invulnerable_both:CheckState() return {[MODIFIER_STATE_MAGIC_IMMUNE] = true, [MODIFIER_STATE_LOW_ATTACK_PRIORITY] = true, [MODIFIER_STATE_CANNOT_BE_MOTION_CONTROLLED] = true, [MODIFIER_STATE_SPECIALLY_UNDENIABLE] = true, [MODIFIER_STATE_DEBUFF_IMMUNE] = true, [MODIFIER_STATE_NO_HEALTH_BAR] = true} end
+modifier_fake_invulnerable_both = modifier_fake_invulnerable_both or class({})
+function modifier_fake_invulnerable_both:IsHidden() return true end
+function modifier_fake_invulnerable_both:IsPurgable() return false end
+function modifier_fake_invulnerable_both:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
+function modifier_fake_invulnerable_both:CheckState()
+	return {[MODIFIER_STATE_NO_HEALTH_BAR] = true, [MODIFIER_STATE_CANNOT_TARGET_ENEMIES] = true, [MODIFIER_STATE_LOW_ATTACK_PRIORITY] = true, [MODIFIER_STATE_MAGIC_IMMUNE] = true, [MODIFIER_STATE_SPECIALLY_UNDENIABLE] = true, [MODIFIER_STATE_DEBUFF_IMMUNE] = true}
+end
+function modifier_fake_invulnerable_both:DeclareFunctions() return {MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL, MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL, MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE, MODIFIER_PROPERTY_STATUS_RESISTANCE, MODIFIER_EVENT_ON_ATTACK_START} end
+function modifier_fake_invulnerable_both:OnAttackStart(kv)
+	if not IsServer() then return end
+	if kv.target ~= self:GetParent() then return end
+	kv.attacker:Stop()
+end
+function modifier_fake_invulnerable_both:GetAbsoluteNoDamagePhysical() return 1 end
+function modifier_fake_invulnerable_both:GetAbsoluteNoDamageMagical() return 1 end
+function modifier_fake_invulnerable_both:GetAbsoluteNoDamagePure() return 1 end
+function modifier_fake_invulnerable_both:GetModifierStatusResistance() return 100 end
 
 modifier_dummy_unit = modifier_dummy_unit or class({})
 function modifier_dummy_unit:IsHidden() return true end
@@ -605,21 +626,22 @@ function modifier_summon_extra_health_lua:OnCreated(kv)
 	end
 	if kv.purgable ~= nil then self.purgable = BoolToNum(kv.purgable) else self.purgable = false end
 	if kv.strong ~= nil then self.strong = BoolToNum(kv.strong) else self.strong = false end
-	self:GetParent():SetBaseMaxHealth(self:GetParent():GetBaseMaxHealth() + self.health)
-	self:GetParent():SetMaxHealth(self:GetParent():GetMaxHealth() + self.health)
-	self:GetParent():SetHealth(self:GetParent():GetHealth() + self.health)
+	self:GetParent():SetBaseMaxHealth(math.max(1, self:GetParent():GetBaseMaxHealth() + self.health))
+	self:GetParent():SetMaxHealth(math.max(1, self:GetParent():GetMaxHealth() + self.health))
+	self:GetParent():SetHealth(math.max(1, self:GetParent():GetHealth() + self.health))
 end
 function modifier_summon_extra_health_lua:OnDestroy()
 	if not IsServer() then return end
 	if self.health == nil then return end
-	self:GetParent():SetBaseMaxHealth(self:GetParent():GetBaseMaxHealth() - self.health)
-	self:GetParent():SetMaxHealth(self:GetParent():GetMaxHealth() - self.health)
-	self:GetParent():SetHealth(self:GetParent():GetHealth() - self.health)
+	self:GetParent():SetBaseMaxHealth(math.max(1, self:GetParent():GetBaseMaxHealth() - self.health))
+	self:GetParent():SetMaxHealth(math.max(1, self:GetParent():GetMaxHealth() - self.health))
+	self:GetParent():SetHealth(math.max(1, self:GetParent():GetHealth() - self.health))
 end
 function modifier_summon_extra_health_lua:UpdateHealth(health)
-	self:GetParent():SetBaseMaxHealth(self:GetParent():GetBaseMaxHealth() - self.health + health)
-	self:GetParent():SetMaxHealth(self:GetParent():GetMaxHealth() - self.health + health)
-	self:GetParent():SetHealth(self:GetParent():GetHealth() - self.health + health)
+	if health == nil or health < 0 then return end
+	self:GetParent():SetBaseMaxHealth(math.max(1, self:GetParent():GetBaseMaxHealth() - self.health + health))
+	self:GetParent():SetMaxHealth(math.max(1, self:GetParent():GetMaxHealth() - self.health + health))
+	self:GetParent():SetHealth(math.max(1, self:GetParent():GetHealth() - self.health + health))
 	self.health = health
 end
 

@@ -6,6 +6,7 @@ function ability_lua_base:GetIntrinsicModifierName() return "modifier_ability_lu
 modifier_ability_lua_base = modifier_ability_lua_base or class({})
 function modifier_ability_lua_base:IsHidden() return true end
 function modifier_ability_lua_base:IsPurgable() return false end
+function modifier_ability_lua_base:RemoveOnDeath() return false end
 function modifier_ability_lua_base:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
 function modifier_ability_lua_base:OnCreated()
 	if not IsServer() then return end

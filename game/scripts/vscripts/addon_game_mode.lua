@@ -81,3 +81,11 @@ function CustomHeroArena:InitFountains()
 		fountain:RemoveModifierByName("modifier_fountain_aura")
 	end
 end
+
+-- local hero = PlayerResource:GetSelectedHeroEntity(0)
+-- for i=0, DOTA_MAX_ABILITIES-1 do
+-- 	local ability = hero:GetAbilityByIndex(i)
+-- 	if ability then
+-- 		print(i, ability:GetAbilityName())
+-- 	end
+-- end

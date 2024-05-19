@@ -65,7 +65,7 @@ local function OrderCloneFilter(event, unit)
 	if event["order_type"] == DOTA_UNIT_ORDER_TRAIN_ABILITY and unit:IsClone() then
 		return false
 	end
-	if event["order_type"] == DOTA_UNIT_ORDER_CAST_NO_TARGET and unit:IsTempestDouble() and ability:GetAbilityName() == "arc_warden_tempest_double" then
+	if unit:IsTempestDouble() and ability:GetAbilityName() == "arc_warden_tempest_double" then
 		return false
 	end
 	if IsCastOrder(event["order_type"]) and ability ~= nil and ability:IsItem() and unit:IsClone() then
@@ -85,7 +85,7 @@ end
 local function OrderFakeInvulnerableFilter(event, unit)
 	local issuer = (event["issuer_player_id_const"] ~= nil and PlayerResource:IsValidPlayerID(event["issuer_player_id_const"])) and event["issuer_player_id_const"] or unit:GetPlayerOwnerID()
 	local target = event["entindex_target"] ~= 0 and EntIndexToHScript(event["entindex_target"]) or nil
-	if target and target:IsBaseNPC() and target:HasModifier("modifier_fake_invulnerable") and target:GetTeamNumber() ~= unit:GetTeamNumber() and not target:IsPool() then
+	if target and target:IsBaseNPC() and target:HasModifier("modifier_fake_invulnerable") and target:GetTeamNumber() ~= unit:GetTeamNumber() then
 		if issuer ~= nil and PlayerResource:IsValidPlayerID(issuer) then
 			PlayerResource:DisplayError(issuer, "#dota_hud_error_target_invulnerable")
 		end
@@ -183,9 +183,10 @@ local function OrderRightClickFilter(event, unit)
 	if unit:IsIllusion() and not unit:IsClone() and not unit:IsTempestDouble() then return true end
 	local target = event["entindex_target"] ~= 0 and EntIndexToHScript(event["entindex_target"]) or nil
 	local targetInfo = target ~= nil and (target:IsBaseNPC() and GetUnitKeyValuesByName(target:GetUnitName())) or {}
-	if target and table.contains({DOTA_UNIT_ORDER_ATTACK_TARGET, DOTA_UNIT_ORDER_MOVE_TO_TARGET}, event["order_type"]) then
-		if unit:GetTeamNumber() == target:GetTeamNumber() and targetInfo and targetInfo["CustomData"] ~= nil and targetInfo["CustomData"]["RightClickOpen"] ~= nil and targetInfo["CustomData"]["RightClickOpen"] == 1 then
-			if targetInfo["CustomData"]["RightClickTrueHero"] == 1 and not unit:IsTrueHero() then return false end
+	local ability = event["entindex_ability"] ~= nil and EntIndexToHScript(event["entindex_ability"]) or nil
+	if target and table.contains({DOTA_UNIT_ORDER_ATTACK_TARGET, DOTA_UNIT_ORDER_MOVE_TO_TARGET, DOTA_UNIT_ORDER_CAST_TARGET}, event["order_type"]) and (ability == nil or not table.contains({"cast_unit", "teleport_portal_lua"}, ability:GetName())) then
+		if targetInfo and targetInfo["CustomData"] ~= nil and targetInfo["CustomData"]["RightClickOpen"] ~= nil and targetInfo["CustomData"]["RightClickOpen"] == 1 then
+			if targetInfo["CustomData"]["RightClickTrueHero"] == 1 and not unit:IsTrueHero() then return true end
 			if unit:IsChanneling() and unit:GetCursorCastTarget() == target then return false end
 			local abil = unit:FindAbilityByName("cast_unit")
 			if not abil then
@@ -195,6 +196,22 @@ local function OrderRightClickFilter(event, unit)
 			end
 			abil:OrderAbilityOnTarget(target)
 			return false
+		elseif ability == nil then
+			if target:IsLotusPool() then
+				local lotus_pool_pickup = unit:FindAbilityByName("ability_pluck_famango")
+				if lotus_pool_pickup ~= nil then
+					event["entindex_ability"] = lotus_pool_pickup:entindex()
+					event["order_type"] = DOTA_UNIT_ORDER_CAST_TARGET
+					return true
+				end
+			elseif target:IsWatcher() then
+				local watcher_capture = unit:FindAbilityByName("ability_lamp_use")
+				if watcher_capture ~= nil then
+					event["entindex_ability"] = watcher_capture:entindex()
+					event["order_type"] = DOTA_UNIT_ORDER_CAST_TARGET
+					return true
+				end
+			end
 		end
 	end
 	return true
@@ -418,6 +435,6 @@ function CustomHeroArenaFilters:GoldFilter(event)
 	return true
 end
 
-if GameRules:State_Get() ~= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+if GameRules:State_Get() < DOTA_GAMERULES_STATE_PRE_GAME then
 	CustomHeroArenaFilters:Init()
 end

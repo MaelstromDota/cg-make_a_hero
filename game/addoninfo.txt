@@ -1,16 +1,12 @@
 "AddonInfo"
 {
-	"maps"							"zxc zxc_old"
+	"maps"							"zxc"
 	"HeroGuidesSupported"			"1"
 	"PenaltiesEnabled"				"0"
 	"ForceDefaultGuide"				"0"
 	"EnablePickRules"				"0"
 	"IsPlayable"					"1"
 	"zxc"
-	{
-		"MaxPlayers"				"10"
-	}
-	"zxc_old"
 	{
 		"MaxPlayers"				"10"
 	}

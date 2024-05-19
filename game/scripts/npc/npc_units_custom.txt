@@ -1,6 +1,8 @@
 #base heroes/techies/units.txt
-#base units/npc_dota_fountain/unit.txt
-#base units/npc_dota_shrine/unit.txt
+#base units/buildings/npc_dota_fountain/unit.txt
+#base units/buildings/npc_dota_shrine/unit.txt
+#base units/buildings/npc_dota_portal/unit.txt
+#base units/buildings/npc_dota_watcher/unit.txt
 #base units/neutrals/npc_dota_neutral_slarkling/unit.txt
 #base units/neutrals/npc_dota_neutral_doomling/unit.txt
 #base units/neutrals/npc_dota_neutral_hellbear_small/unit.txt
@@ -33,6 +35,7 @@
 		"Level"						"0"
 		"ArmorPhysical"				"0"
 		"MagicalResistance"			"0"
+		"UntargetableByExorcismSpirits" "1"
 		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
 		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"
@@ -47,14 +50,6 @@
 			"Dummy"					"1"
 			"Phased"				"1"
 			"BlockNeutralCamps"		"0"
-		}
-	}
-	"npc_dota_mango_tree"
-	{
-		"CustomData"
-		{
-			"Invulnerable"			"1"
-			"FakeInvulnerable"		"2"
 		}
 	}
 	"npc_dota_courier"

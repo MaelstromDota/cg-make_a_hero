@@ -152,7 +152,7 @@ _G.SOUNDS_COOLDOWN = SOUNDS_COOLDOWN or {}
 
 -- Neutral camps
 _G.NEUTRAL_CAMPS_RESPAWN = 30
-_G.MAX_CAMPS_UNITS = 6
+_G.MAX_CAMPS_UNITS = 8
 _G.MAX_NEUTRAL_LVL = 100
 _G.GET_NEUTRAL_LVL = function()
 	local min = GameRules:GetDOTATime(false, false)/60

@@ -4,8 +4,11 @@ LinkLuaModifier("modifier_item_bfury_2_unique_lua", "items/bfury", LUA_MODIFIER_
 item_bfury_2_lua = item_bfury_2_lua or class(ability_lua_base)
 function item_bfury_2_lua:GetIntrinsicModifiers() return {"modifier_item_bfury_2_lua", "modifier_item_bfury_2_unique_lua"} end
 function item_bfury_2_lua:OnSpellStart()
-	-- self:GetCursorTarget():CutDown(self:GetCaster():GetTeamNumber())
-	GridNav:DestroyTreesAroundPoint(self:GetCursorTarget():GetAbsOrigin(), self:GetSpecialValueFor("chop_radius"), true)
+	if self:GetSpecialValueFor("chop_radius") > 0 then
+		GridNav:DestroyTreesAroundPoint(self:GetCursorTarget():GetAbsOrigin(), self:GetSpecialValueFor("chop_radius"), true)
+	else
+		self:GetCursorTarget():CutDown(self:GetCaster():GetTeamNumber())
+	end
 end
 
 modifier_item_bfury_2_lua = modifier_item_bfury_2_lua or class({})
@@ -38,3 +41,5 @@ end
 function modifier_item_bfury_2_unique_lua:GetModifierStatusResistanceStacking() return self:GetAbility():GetSpecialValueFor("status_resistance") end
 function modifier_item_bfury_2_unique_lua:GetModifierHPRegenAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("hp_regen_amp") end
 function modifier_item_bfury_2_unique_lua:GetModifierLifestealRegenAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("hp_regen_amp") end
+
+item_qfury_lua = item_qfury_lua or class(item_bfury_2_lua)

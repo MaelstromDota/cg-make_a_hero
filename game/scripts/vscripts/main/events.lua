@@ -10,6 +10,7 @@ function CustomHeroArenaEvents:Init()
 		{"dota_non_player_used_ability", "OnNonPlayerUsedAbility"},
 		{"player_chat", "OnPlayerChat"},
 		{"dota_rune_activated_server", "OnRuneActivated"},
+		{"dota_ability_channel_finished", "OnAbilityChannelFinished"},
 	}
 	local events_manager = {
 		{"spellshop_spell_buy", "OnSpellBuy", CustomHeroArenaSpellShop},
@@ -47,6 +48,7 @@ function CustomHeroArenaEvents:OnStateChanged()
 			end
 		end
 	elseif GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
+		GameRules:StartDay()
 		CustomHeroArenaDuel:Init()
 		for _, unit in pairs(FindUnitsInRadius(DOTA_TEAM_GOODGUYS, Vector(0, 0, 0), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD, FIND_ANY_ORDER, false)) do
 			unit:HandleData()
@@ -57,7 +59,7 @@ function CustomHeroArenaEvents:OnStateChanged()
 			end
 		end
 	elseif GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-		GameRules:SetTimeOfDay(0.25)
+		GameRules:StartNight()
 		NeutralCamps:OnThink()
 	end
 	CustomHeroArenaThinkers:OnStateChanged()
@@ -72,7 +74,7 @@ function CustomHeroArenaEvents:OnNPCSpawned(event)
 		if npc:IsTrueHero() then
 			for i=0, DOTA_MAX_ABILITIES-1 do
 				local ability = npc:GetAbilityByIndex(i)
-				local remove_exceptions = {"abyssal_underlord_portal_warp", "twin_gate_portal_warp", "ability_pluck_famango", "ability_capture"}
+				local remove_exceptions = {"abyssal_underlord_portal_warp", "twin_gate_portal_warp", "ability_pluck_famango", "ability_capture", "ability_lamp_use"}
 				if ability ~= nil and ((not string.startswith(ability:GetAbilityName(), "special_bonus_") and not table.contains(remove_exceptions, ability:GetAbilityName())) or ability:GetAbilityName() == "special_bonus_attributes") then -- TODO: remove talent check
 					ability:RemoveSelf()
 				end
@@ -82,6 +84,7 @@ function CustomHeroArenaEvents:OnNPCSpawned(event)
 				npc:CopyAbilities()
 			end}, nil, self)
 		end
+		npc:AddNewModifier(npc, nil, "modifier_global_override_lua", {})
 		npc.bFirstSpawn = false
 	elseif npc.respawninfo ~= nil then
 		FindClearSpaceForUnit(npc, GetGroundPosition(npc.respawninfo["origin"], npc), false)
@@ -277,14 +280,29 @@ function CustomHeroArenaEvents:OnRuneActivated(event)
 	if hero == nil then return end
 	for i=0, DOTA_MAX_ABILITIES-1 do
 		local ability = hero:GetAbilityByIndex(i)
-		if ability and ability.OnRuneActivated then
+		if ability and type(ability.OnRuneActivated) == "function" then
 			ability:OnRuneActivated(rune)
 		end
 	end
 	for _, i in pairs(table.combine(INVENTORY_SLOTS, BACKPACK_SLOTS)) do
 		local item = hero:GetItemInSlot(i)
-		if item and item.OnRuneActivated then
+		if item and type(item.OnRuneActivated) == "function" then
 			item:OnRuneActivated(rune)
+		end
+	end
+end
+
+function CustomHeroArenaEvents:OnAbilityChannelFinished(event)
+	local abilityname = event["abilityname"]
+	local interrupted = event["interrupted"] == 1
+	local caster = event["caster_entindex"] ~= nil and EntIndexToHScript(event["caster_entindex"]) or nil
+	if caster == nil or abilityname == nil then return end
+	local target = caster:GetCursorCastTarget()
+	if not interrupted then
+		if abilityname == "ability_pluck_famango" then
+			caster:TriggerAbilitiesCustomCallback("OnLotusPickup", target)
+		elseif abilityname == "ability_lamp_use" then
+			caster:TriggerAbilitiesCustomCallback("OnWatcherCaptured", target, target:GetTeamNumber() ~= DOTA_TEAM_NEUTRALS)
 		end
 	end
 end

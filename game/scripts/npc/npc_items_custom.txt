@@ -65,6 +65,7 @@
 #base items/medical_tractate.txt
 #base items/tome_of_stats.txt
 #base items/third_eye.txt
+#base items/helm_of_tyranth.txt
 
 "DOTAAbilities"
 {
@@ -86,6 +87,43 @@
 	{
 		"ItemInitialStockTime"			"390"
 		"ItemInitialStockTimeTurbo"		"240"
+	}
+	"item_ward_observer"
+	{
+		"ItemCost"						"0"
+		"ItemInitialCharges"			"1"
+		"ItemStockMax"					"10"
+		"ItemStockInitial"				"5"
+		"ItemStockTime"					"90"
+		"AbilityValues"
+		{
+			"lifetime"					"360"
+			"duration_minutes_tooltip"	"6"
+		}
+	}
+	"item_ward_sentry"
+	{
+		"ItemCost"						"50"
+		"ItemInitialCharges"			"1"
+		"ItemStockMax"					"50"
+		"ItemStockInitial"				"10"
+		"ItemStockTime"					"60"
+		"AbilityValues"
+		{
+			"lifetime"					"420"
+			"duration_minutes_tooltip"	"7"
+		}
+	}
+	"item_ward_dispenser"
+	{
+		"ItemCost"						"50"
+		"AbilityValues"
+		{
+			"lifetime_observer"			"60"
+			"lifetime_sentry"			"420"
+			"observer_duration_minutes_tooltip"	"6"
+			"sentry_duration_minutes_tooltip"	"7"
+		}
 	}
 	"item_assassins_dagger"
 	{

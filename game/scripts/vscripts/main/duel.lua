@@ -293,7 +293,7 @@ function CustomHeroArenaDuel:IsOnDuel(playerID)
 	return self:GetDuelTrigger(playerID) ~= nil
 end
 
-if GameRules and GameRules.State_Get and GameRules:State_Get() <= (DOTA_GAMERULES_STATE_PRE_GAME or 8) then
+if GameRules and GameRules.State_Get and GameRules:State_Get() < (DOTA_GAMERULES_STATE_PRE_GAME or 8) then
 	CustomHeroArenaDuel:Init()
 end
 

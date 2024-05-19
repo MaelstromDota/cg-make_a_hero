@@ -13,8 +13,10 @@
 #base heroes/faceless_void/abilities.txt
 #base heroes/earthshaker/abilities.txt
 #base heroes/obsidian_destroyer/abilities.txt
-#base units/npc_dota_fountain/abilities.txt
-#base units/npc_dota_shrine/abilities.txt
+#base units/buildings/npc_dota_fountain/abilities.txt
+#base units/buildings/npc_dota_shrine/abilities.txt
+#base units/buildings/npc_dota_portal/abilities.txt
+#base units/buildings/npc_dota_watcher/abilities.txt
 #base units/neutrals/abilities.txt
 #base units/neutrals/npc_dota_neutral_slarkling/abilities.txt
 #base units/neutrals/npc_dota_neutral_doomling/abilities.txt
@@ -41,7 +43,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_ALL"
-		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE | DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"MaxLevel"						"1"
 		"AbilityCastRange"				"150"
 	}
