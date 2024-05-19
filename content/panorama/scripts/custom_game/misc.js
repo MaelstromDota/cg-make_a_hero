@@ -94,12 +94,14 @@ GameEvents.SubscribeEvent("reload_settings", function(event) {
 }, "reload_settings");
 
 function Loop() {
-	const cursor_pos = GameUI.GetCursorPosition();
-	GameEvents.SendEventToServer("players_update", {
-		"cursor_position": Game.ScreenXYToWorld(cursor_pos[0], cursor_pos[1]),
-		"is_cursor_on_minimap": Minimap.IsOnMinimap(),
-		"active_ability": Abilities.GetLocalPlayerActiveAbility(),
-	});
+	if (!Game.IsInToolsMode() || !Game.IsShopOpen()) {
+		const cursor_pos = GameUI.GetCursorPosition();
+		GameEvents.SendEventToServer("players_update", {
+			"cursor_position": Game.ScreenXYToWorld(cursor_pos[0], cursor_pos[1]),
+			"is_cursor_on_minimap": Minimap.IsOnMinimap(),
+			"active_ability": Abilities.GetLocalPlayerActiveAbility(),
+		});
+	}
 	$.Schedule(1/60, Loop);
 }
 

@@ -180,6 +180,18 @@ function CustomHeroArenaSpellShop:OnSpellBuy(event)
 			PrecacheUnitByNameAsync(heroname, function(precacheId)
 				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(event["PlayerID"]), "spellpoints_update", {})
 			end, event["PlayerID"])
+			if hero:HasModifier("modifier_item_ultimate_scepter_consumed") then
+				hero:RemoveModifierByName("modifier_item_ultimate_scepter_consumed")
+				hero:AddNewModifier(hero, nil, "modifier_item_ultimate_scepter_consumed", {})
+			end
+			if hero:HasModifier("modifier_item_ultimate_scepter_consumed_alchemist") then
+				hero:RemoveModifierByName("modifier_item_ultimate_scepter_consumed_alchemist")
+				hero:AddNewModifier(hero, nil, "modifier_item_ultimate_scepter_consumed_alchemist", {})
+			end
+			if hero:HasModifier("modifier_item_aghanims_shard") then
+				hero:RemoveModifierByName("modifier_item_aghanims_shard")
+				hero:AddNewModifier(hero, nil, "modifier_item_aghanims_shard", {})
+			end
 		end
 	else
 		PlayerResource:DisplayError(event["PlayerID"], "#dota_hud_error_ability_cant_upgrade_no_points")
@@ -224,7 +236,7 @@ function CustomHeroArenaSpellShop:Init()
 				local spell = heroinfo[tostring("Ability"..i)]
 				if not table.contains({"", "generic_hidden"}, spell) then
 					local kv = GetAbilityKeyValuesByName(spell)
-					if kv ~= nil and string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_HIDDEN") == nil then
+					if kv ~= nil and (string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_HIDDEN") == nil or string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES") ~= nil) then
 						spells[heroname][tostring(i)] = spell
 					end
 				end
@@ -240,7 +252,7 @@ function CustomHeroArenaSpellShop:Init()
 				local spell = heroinfo[tostring("Ability"..i)]
 				if not table.contains({"", "generic_hidden"}, spell) then
 					local kv = GetAbilityKeyValuesByName(spell)
-					if kv ~= nil and string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_HIDDEN") == nil then
+					if kv ~= nil and (string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_HIDDEN") == nil or string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES") ~= nil) then
 						spells[heroname][tostring(i)] = spell
 					end
 				end
@@ -252,3 +264,5 @@ function CustomHeroArenaSpellShop:Init()
 		CustomNetTables:SetTableValue("spells_info", heroname, herospells)
 	end
 end
+
+CustomHeroArenaSpellShop:Init()
