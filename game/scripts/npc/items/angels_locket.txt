@@ -33,7 +33,7 @@
 		"AbilityTextureName"			"item_angels_locket"
 		"AbilityValues"
 		{
-			"aura_health_regen"			"26"
+			"aura_health_regen"			"25"
 			"aura_radius"				"1200"
 			"heal_increase"				"50"
 			"bonus_all_stats"			"20"

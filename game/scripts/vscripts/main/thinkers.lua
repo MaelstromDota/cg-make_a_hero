@@ -13,7 +13,7 @@ function CustomHeroArenaThinkers:OnStateChanged()
 		Timers:CreateTimer({endTime = FrameTime(), callback = CustomHeroArenaDuel.DuelBorderThink}, nil, CustomHeroArenaDuel)
 		Timers:CreateTimer({endTime = BOUNTY_RUNE_SPAWN_INIT, callback = CustomHeroArenaRunes.BountyThink}, nil, CustomHeroArenaRunes)
 		Timers:CreateTimer({endTime = POWERUP_RUNE_SPAWN_INIT, callback = CustomHeroArenaRunes.PowerupThink}, nil, CustomHeroArenaRunes)
-		Timers:CreateTimer({endTime = XP_RUNE_SPAWN_INIT, callback = CustomHeroArenaRunes.XPThink}, nil, CustomHeroArenaRunes)
+		Timers:CreateTimer({endTime = XP_RUNE_SPAWN_INIT+FrameTime()*2, callback = CustomHeroArenaRunes.XPThink}, nil, CustomHeroArenaRunes)
 		Timers:CreateTimer({endTime = 0.1, callback = NeutralCampsFixer.OnThink}, nil, NeutralCampsFixer)
 	end
 end

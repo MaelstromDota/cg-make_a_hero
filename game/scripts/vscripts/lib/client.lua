@@ -303,6 +303,38 @@ function table.equals(t1, t2, ignore_mt)
 	return true
 end
 
+-- global
+function GetStringTeam(team)
+	local teams = {[DOTA_TEAM_GOODGUYS] = "radiant", [DOTA_TEAM_BADGUYS] = "bad"}
+	return teams[team]
+end
+function GetPlayerID(userID)
+	return UserIDToControllerHScript(userID):GetPlayerID()
+end
+function GetUserID(playerID)
+	local t = CustomNetTables:GetTableValue("player_info", "UserIDs") or {}
+	return t[tostring(playerID)]
+end
+function GetCustomAttributeDerivedStatValue(statType)
+	if IsServer() then
+		return GameRules:GetGameModeEntity():GetCustomAttributeDerivedStatValue(statType)
+	end
+	local stats = {
+		[DOTA_ATTRIBUTE_STRENGTH_DAMAGE] = 1,
+		[DOTA_ATTRIBUTE_STRENGTH_HP] = 2,
+		[DOTA_ATTRIBUTE_STRENGTH_HP_REGEN] = 0.1,
+		[DOTA_ATTRIBUTE_AGILITY_DAMAGE] = 1,
+		[DOTA_ATTRIBUTE_AGILITY_ARMOR] = 0.17,
+		[DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED] = 1,
+		[DOTA_ATTRIBUTE_INTELLIGENCE_DAMAGE] = 1,
+		[DOTA_ATTRIBUTE_INTELLIGENCE_MANA] = 12,
+		[DOTA_ATTRIBUTE_INTELLIGENCE_MANA_REGEN] = 0.05,
+		[DOTA_ATTRIBUTE_INTELLIGENCE_MAGIC_RESIST] = 0.1,
+		[DOTA_ATTRIBUTE_ALL_DAMAGE] = 0.7,
+	}
+	return stats[statType]
+end
+
 -- abilities
 local DOTABaseAbility = IsServer() and CDOTABaseAbility or C_DOTABaseAbility
 function DOTABaseAbility:HasSpecialValue(key)
@@ -541,6 +573,10 @@ end
 function DOTABaseNPC:IsPortal()
 	return self:GetUnitLabel() == "teleport_portal"
 end
+function DOTABaseNPC:GetBaseAttackSpeed()
+	local unit_kv = GetUnitKeyValuesByName(self:GetUnitName())
+	return unit_kv["BaseAttackSpeed"] + self:GetAgility() * GetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED)
+end
 if IsClient() then
 	function DOTABaseNPC:GetCursorCastTarget()
 		return self._cast_target ~= -1 and EntIndexToHScript(self._cast_target) or nil
@@ -561,17 +597,4 @@ if not inited then
 	DOTABaseNPC.IsShrine = function(self)
 		return valve_isshrine(self) or self:GetUnitName() == "npc_dota_shrine"
 	end
-end
-
--- global
-function GetStringTeam(team)
-	local teams = {[DOTA_TEAM_GOODGUYS] = "radiant", [DOTA_TEAM_BADGUYS] = "bad"}
-	return teams[team]
-end
-function GetPlayerID(userID)
-	return UserIDToControllerHScript(userID):GetPlayerID()
-end
-function GetUserID(playerID)
-	local t = CustomNetTables:GetTableValue("player_info", "UserIDs") or {}
-	return t[tostring(playerID)]
 end

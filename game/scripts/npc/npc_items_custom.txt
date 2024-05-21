@@ -18,7 +18,6 @@
 #base items/falcon_boots.txt
 #base items/leaf_buckler.txt
 #base items/heart_of_alaron.txt
-#base items/desolator_of_corossion.txt
 #base items/refresher_core.txt
 #base items/war_axe.txt
 #base items/piercing_blade.txt

@@ -54,6 +54,9 @@ function modifier_item_helm_of_the_dominator_buff_lua:OnIntervalThink()
 	self:SetHasCustomTransmitterData(true)
 	self:SendBuffRefreshToClients()
 	self:GetParent():CalculateGenericBonuses()
+	if self:GetParent().CalculateStatBonus then
+		self:GetParent():CalculateStatBonus(false)
+	end
 end
 function modifier_item_helm_of_the_dominator_buff_lua:AddCustomTransmitterData() return {primary = self.primary} end
 function modifier_item_helm_of_the_dominator_buff_lua:HandleCustomTransmitterData(kv)

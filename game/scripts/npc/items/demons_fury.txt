@@ -54,9 +54,6 @@
 			"bonus_damage_per_kill"		"10"
 			"bonus_damage_per_assist"	"5"
 			"max_damage"				"300"
-			"slow"						"40"
-			"health_bonus"				"1000"
-			"damage_per_second"			"50"
 			"chop_radius"				"215"
 		}
 	}

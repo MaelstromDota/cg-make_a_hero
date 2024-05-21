@@ -4,14 +4,14 @@
 	{
 		"BaseClass"						"item_datadriven"
 		"Model"							"models/props_gameplay/recipe.vmdl"
-		"ItemCost"						"250"
+		"ItemCost"						"500"
 		"ItemShopTags"					""
 		"ItemRecipe"					"1"
 		"ItemResult"					"item_angels_desolator_lua"
 		"AbilityTextureName"			"item_recipe"
 		"ItemRequirements"
 		{
-			"01"						"item_desolator_of_corossion_lua;item_claymore;item_broadsword"
+			"01"						"item_desolator;item_desolator"
 		}
 	}
 	"item_angels_desolator_lua"
@@ -34,9 +34,6 @@
 			"bonus_damage_per_kill"		"2"
 			"bonus_damage_per_assist"	"1"
 			"max_damage"				"50"
-			"slow"						"20"
-			"health_bonus"				"250"
-			"damage_per_second"			"8"
 		}
 	}
 }
