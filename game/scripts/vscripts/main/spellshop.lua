@@ -1,5 +1,14 @@
 CustomHeroArenaSpellShop = CustomHeroArenaSpellShop or class({})
 
+function CustomHeroArenaSpellShop:OnSpellAdded(hero, abilities)
+	-- for _, ability_name in pairs(abilities) do
+	-- 	local ability = hero:FindAbilityByName(ability_name)
+	-- 	if ability then
+	-- 		local kv = ability:GetAbilityKeyValues()
+	-- 	end
+	-- end
+end
+
 function CustomHeroArenaSpellShop:IsSpellAllowed(abilityname)
 	local heroes = CustomNetTables:GetTableValue("spells_info", "heroes")
 	for heroname, _ in pairs(heroes) do
@@ -87,7 +96,7 @@ function CustomHeroArenaSpellShop:AddSpell(hero, abilityname)
 	if ability then
 		table.insert(abilities, ability:GetAbilityName())
 		local linked = GetLinkedAbilities(ability)
-		local primary = table.length(linked["primary"]) > 0 and table.length(linked["primary"]) or ability:GetAbilityName()
+		local primary = table.length(linked["primary"]) > 0 and linked["primary"][1] or ability:GetAbilityName()
 		if hero:GetAbilityPoints() < self:GetSpellCost(primary) then
 			hero:RemoveAbilityByHandle(ability)
 			return -1
@@ -176,17 +185,27 @@ function CustomHeroArenaSpellShop:OnSpellBuy(event)
 			if heroname == "npc_dota_hero_base" then return end
 			local abilities = CustomHeroArenaSpellShop:AddSpell(hero, event["spell"])
 			if abilities == -1 then return end
+			CustomHeroArenaSpellShop:OnSpellAdded(hero, abilities)
 			hero.abilities = hero.abilities ~= nil and table.combine(hero.abilities, abilities) or abilities
 			PrecacheUnitByNameAsync(heroname, function(precacheId)
 				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(event["PlayerID"]), "spellpoints_update", {})
 			end, event["PlayerID"])
+			local scepter_buff = hero:FindModifierByName("modifier_item_ultimate_scepter")
+			if scepter_buff then
+				local scepter_ability = scepter_buff:GetAbility()
+				scepter_buff:Destroy()
+				hero:AddNewModifier(hero, scepter_ability, "modifier_item_ultimate_scepter", {})
+			end
 			if hero:HasModifier("modifier_item_ultimate_scepter_consumed") then
 				hero:RemoveModifierByName("modifier_item_ultimate_scepter_consumed")
 				hero:AddNewModifier(hero, nil, "modifier_item_ultimate_scepter_consumed", {})
 			end
-			if hero:HasModifier("modifier_item_ultimate_scepter_consumed_alchemist") then
-				hero:RemoveModifierByName("modifier_item_ultimate_scepter_consumed_alchemist")
-				hero:AddNewModifier(hero, nil, "modifier_item_ultimate_scepter_consumed_alchemist", {})
+			local scepter_alchemist_buff = hero:FindModifierByName("modifier_item_ultimate_scepter_consumed_alchemist")
+			if scepter_alchemist_buff then
+				local scepter_caster = scepter_alchemist_buff:GetCaster()
+				local scepter_ability = scepter_alchemist_buff:GetAbility()
+				scepter_alchemist_buff:Destroy()
+				hero:AddNewModifier(scepter_caster or hero, scepter_ability, "modifier_item_ultimate_scepter_consumed_alchemist", {})
 			end
 			if hero:HasModifier("modifier_item_aghanims_shard") then
 				hero:RemoveModifierByName("modifier_item_aghanims_shard")

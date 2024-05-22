@@ -97,7 +97,7 @@ function NeutralCampsFixer:RespawnCreep(entindex)
 		end
 		for index, camp_info in pairs(CAMPS_INFO) do
 			if table.contains(camp_info["stacks"], entindex) then
-				CAMPS_INFO[index][table.find(camp_info["stacks"], entindex)] = unit:entindex()
+				CAMPS_INFO[index]["stacks"][table.find(camp_info["stacks"], entindex)] = unit:entindex()
 				break
 			end
 		end

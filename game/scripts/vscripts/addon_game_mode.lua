@@ -86,6 +86,6 @@ end
 -- for i=0, DOTA_MAX_ABILITIES-1 do
 -- 	local ability = hero:GetAbilityByIndex(i)
 -- 	if ability then
--- 		print(i, ability:GetAbilityName())
+-- 		print(i, ability:GetAbilityName(), ability:IsHidden())
 -- 	end
 -- end
