@@ -555,7 +555,9 @@ function CDOTA_BaseNPC:TriggerAbilitiesCustomCallback(name, ...)
 	for _, i in pairs(table.combine(INVENTORY_SLOTS, BACKPACK_SLOTS)) do
 		local item = self:GetItemInSlot(i)
 		if item and type(item[name]) == "function" then
-			item[name](item, ...)
+			if item[name](item, ...) == true then
+				break
+			end
 		end
 	end
 end

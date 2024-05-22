@@ -27,7 +27,7 @@
 		"AbilityValues"
 		{
 			"bonus_agility"				"70"
-			"bonus_evasion"				"50"
+			"bonus_evasion"				"45"
 			"bonus_attack_speed_pct"	"45"
 			"bonus_damage"				"50"
 		}
@@ -59,10 +59,10 @@
 		"AbilityValues"
 		{
 			"bonus_agility"				"150"
-			"bonus_evasion"				"75"
+			"bonus_evasion"				"65"
 			"bonus_attack_speed_pct"	"100"
 			"bonus_damage"				"150"
-			"backtrack_chance"			"15"
+			"backtrack_chance"			"10"
 			"health_regen"				"25"
 		}
 	}

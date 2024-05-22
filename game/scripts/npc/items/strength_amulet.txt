@@ -36,21 +36,21 @@
 			"bonus_health_per_charge"	"45"
 			"active_duration"			"3.75"
 			"active_strength_multiplier" "65"
-			"max_charges"				"30"
+			"max_charges"				"35"
 		}
 	}
 	"item_recipe_tarrasque_amulet_lua"
 	{
 		"BaseClass"						"item_datadriven"
 		"Model"							"models/props_gameplay/recipe.vmdl"
-		"ItemCost"						"6625"
+		"ItemCost"						"6525"
 		"ItemShopTags"					""
 		"ItemRecipe"					"1"
 		"ItemResult"					"item_tarrasque_amulet_lua"
 		"AbilityTextureName"			"item_recipe"
 		"ItemRequirements"
 		{
-			"01"						"item_strength_amulet_lua;item_heart;item_heart;item_angels_armor_lua"
+			"01"						"item_strength_amulet_lua;item_heart;item_angels_armor_lua"
 		}
 	}
 	"item_tarrasque_amulet_lua"
@@ -69,14 +69,14 @@
 		"AbilityTextureName"			"item_tarrasque_amulet"
 		"AbilityValues"
 		{
-			"bonus_strength"			"110"
+			"bonus_strength"			"70"
 			"bonus_strength_per_charge"	"3"
 			"bonus_armor_per_charge"	"3"
 			"bonus_health_per_charge"	"80"
-			"active_duration"			"5.5"
-			"active_strength_multiplier" "150"
-			"max_charges"				"75"
-			"health_regen_pct"			"5"
+			"active_duration"			"5"
+			"active_strength_multiplier" "135"
+			"max_charges"				"100"
+			"health_regen_pct"			"4"
 			"bonus_armor"				"25"
 			"bonus_attack_speed"		"65"
 			"bonus_health"				"1500"

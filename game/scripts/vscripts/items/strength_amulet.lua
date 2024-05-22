@@ -2,30 +2,39 @@ LinkLuaModifier("modifier_item_strength_amulet_lua", "items/strength_amulet", LU
 LinkLuaModifier("modifier_item_strength_amulet_active_lua", "items/strength_amulet", LUA_MODIFIER_MOTION_NONE)
 
 item_strength_amulet_lua = item_strength_amulet_lua or class(ability_lua_base)
-function item_strength_amulet_lua:Spawn()
-	self.charges = self:GetCurrentCharges()
+function item_strength_amulet_lua:OnPurchased()
+	if not IsServer() then return end
+	Timers:CreateTimer({endTime=FrameTime(), callback=function()
+		if self:IsNull() then return end
+		if self:GetCaster()._strength_amulet_charges then
+			self:SetCurrentCharges(self:GetCaster()._strength_amulet_charges)
+		else
+			self:GetCaster()._strength_amulet_charges = self:GetCurrentCharges()
+		end
+	end}, nil, self)
 end
 function item_strength_amulet_lua:GetIntrinsicModifierName() return "modifier_item_strength_amulet_lua" end
 function item_strength_amulet_lua:OnRuneActivated(rune)
 	self:SetCurrentCharges(math.min(self:GetCurrentCharges() + 1, self:GetSpecialValueFor("max_charges")))
-	self:GetCaster():CalculateStatBonus(true)
+	return true
 end
 function item_strength_amulet_lua:OnLotusPickup(lotus_pool)
 	self:SetCurrentCharges(math.min(self:GetCurrentCharges() + 2, self:GetSpecialValueFor("max_charges")))
-	self:GetCaster():CalculateStatBonus(true)
+	return true
 end
 function item_strength_amulet_lua:OnWatcherCaptured(watcher, captured)
 	if not captured then return end
 	if watcher:GetUnitName() == "npc_dota_lantern_flying_large" then return end
 	self:SetCurrentCharges(math.min(self:GetCurrentCharges() + 1, self:GetSpecialValueFor("max_charges")))
-	self:GetCaster():CalculateStatBonus(true)
+	return true
 end
 function item_strength_amulet_lua:OnDeath()
 	self:SetCurrentCharges(math.max(math.floor(self:GetCurrentCharges()/2), 0))
-	self:GetCaster():CalculateStatBonus(true)
 end
 function item_strength_amulet_lua:OnChargeCountChanged()
-	self.charges = self:GetCurrentCharges()
+	if GameRules:GetGameTime() - self:GetPurchaseTime() < FrameTime() then return end
+	self:GetCaster()._strength_amulet_charges = self:GetCurrentCharges()
+	self:GetCaster():CalculateStatBonus(true)
 end
 function item_strength_amulet_lua:OnSpellStart()
 	self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_item_strength_amulet_active_lua", {duration=self:GetSpecialValueFor("active_duration")})

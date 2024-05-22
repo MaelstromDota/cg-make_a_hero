@@ -37,21 +37,21 @@
 			"active_damage"				"225"
 			"active_damage_pct"			"0.4"
 			"max_active_damage_pct"		"35"
-			"max_charges"				"30"
+			"max_charges"				"35"
 		}
 	}
 	"item_recipe_alaron_amulet_lua"
 	{
 		"BaseClass"						"item_datadriven"
 		"Model"							"models/props_gameplay/recipe.vmdl"
-		"ItemCost"						"175"
+		"ItemCost"						"6525"
 		"ItemShopTags"					""
 		"ItemRecipe"					"1"
 		"ItemResult"					"item_alaron_amulet_lua"
 		"AbilityTextureName"			"item_recipe"
 		"ItemRequirements"
 		{
-			"01"						"item_mystic_amulet_lua;item_heart_of_alaron_lua;item_bloodstone;item_dagon_5;item_blessed_essence_lua"
+			"01"						"item_mystic_amulet_lua;item_heart_of_alaron_lua;item_blessed_essence_lua"
 		}
 	}
 	"item_alaron_amulet_lua"
@@ -72,20 +72,16 @@
 		"AbilityTextureName"			"item_alaron_amulet"
 		"AbilityValues"
 		{
-			"bonus_intellect"			"75"
-			"bonus_intellect_per_charge" "6"
-			"active_damage"				"1250"
+			"bonus_intellect"			"70"
+			"bonus_intellect_per_charge" "4.5"
+			"active_damage"				"850"
 			"active_damage_pct"			"0.8"
 			"max_active_damage_pct"		"55"
-			"max_charges"				"75"
-			"bonus_mana"				"1500"
-			"bonus_health"				"1250"
+			"max_charges"				"100"
+			"bonus_mana"				"850"
+			"bonus_health"				"850"
 			"mana_regen_amplify_pct"	"550"
-			"bonus_all_stats"			"35"
-			"aoe_bonus"					"125"
-			"spell_lifesteal"			"50"
-			"active_spell_lifesteal"	"130"
-			"active_duration"			"3.5"
+			"bonus_all_stats"			"20"
 		}
 	}
 }

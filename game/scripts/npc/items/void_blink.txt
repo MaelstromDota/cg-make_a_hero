@@ -39,7 +39,7 @@
 			"blink_range"				"1200"
 			"blink_damage_cooldown"		"3.0"
 			"blink_range_clamp"			"960"
-			"damage_pct"				"0.8"
+			"damage_pct"				"0.35"
 			"duration" 					"6"
 			"max_stacks"				"10"
 			"pull_damage"				"125"

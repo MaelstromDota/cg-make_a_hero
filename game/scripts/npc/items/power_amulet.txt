@@ -40,21 +40,21 @@
 			"max_stun"					"1"
 			"heal"						"250"
 			"heal_per_charge"			"20"
-			"max_charges"				"30"
+			"max_charges"				"35"
 		}
 	}
 	"item_recipe_might_amulet_lua"
 	{
 		"BaseClass"						"item_datadriven"
 		"Model"							"models/props_gameplay/recipe.vmdl"
-		"ItemCost"						"5000"
+		"ItemCost"						"4025"
 		"ItemShopTags"					""
 		"ItemRecipe"					"1"
 		"ItemResult"					"item_might_amulet_lua"
 		"AbilityTextureName"			"item_recipe"
 		"ItemRequirements"
 		{
-			"01"						"item_power_amulet_lua;item_monkey_king_bar_lua;item_angels_desolator_lua;item_angels_blood_lua"
+			"01"						"item_power_amulet_lua;item_angels_desolator_lua;item_angels_blood_lua"
 		}
 	}
 	"item_might_amulet_lua"
@@ -75,7 +75,7 @@
 		"AbilityTextureName"			"item_might_amulet"
 		"AbilityValues"
 		{
-			"bonus_damage"				"320"
+			"bonus_damage"				"200"
 			"bonus_damage_per_charge"	"30"
 			"armor_reduction"			"-15"
 			"armor_reduction_per_charge" "1"
@@ -84,12 +84,8 @@
 			"max_stun"					"3"
 			"heal"						"450"
 			"heal_per_charge"			"80"
-			"max_charges"				"75"
+			"max_charges"				"100"
 			"bonus_health_regen"		"25"
-			"bonus_attack_speed"		"50"
-			"bash_chance"				"40"
-			"bash_damage"				"220"
-			"bash_stun"					"0.03"
 		}
 	}
 }

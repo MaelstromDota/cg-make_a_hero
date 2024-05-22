@@ -280,18 +280,7 @@ function CustomHeroArenaEvents:OnRuneActivated(event)
 	local rune = event["rune"]
 	local hero = PlayerResource:GetSelectedHeroEntity(playerID)
 	if hero == nil then return end
-	for i=0, DOTA_MAX_ABILITIES-1 do
-		local ability = hero:GetAbilityByIndex(i)
-		if ability and type(ability.OnRuneActivated) == "function" then
-			ability:OnRuneActivated(rune)
-		end
-	end
-	for _, i in pairs(table.combine(INVENTORY_SLOTS, BACKPACK_SLOTS)) do
-		local item = hero:GetItemInSlot(i)
-		if item and type(item.OnRuneActivated) == "function" then
-			item:OnRuneActivated(rune)
-		end
-	end
+	hero:TriggerAbilitiesCustomCallback("OnRuneActivated", rune)
 end
 
 function CustomHeroArenaEvents:OnAbilityChannelFinished(event)

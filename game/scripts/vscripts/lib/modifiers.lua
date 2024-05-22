@@ -648,6 +648,8 @@ end
 modifier_primary_attribute_lua = modifier_primary_attribute_lua or class({})
 function modifier_primary_attribute_lua:IsHidden() return true end
 function modifier_primary_attribute_lua:IsPurgable() return false end
+function modifier_primary_attribute_lua:RemoveOnDeath() return false end
+function modifier_primary_attribute_lua:GetAttributes() return MODIFIER_ATTRIBUTE_PERMANENT end
 function modifier_primary_attribute_lua:OnCreated(kv)
 	if not IsServer() then return end
 	self.default_attribute = self:GetParent():GetPrimaryAttribute()
