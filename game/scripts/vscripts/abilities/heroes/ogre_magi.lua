@@ -9,18 +9,17 @@ function modifier_ogre_magi_multicast_lua:IsPurgable() return false end
 function modifier_ogre_magi_multicast_lua:DeclareFunctions() return {MODIFIER_EVENT_ON_ABILITY_FULLY_CAST} end
 function modifier_ogre_magi_multicast_lua:OnAbilityFullyCast(kv)
 	if not IsServer() then return end
-	if kv.unit ~= self:GetParent() or kv.unit:PassivesDisabled() or kv.ability:GetMainBehavior() == DOTA_ABILITY_BEHAVIOR_TOGGLE or kv.ability:IsBehavior(DOTA_ABILITY_BEHAVIOR_CHANNELLED) or (kv.ability:GetMaxAbilityCharges(kv.ability:GetMaxLevel()) > 0 or kv.ability:GetCurrentAbilityCharges() > 0) or (kv.ability:IsItem() and (kv.ability:GetCurrentCharges() > 0 or kv.ability:GetInitialCharges() > 0 or kv.ability:GetSecondaryCharges() > 0)) then return end
-	if table.contains({"brewmaster_primal_split", "shredder_chakram"}, kv.ability:GetAbilityName()) then return end
+	if kv.unit ~= self:GetParent() or kv.unit:PassivesDisabled() or not kv.ability:IsMulticastable() then return end
 	local max_multicast = 0
 	if RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_2_times") then max_multicast = 2
 	elseif RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_3_times") then max_multicast = 3
 	elseif RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_4_times") then max_multicast = 4
 	else return end
 	local multicast = 1
-	local fx = ParticleManager:CreateParticle("particles/units/heroes/hero_ogre_magi/ogre_magi_multicast.vpcf", PATTACH_OVERHEAD_FOLLOW, kv.unit)
-	ParticleManager:SetParticleControl(fx, 1, Vector(multicast, multicast==max_multicast and 1 or 2, 0))
-	ParticleManager:ReleaseParticleIndex(fx)
 	local pos = kv.ability:GetCursorPosition()
+	if pos == Vector(0, 0, 0) then
+		pos = kv.unit:GetCursorPosition()
+	end
 	local delay = (kv.ability:IsItem() or table.contains({"ogre_magi_bloodlust"}, kv.ability:GetAbilityName())) and kv.target ~= nil and 0 or self:GetAbility():GetSpecialValueFor("multicast_delay")
 	Timers:CreateTimer({endTime=delay, callback=function()
 		multicast = multicast + 1
@@ -38,6 +37,9 @@ function modifier_ogre_magi_multicast_lua:OnAbilityFullyCast(kv)
 		if multicast < max_multicast then return delay end
 		return nil
 	end}, nil, self)
+	local fx = ParticleManager:CreateParticle("particles/units/heroes/hero_ogre_magi/ogre_magi_multicast.vpcf", PATTACH_OVERHEAD_FOLLOW, kv.unit)
+	ParticleManager:SetParticleControl(fx, 1, Vector(multicast, multicast==max_multicast and 1 or 2, 0))
+	ParticleManager:ReleaseParticleIndex(fx)
 end
 
 LinkLuaModifier("modifier_ogre_magi_dumb_luck_lua", "abilities/heroes/ogre_magi", LUA_MODIFIER_MOTION_NONE)

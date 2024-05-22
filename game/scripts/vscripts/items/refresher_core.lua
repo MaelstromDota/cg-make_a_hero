@@ -5,6 +5,7 @@ LinkLuaModifier("modifier_item_refresher_core_recharge_lua", "items/refresher_co
 item_refresher_core_lua = item_refresher_core_lua or class(ability_lua_base)
 function item_refresher_core_lua:GetIntrinsicModifiers() return {"modifier_item_refresher_core_lua", "modifier_item_refresher_core_cooldown_lua"} end
 function item_refresher_core_lua:IsRefreshable() return false end
+function item_refresher_core_lua:IsMulticastable() return false end
 function item_refresher_core_lua:OnSpellStart()
 	for i=0, DOTA_MAX_ABILITIES-1 do
 		local ability = self:GetCaster():GetAbilityByIndex(i)
@@ -44,7 +45,7 @@ function modifier_item_refresher_core_cooldown_lua:IsPurgable() return false end
 function modifier_item_refresher_core_cooldown_lua:DeclareFunctions() return {MODIFIER_PROPERTY_CAST_RANGE_BONUS_STACKING, MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE, MODIFIER_EVENT_ON_ABILITY_FULLY_CAST} end
 function modifier_item_refresher_core_cooldown_lua:OnAbilityFullyCast(kv)
 	if not IsServer() then return end
-	if kv.unit ~= self:GetParent() or not kv.ability:IsRefreshable() then return end
+	if kv.unit ~= self:GetParent() or not kv.ability:IsMulticastable() then return end
 	if not RollPseudoRandomPercentage(self:GetAbility():GetSpecialValueFor("instant_recharge_chance"), self:GetAbility():entindex(), kv.unit) then return end
 	kv.ability:EndCooldown()
 	kv.unit:AddNewModifier(kv.unit, self:GetAbility(), "modifier_item_refresher_core_recharge_lua", {duration=self:GetAbility():GetSpecialValueFor("instant_recharge_duration")})

@@ -30,7 +30,7 @@
 #base items/slice_of_static.txt
 #base items/static_amulet.txt
 #base items/charons_scepter.txt
-#base items/fireblend.txt
+// #base items/fireblend.txt
 #base items/polar_spear.txt
 #base items/amulet_of_chronos.txt
 #base items/void_blink.txt
@@ -50,13 +50,13 @@
 #base items/strength_amulet.txt
 #base items/power_amulet.txt
 #base items/mystic_amulet.txt
-#base items/blaze_lance.txt
+// #base items/blaze_lance.txt
 #base items/damned_swords.txt
 #base items/angels_desolator.txt
 #base items/burning_blades.txt
 #base items/bfury.txt
 #base items/demons_fury.txt
-#base items/demons_lance.txt
+// #base items/demons_lance.txt
 #base items/pavise_cape.txt
 #base items/mantlet.txt
 #base items/angels_locket.txt

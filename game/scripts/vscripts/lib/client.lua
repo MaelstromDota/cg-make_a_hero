@@ -498,6 +498,79 @@ function DOTABaseAbility:GetKVValueFor(path)
 	end
 	return GetKVValue(value, self:GetLevel())
 end
+function DOTABaseAbility:IsRearmable()
+	local exceptions = {
+		"item_aeon_disk",
+		"item_arcane_boots",
+		"item_black_king_bar",
+		"item_hand_of_midas",
+		"item_helm_of_the_dominator",
+		"item_helm_of_the_overlord",
+		"item_sphere",
+		"item_meteor_hammer",
+		"item_pipe",
+		"item_refresher",
+		"item_refresher_shard",
+		"item_necronomicon",
+		"item_necronomicon_2",
+		"item_necronomicon_3",
+		"doom_bringer_devour",
+		"dark_willow_shadow_realm_lua",
+		"invoker_sun_strike_ad",
+		"life_stealer_rage",
+		"juggernaut_blade_fury",
+		"phantom_assassin_blur_lua",
+		"spirit_breaker_bulldoze",
+		"beastmaster_call_of_the_wild",
+		"beastmaster_call_of_the_wild_boar",
+		"beastmaster_call_of_the_wild_hawk",
+		"broodmother_spawn_spiderlings",
+		"enigma_demonic_conversion",
+		"invoker_forge_spirit_ad",
+		"furion_force_of_nature",
+		"undying_tombstone",
+		"skeleton_king_vampiric_aura",
+		"dark_troll_warlord_raise_dead",
+		"pugna_nether_ward",
+		"venomancer_plague_ward",
+		"zuus_cloud",
+	}
+	if table.contains(exceptions, self:GetAbilityName()) then
+		return false
+	end
+	if self:GetAbilityType() == ABILITY_TYPE_ULTIMATE then
+		return false
+	end
+	if not self:IsRefreshable() then
+		return false
+	end
+	return true
+end
+function DOTABaseAbility:IsMulticastable()
+	local exceptions = {
+		"item_power_treads_lua",
+		"item_might_treads_lua",
+		"brewmaster_primal_split",
+		"shredder_chakram",
+		"dazzle_bad_juju",
+	}
+	if table.contains(exceptions, self:GetAbilityName()) then
+		return false
+	end
+	if self:GetMainBehavior() == DOTA_ABILITY_BEHAVIOR_TOGGLE then
+		return false
+	end
+	if self:IsBehavior(DOTA_ABILITY_BEHAVIOR_CHANNELLED) then
+		return false
+	end
+	if self:HasCharges() then
+		return false
+	end
+	return true
+end
+function DOTABaseAbility:HasCharges()
+	return self:GetMaxAbilityCharges(self:GetMaxLevel()) > 0 or self:GetCurrentAbilityCharges() > 0
+end
 function OrderToBehavior(order)
 	if order == DOTA_UNIT_ORDER_CAST_NO_TARGET then return DOTA_ABILITY_BEHAVIOR_NO_TARGET
 	elseif order == DOTA_UNIT_ORDER_CAST_TARGET then return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
@@ -524,6 +597,9 @@ end
 local DOTABaseItem = IsServer() and CDOTA_Item or C_DOTA_Item
 function DOTABaseItem:IsDropsOnDeath()
 	return table.contains({"item_rapier", "item_gem"}, self:GetName())
+end
+function DOTABaseItem:HasCharges()
+	return self:GetCurrentCharges() > 0 or self:GetInitialCharges() > 0 or self:GetSecondaryCharges() > 0
 end
 
 -- units
