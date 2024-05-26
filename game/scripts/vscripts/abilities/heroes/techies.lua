@@ -492,7 +492,6 @@ LinkLuaModifier("modifier_techies_minefield_sign_lua", "abilities/heroes/techies
 LinkLuaModifier("modifier_techies_minefield_sign_lua_detection", "abilities/heroes/techies", LUA_MODIFIER_MOTION_NONE)
 
 techies_minefield_sign_lua = techies_minefield_sign_lua or class(ability_lua_base)
-function techies_minefield_sign_lua:IsInnateAbility() return true end
 function techies_minefield_sign_lua:IsStealable() return false end
 function techies_minefield_sign_lua:GetCastRange(vLocation, hTarget)
 	local cast_range = self.BaseClass.GetCastRange(self, vLocation, hTarget)

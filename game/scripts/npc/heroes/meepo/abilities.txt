@@ -23,6 +23,21 @@
 				"special_bonus_unique_meepo_5"		"+1"
 			}
 			"magic_resist"				"10 15 20"
+			"required_level"
+			{
+				"value"				"4"
+				"special_bonus_facet_meepo_more_meepo"		"=3"
+			}
+			"levels_between_upgrades"
+			{
+				"value"				"7"
+				"special_bonus_facet_meepo_more_meepo"		"=7"
+			}
+			"max_level"
+			{
+				"value"					"3"
+				"special_bonus_facet_meepo_more_meepo"		"=4"
+			}
 		}
 	}
 }

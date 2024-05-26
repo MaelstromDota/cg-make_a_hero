@@ -1,12 +1,6 @@
 LinkLuaModifier("modifier_meepo_divided_we_stand_lua", "abilities/heroes/meepo", LUA_MODIFIER_MOTION_NONE)
 
 meepo_divided_we_stand_lua = meepo_divided_we_stand_lua or class(ability_lua_base)
-function meepo_divided_we_stand_lua:GetBehavior()
-	if self:GetCaster():HasShard() then
-		return tonumber(tostring(self.BaseClass.GetBehavior(self))) + DOTA_ABILITY_BEHAVIOR_UNIT_TARGET - DOTA_ABILITY_BEHAVIOR_PASSIVE
-	end
-	return self.BaseClass.GetBehavior(self)
-end
 function meepo_divided_we_stand_lua:GetCloneSource()
 	if IsServer() then
 		return PlayerResource:GetSelectedHeroEntity(self:GetCaster():GetPlayerOwnerID())
@@ -138,7 +132,7 @@ function modifier_meepo_divided_we_stand_lua:OnIntervalThink()
 		end
 		self:GetParent():SetBaseStrength(owner:GetStrength()-self:GetParent():GetAdditionalStrength())
 		self:GetParent():SetBaseAgility(owner:GetAgility()-self:GetParent():GetAdditionalAgility())
-		self:GetParent():SetBaseIntellect(owner:GetIntellect()-self:GetParent():GetAdditionalIntellect())
+		self:GetParent():SetBaseIntellect(owner:GetIntellect(false)-self:GetParent():GetAdditionalIntellect())
 		self:GetParent():CopyAbilities()
 		self:GetParent():SetAbilityPoints(0)
 		self:GetParent():CalculateStatBonus(true)

@@ -654,12 +654,15 @@ function modifier_primary_attribute_lua:OnCreated(kv)
 	if not IsServer() then return end
 	self.default_attribute = self:GetParent():GetPrimaryAttribute()
 	self:GetParent():SetPrimaryAttribute(kv.attribute)
+	self:GetParent():CalculateStatBonus(true)
 end
 function modifier_primary_attribute_lua:OnRefresh(kv)
 	if not IsServer() then return end
 	self:GetParent():SetPrimaryAttribute(kv.attribute)
+	self:GetParent():CalculateStatBonus(true)
 end
 function modifier_primary_attribute_lua:OnDestroy()
 	if not IsServer() then return end
 	self:GetParent():SetPrimaryAttribute(self.default_attribute)
+	self:GetParent():CalculateStatBonus(true)
 end

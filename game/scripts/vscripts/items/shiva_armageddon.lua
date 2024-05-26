@@ -46,7 +46,7 @@ function item_shiva_armageddon_lua:OnSpellStart()
 			if enemy:IsIllusion() then
 				damage = damage * self:GetSpecialValueFor("illusion_multiplier_pct") / 100
 			end
-			ApplyDamage({attacker=self:GetCaster(), victim=enemy, damage=damage+self:GetSpecialValueFor("explosion_damage_per_int")*self:GetCaster():GetIntellect(), damage_type=DAMAGE_TYPE_MAGICAL, damage_flags=DOTA_DAMAGE_FLAG_NONE, ability=self})
+			ApplyDamage({attacker=self:GetCaster(), victim=enemy, damage=damage+self:GetSpecialValueFor("explosion_damage_per_int")*self:GetCaster():GetIntellect(false), damage_type=DAMAGE_TYPE_MAGICAL, damage_flags=DOTA_DAMAGE_FLAG_NONE, ability=self})
 		end
 		local hit_pfx = ParticleManager:CreateParticle("particles/units/heroes/hero_crystalmaiden/maiden_freezing_field_explosion.vpcf", PATTACH_WORLDORIGIN, nil)
 		ParticleManager:SetParticleControl(hit_pfx, 0, explosion_point)

@@ -3,6 +3,6 @@
 	"npc_dota_hero_tidehunter"
 	{
 		"override_hero"	"npc_dota_hero_tidehunter"
-		"Ability2"		"tidehunter_kraken_shell_lua"
+		"Ability7"		"tidehunter_blubber_lua"
 	}
 }

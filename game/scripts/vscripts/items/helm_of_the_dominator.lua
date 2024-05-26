@@ -47,7 +47,7 @@ function modifier_item_helm_of_the_dominator_buff_lua:OnIntervalThink()
 	self.bonus_spell_amplify = self:GetAbility():GetSpecialValueFor("spell_amplify_per_intellect")
 	self.strength = self:GetCaster():GetStrength()
 	self.agility = self:GetCaster():GetAgility()
-	self.intellect = self:GetCaster():GetIntellect()
+	self.intellect = self:GetCaster():GetIntellect(false)
 	if not IsServer() then return end
 	self.primary = self:GetCaster():GetPrimaryStatValue()
 	self:SetHasCustomTransmitterData(false)

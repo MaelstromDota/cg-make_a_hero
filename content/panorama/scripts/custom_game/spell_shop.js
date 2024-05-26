@@ -1,4 +1,7 @@
 function OpenHeroSpells(heroname) {
+	if (heroname == undefined) {
+		return;
+	}
 	for (let i=0; i<$(`#SpellsHeroSelection`).GetChildCount(); i++) {
 		const attributepanel = $(`#SpellsHeroSelection`).GetChild(i);
 		for (let j=0; j<attributepanel.GetChildCount(); j++) {
@@ -96,8 +99,11 @@ function UpdateSpells() {
 		apanel.abilityname = Abilities.GetAbilityName(ability);
 		apanel.visible = true;
 		apanel.SetPanelEvent("onactivate", () => {
-			OpenHeroSpells(GetAbilityOwner(apanel.abilityname));
-			SelectSpell(apanel.abilityname);
+			const heroname = GetAbilityOwner(apanel.abilityname);
+			if (heroname != undefined) {
+				OpenHeroSpells(heroname);
+				SelectSpell(apanel.abilityname);
+			}
 		});
 	}
 }

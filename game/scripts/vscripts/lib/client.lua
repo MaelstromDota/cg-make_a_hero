@@ -165,7 +165,7 @@ function table.reverse(t)
 	return reversed
 end
 function table.join(t, sep)
-	return table.concat(t, sep)
+	return table.concat(table.map(t, function(_, v) return tostring(v) end), sep)
 end
 function table.sum(t)
 	local sum = 0
@@ -205,6 +205,19 @@ function table.merge(t1, t2)
 	if type(t2) == "table" then
 		for k, v in pairs(t2) do
 			t[k] = v
+		end
+	end
+	return t
+end
+function table.merge_deep(t1, t2)
+	local t = table.copy(t1)
+	if type(t2) == "table" then
+		for k, v in pairs(t2) do
+			if t1 and type(t1[k]) == "table" and type(v) == "table" then
+				t[k] = table.merge_deep(t1[k], v)
+			else
+				t[k] = v
+			end
 		end
 	end
 	return t
@@ -519,7 +532,7 @@ function DOTABaseAbility:IsRearmable()
 		"invoker_sun_strike_ad",
 		"life_stealer_rage",
 		"juggernaut_blade_fury",
-		"phantom_assassin_blur_lua",
+		"phantom_assassin_blur",
 		"spirit_breaker_bulldoze",
 		"beastmaster_call_of_the_wild",
 		"beastmaster_call_of_the_wild_boar",
@@ -570,6 +583,10 @@ function DOTABaseAbility:IsMulticastable()
 end
 function DOTABaseAbility:HasCharges()
 	return self:GetMaxAbilityCharges(self:GetMaxLevel()) > 0 or self:GetCurrentAbilityCharges() > 0
+end
+function DOTABaseAbility:IsInnateAbility()
+	local ability_kv = GetAbilityKeyValuesByName(self:GetAbilityName())
+	return tostring(ability_kv["Innate"]) == "1"
 end
 function OrderToBehavior(order)
 	if order == DOTA_UNIT_ORDER_CAST_NO_TARGET then return DOTA_ABILITY_BEHAVIOR_NO_TARGET

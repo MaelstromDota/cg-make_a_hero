@@ -99,6 +99,10 @@ function modifier_item_demons_fury_lua:OnAttackLanded(kv)
 	end
 	if not kv.attacker:IsRangedAttacker() then
 		DoCleaveAttack(kv.attacker, kv.target, self:GetAbility(), kv.attacker:GetAverageTrueAttackDamage(kv.target) * self:GetAbility():GetSpecialValueFor("cleave_damage_percent") / 100, self:GetAbility():GetSpecialValueFor("cleave_starting_width"), self:GetAbility():GetSpecialValueFor("cleave_ending_width"), self:GetAbility():GetSpecialValueFor("cleave_distance"), "particles/items_fx/battlefury_cleave.vpcf")
+	else
+		local distance = CalculateDistance(kv.attacker, kv.target)
+		local overdistance = math.max(distance - 150, 0)
+		DoCleaveAttack(kv.attacker, kv.target, self:GetAbility(), kv.attacker:GetAverageTrueAttackDamage(kv.target) * self:GetAbility():GetSpecialValueFor("cleave_damage_percent") / 100, math.max(self:GetAbility():GetSpecialValueFor("cleave_starting_width")-overdistance/2, 0), self:GetAbility():GetSpecialValueFor("cleave_ending_width"), self:GetAbility():GetSpecialValueFor("cleave_distance")+overdistance, "particles/items_fx/battlefury_cleave.vpcf")
 	end
 end
 function modifier_item_demons_fury_lua:GetModifierConstantManaRegen() return self:GetAbility():GetSpecialValueFor("bonus_mana_regen") end

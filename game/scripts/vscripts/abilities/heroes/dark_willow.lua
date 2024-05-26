@@ -1,5 +1,6 @@
 LinkLuaModifier("modifier_dark_willow_shadow_realm_lua", "abilities/heroes/dark_willow", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_dark_willow_shadow_realm_lua_buff", "abilities/heroes/dark_willow", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_dark_willow_shadow_realm_lua_throwing_shade_lua", "abilities/heroes/dark_willow", LUA_MODIFIER_MOTION_NONE)
 
 dark_willow_shadow_realm_lua = dark_willow_shadow_realm_lua or class(ability_lua_base)
 function dark_willow_shadow_realm_lua:OnSpellStart()
@@ -11,6 +12,13 @@ function modifier_dark_willow_shadow_realm_lua:IsPurgable() return false end
 function modifier_dark_willow_shadow_realm_lua:DeclareFunctions() return {MODIFIER_PROPERTY_ATTACK_RANGE_BONUS, MODIFIER_PROPERTY_PROJECTILE_NAME, MODIFIER_EVENT_ON_ATTACK} end
 function modifier_dark_willow_shadow_realm_lua:CheckState() return {[MODIFIER_STATE_ATTACK_IMMUNE] = true, [MODIFIER_STATE_UNTARGETABLE_ENEMY] = true} end
 function modifier_dark_willow_shadow_realm_lua:GetStatusEffectName() return "particles/status_fx/status_effect_dark_willow_shadow_realm.vpcf" end
+function modifier_dark_willow_shadow_realm_lua:IsAura() return true end
+function modifier_dark_willow_shadow_realm_lua:GetAuraDuration() return self.aura_linger end
+function modifier_dark_willow_shadow_realm_lua:GetAuraRadius() return self.aura_radius end
+function modifier_dark_willow_shadow_realm_lua:GetAuraSearchTeam() return DOTA_UNIT_TARGET_TEAM_ENEMY end
+function modifier_dark_willow_shadow_realm_lua:GetAuraSearchType() return DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO end
+function modifier_dark_willow_shadow_realm_lua:GetAuraSearchFlags() return DOTA_UNIT_TARGET_NONE end
+function modifier_dark_willow_shadow_realm_lua:GetModifierAura() return "modifier_dark_willow_shadow_realm_lua_throwing_shade_lua" end
 function modifier_dark_willow_shadow_realm_lua:OnCreated()
 	self:OnRefresh()
 	if not IsServer() then return end
@@ -26,6 +34,8 @@ function modifier_dark_willow_shadow_realm_lua:OnRefresh()
 	self.bonus_range = self:GetAbility():GetSpecialValueFor("attack_range_bonus")
 	self.bonus_damage = self:GetAbility():GetSpecialValueFor("damage")
 	self.bonus_max = self:GetAbility():GetSpecialValueFor("max_damage_duration")
+	self.aura_radius = self:GetAbility():GetSpecialValueFor("aura_radius")
+	self.aura_linger = self:GetAbility():GetSpecialValueFor("aura_linger")
 	if not IsServer() then return end
 	ProjectileManager:ProjectileDodge(self:GetParent())
 	self:SetStackCount(self:GetAbility():GetSpecialValueFor("max_attacks"))
@@ -96,4 +106,22 @@ function modifier_dark_willow_shadow_realm_lua_buff:GetModifierBaseAttack_BonusD
 	self.target_prev = self.target_pos
 	self.target_pos = self.target:GetOrigin()
 	return 0
+end
+
+modifier_dark_willow_shadow_realm_lua_throwing_shade_lua = modifier_dark_willow_shadow_realm_lua_throwing_shade_lua or class({})
+function modifier_dark_willow_shadow_realm_lua_throwing_shade_lua:IsPurgable() return false end
+function modifier_dark_willow_shadow_realm_lua_throwing_shade_lua:DeclareFunctions() return {MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE} end
+function modifier_dark_willow_shadow_realm_lua_throwing_shade_lua:OnCreated()
+	self.aura_damage_pct = self:GetAbility():GetSpecialValueFor("aura_damage_pct")
+	self.max_damage_duration = self:GetAbility():GetSpecialValueFor("max_damage_duration")
+end
+function modifier_dark_willow_shadow_realm_lua_throwing_shade_lua:OnRefresh()
+	self:OnCreated()
+end
+function modifier_dark_willow_shadow_realm_lua_throwing_shade_lua:GetModifierIncomingDamage_Percentage(kv)
+	if not IsServer() then return end
+	if kv.attacker:GetPlayerOwnerID() ~= self:GetCaster():GetPlayerOwnerID() then return end
+	local buff = self:GetCaster():FindModifierByName("modifier_dark_willow_shadow_realm_lua")
+	local time = buff ~= nil and math.min(buff:GetElapsedTime()/self.max_damage_duration, 1) or 0
+	return self.aura_damage_pct * time
 end

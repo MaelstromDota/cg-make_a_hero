@@ -494,7 +494,7 @@ function CDOTA_BaseNPC_Hero:GetAdditionalAgility()
 	return self:GetAgility() - self:GetBaseAgility()
 end
 function CDOTA_BaseNPC_Hero:GetAdditionalIntellect()
-	return self:GetIntellect() - self:GetBaseIntellect()
+	return self:GetIntellect(false) - self:GetBaseIntellect()
 end
 function CDOTA_BaseNPC_Hero:GetRespawnTimeFormula()
 	return math.min(self:GetLevel() * 0.1 + 5, 100)

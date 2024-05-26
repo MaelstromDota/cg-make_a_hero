@@ -156,11 +156,13 @@ function modifier_monkey_king_wukongs_command_thinker_lua:OnCreated()
 	local third_radius = self:GetAbility():GetSpecialValueFor("third_radius")
 	self.radius = math.max(first_radius, second_radius, third_radius)
 	if not IsServer() then return end
+	self.leadership_buffer = 0
+	self.leadership_time_buffer = self:GetAbility():GetSpecialValueFor("leadership_time_buffer")
 	self:GetParent():EmitSound("Hero_MonkeyKing.FurArmy")
 	self.fx = ParticleManager:CreateParticle("particles/units/heroes/hero_monkey_king/monkey_king_furarmy_ring.vpcf", PATTACH_WORLDORIGIN, nil)
 	ParticleManager:SetParticleControl(self.fx, 0, self:GetParent():GetAbsOrigin())
 	ParticleManager:SetParticleControl(self.fx, 1, Vector(self.radius, 0, 0))
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.05)
 	if first_radius > 0 then
 		self:CreateMonkeys(first_radius, self:GetAbility():GetSpecialValueFor("num_first_soldiers"))
 	end
@@ -173,7 +175,13 @@ function modifier_monkey_king_wukongs_command_thinker_lua:OnCreated()
 end
 function modifier_monkey_king_wukongs_command_thinker_lua:OnIntervalThink()
 	if not self:GetCaster():HasModifier(self:GetModifierAura()) then
-		self:Destroy()
+		if self.leadership_buffer < self.leadership_time_buffer then
+			self.leadership_buffer = self.leadership_buffer + 0.05
+		else
+			self:Destroy()
+		end
+	elseif self.leadership_buffer > 0 then
+		self.leadership_buffer = 0
 	end
 end
 function modifier_monkey_king_wukongs_command_thinker_lua:OnDestroy()

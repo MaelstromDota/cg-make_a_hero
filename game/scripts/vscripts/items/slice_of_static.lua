@@ -31,7 +31,7 @@ function modifier_item_slice_of_static_unique_lua:IsHidden() return true end
 function modifier_item_slice_of_static_unique_lua:IsPurgable() return false end
 function modifier_item_slice_of_static_unique_lua:DeclareFunctions() return {MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE, MODIFIER_PROPERTY_EXTRA_MANA_PERCENTAGE} end
 function modifier_item_slice_of_static_unique_lua:GetModifierExtraManaPercentage() return self:GetAbility():GetSpecialValueFor("bonus_max_mana_percentage") end
-function modifier_item_slice_of_static_unique_lua:GetModifierSpellAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("spell_amp_per_int") * self:GetParent():GetIntellect() end
+function modifier_item_slice_of_static_unique_lua:GetModifierSpellAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("spell_amp_per_int") * self:GetParent():GetIntellect(false) end
 
 modifier_item_slice_of_static_active_lua = modifier_item_slice_of_static_active_lua or class({})
 function modifier_item_slice_of_static_active_lua:IsPurgable() return false end

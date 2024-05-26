@@ -246,36 +246,28 @@ end
 function CustomHeroArenaSpellShop:Init()
 	local spells = {}
 	local heroes = {}
-	for heroname, _heroinfo in pairs(LoadKeyValues("scripts/npc/npc_heroes.txt")) do
-		if type(_heroinfo) == "table" and not table.contains({"npc_dota_hero_target_dummy", "npc_dota_hero_base"}, heroname) then
-			local heroinfo = GetUnitKeyValuesByName(heroname)
-			heroes[heroname] = {attribute=heroinfo["AttributePrimary"]}
-			spells[heroname] = {}
-			for i=1, (heroinfo["AbilityTalentStart"] or 10)-1 do
-				local spell = heroinfo[tostring("Ability"..i)]
-				if not table.contains({"", "generic_hidden"}, spell) then
-					local kv = GetAbilityKeyValuesByName(spell)
-					if kv ~= nil and (string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_HIDDEN") == nil or string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES") ~= nil) then
-						spells[heroname][tostring(i)] = spell
-					end
+	local function AddHeroToList(heroname)
+		local heroinfo = GetUnitKeyValuesByName(heroname)
+		heroes[heroname] = {attribute=heroinfo["AttributePrimary"]}
+		spells[heroname] = spells[heroname] or {}
+		for i=1, (heroinfo["AbilityTalentStart"] or 10)-1 do
+			local spell = heroinfo[tostring("Ability"..i)]
+			if not table.contains({"", "generic_hidden"}, spell) then
+				local kv = GetAbilityKeyValuesByName(spell)
+				if kv ~= nil and (string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_HIDDEN") == nil or string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES") ~= nil) and tostring(kv["Innate"]) ~= "1" then
+					spells[heroname][tostring(i)] = spell
 				end
 			end
 		end
 	end
+	for heroname, _heroinfo in pairs(LoadKeyValues("scripts/npc/npc_heroes.txt")) do
+		if type(_heroinfo) == "table" and not table.contains({"npc_dota_hero_target_dummy", "npc_dota_hero_base"}, heroname) then
+			AddHeroToList(heroname)
+		end
+	end
 	for heroname, _heroinfo in pairs(LoadKeyValues("scripts/npc/npc_heroes_custom.txt")) do
 		if type(_heroinfo) == "table" then
-			local heroinfo = GetUnitKeyValuesByName(heroname)
-			heroes[heroname] = {attribute=heroinfo["AttributePrimary"]}
-			spells[heroname] = spells[heroname] or {}
-			for i=1, (heroinfo["AbilityTalentStart"] or 10)-1 do
-				local spell = heroinfo[tostring("Ability"..i)]
-				if not table.contains({"", "generic_hidden"}, spell) then
-					local kv = GetAbilityKeyValuesByName(spell)
-					if kv ~= nil and (string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_HIDDEN") == nil or string.find(kv["AbilityBehavior"], "DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES") ~= nil) then
-						spells[heroname][tostring(i)] = spell
-					end
-				end
-			end
+			AddHeroToList(heroname)
 		end
 	end
 	CustomNetTables:SetTableValue("spells_info", "heroes", heroes)

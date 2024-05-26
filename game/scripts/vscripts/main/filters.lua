@@ -54,9 +54,14 @@ local function OrderFearFilter(event, unit)
 end
 local function OrderBuybackFilter(event, unit)
 	local issuer = (event["issuer_player_id_const"] ~= nil and PlayerResource:IsValidPlayerID(event["issuer_player_id_const"])) and event["issuer_player_id_const"] or unit:GetPlayerOwnerID()
-	if event["order_type"] == DOTA_UNIT_ORDER_BUYBACK and unit:IsRealHero() and unit:GetRespawnsDisabled() then
-		PlayerResource:DisplayError(issuer, "#DOTA_Hud_NoBuybackLabel")
-		return false
+	if event["order_type"] == DOTA_UNIT_ORDER_BUYBACK then
+		if unit:GetRespawnsDisabled() then
+			PlayerResource:DisplayError(issuer, "#DOTA_Hud_NoBuybackLabel")
+			return false
+		elseif unit:HasModifier("modifier_earthshaker_enchant_totem_slugger_lua") then
+			PlayerResource:DisplayError(issuer, "#dota_hud_error_unit_command_restricted")
+			return false
+		end
 	end
 	return true
 end

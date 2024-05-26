@@ -73,6 +73,9 @@ function CustomHeroArena:InitGameRules()
 	GameRules:GetGameModeEntity():SetGiveFreeTPOnDeath(false)
 	Convars:SetInt("tv_delay", 0)
 	SendToServerConsole("tv_delay 0")
+	if GameRules:IsCheatMode() then
+		Convars:SetInt("dota_easybuy", 1)
+	end
 end
 
 function CustomHeroArena:InitFountains()

@@ -1,15 +1,12 @@
 #base heroes/techies/abilities.txt
 #base heroes/ogre_magi/abilities.txt
 #base heroes/tinker/abilities.txt
-#base heroes/phantom_assassin/abilities.txt
 #base heroes/dark_willow/abilities.txt
 #base heroes/slardar/abilities.txt
 #base heroes/tidehunter/abilities.txt
 #base heroes/meepo/abilities.txt
 #base heroes/monkey_king/abilities.txt
-#base heroes/legion_commander/abilities.txt
 #base heroes/huskar/abilities.txt
-#base heroes/lina/abilities.txt
 #base heroes/faceless_void/abilities.txt
 #base heroes/earthshaker/abilities.txt
 #base heroes/obsidian_destroyer/abilities.txt
@@ -47,8 +44,6 @@
 		"MaxLevel"						"1"
 		"AbilityCastRange"				"150"
 	}
-	"monkey_king_wukongs_command" "REMOVED"
-	// "drow_ranger_marksmanship" "REMOVED"
 	"enchantress_enchant"
 	{
 		"AbilityValues"
@@ -81,6 +76,27 @@
 			}
 		}
 	}
+	"storm_spirit_ball_lightning"
+	{
+		"AbilityCooldown"				"15 10 5"
+	}
+	"lone_druid_spirit_bear"
+	{
+		"AbilityCooldown"				"90 80 70 60"
+	}
+	"phantom_assassin_blur"
+	{
+		"AbilityCooldown"				"70 65 60 55"
+		"AbilityValues"
+		{
+			"duration"					"16"
+			"scepter_cooldown"
+			{
+				"value"					"30"
+				"RequiresScepter"		"1"
+			}
+		}
+	}
 	"filler_ability"
 	{
 		"AbilityCooldown"				"90"
@@ -93,13 +109,5 @@
 			"duration"					"6"
 			"initial_cooldown"			"30"
 		}
-	}
-	"storm_spirit_ball_lightning"
-	{
-		"AbilityCooldown"				"15 10 5"
-	}
-	"lone_druid_spirit_bear"
-	{
-		"AbilityCooldown"				"90 80 70 60"
 	}
 }

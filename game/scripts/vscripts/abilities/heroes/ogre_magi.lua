@@ -6,7 +6,7 @@ function ogre_magi_multicast_lua:GetIntrinsicModifierName() return "modifier_ogr
 modifier_ogre_magi_multicast_lua = modifier_ogre_magi_multicast_lua or class({})
 function modifier_ogre_magi_multicast_lua:IsHidden() return true end
 function modifier_ogre_magi_multicast_lua:IsPurgable() return false end
-function modifier_ogre_magi_multicast_lua:DeclareFunctions() return {MODIFIER_EVENT_ON_ABILITY_FULLY_CAST} end
+function modifier_ogre_magi_multicast_lua:DeclareFunctions() return {MODIFIER_EVENT_ON_ABILITY_FULLY_CAST, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE} end
 function modifier_ogre_magi_multicast_lua:OnAbilityFullyCast(kv)
 	if not IsServer() then return end
 	if kv.unit ~= self:GetParent() or kv.unit:PassivesDisabled() or not kv.ability:IsMulticastable() then return end
@@ -41,6 +41,15 @@ function modifier_ogre_magi_multicast_lua:OnAbilityFullyCast(kv)
 	ParticleManager:SetParticleControl(fx, 1, Vector(multicast, multicast==max_multicast and 1 or 2, 0))
 	ParticleManager:ReleaseParticleIndex(fx)
 end
+function modifier_ogre_magi_multicast_lua:GetModifierOverrideAbilitySpecial(kv)
+	if kv.ability ~= self:GetAbility() then return end
+	return BoolToNum(string.find(kv.ability_special_value, "multicast_%d_times") ~= nil)
+end
+function modifier_ogre_magi_multicast_lua:GetModifierOverrideAbilitySpecialValue(kv)
+	if kv.ability ~= self:GetAbility() or string.find(kv.ability_special_value, "multicast_%d_times") == nil then return end
+	local kv = kv.ability:GetLevelSpecialValueNoOverride(kv.ability_special_value, kv.ability_special_level)
+	return kv + math.floor(self:GetParent():GetStrength()*self:GetAbility():GetSpecialValueFor("strength_mult"))
+end
 
 LinkLuaModifier("modifier_ogre_magi_dumb_luck_lua", "abilities/heroes/ogre_magi", LUA_MODIFIER_MOTION_NONE)
 
@@ -50,31 +59,21 @@ function ogre_magi_dumb_luck_lua:GetIntrinsicModifierName() return "modifier_ogr
 modifier_ogre_magi_dumb_luck_lua = modifier_ogre_magi_dumb_luck_lua or class({})
 function modifier_ogre_magi_dumb_luck_lua:IsHidden() return true end
 function modifier_ogre_magi_dumb_luck_lua:IsPurgable() return false end
-function modifier_ogre_magi_dumb_luck_lua:DeclareFunctions() return {MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE, MODIFIER_PROPERTY_STATS_INTELLECT_BONUS, MODIFIER_PROPERTY_MANA_BONUS, MODIFIER_PROPERTY_MANA_REGEN_CONSTANT} end
+function modifier_ogre_magi_dumb_luck_lua:DeclareFunctions() return {MODIFIER_PROPERTY_BECOME_UNIVERSAL, MODIFIER_PROPERTY_STATS_INTELLECT_BONUS, MODIFIER_PROPERTY_MANA_BONUS, MODIFIER_PROPERTY_MANA_REGEN_CONSTANT} end
 function modifier_ogre_magi_dumb_luck_lua:OnCreated()
 	if not IsServer() then return end
 	self:GetParent():UpdatePrimaryAttribute(DOTA_ATTRIBUTE_STRENGTH)
-	self:GetParent():CalculateStatBonus(true)
 end
 function modifier_ogre_magi_dumb_luck_lua:OnDestroy()
 	if not IsServer() then return end
 	self:GetParent():ResetPrimaryAttribute()
-end
-function modifier_ogre_magi_dumb_luck_lua:GetModifierOverrideAbilitySpecial(kv)
-	if kv.ability:GetAbilityName() ~= "ogre_magi_multicast_lua" then return end
-	return BoolToNum(string.find(kv.ability_special_value, "multicast_%d_times") ~= nil)
-end
-function modifier_ogre_magi_dumb_luck_lua:GetModifierOverrideAbilitySpecialValue(kv)
-	if kv.ability:GetAbilityName() ~= "ogre_magi_multicast_lua" or string.find(kv.ability_special_value, "multicast_%d_times") == nil then return end
-	local kv = kv.ability:GetLevelSpecialValueNoOverride(kv.ability_special_value, kv.ability_special_level)
-	return kv + math.floor(self:GetParent():GetStrength()/self:GetAbility():GetSpecialValueFor("str_per_chance"))
 end
 function modifier_ogre_magi_dumb_luck_lua:GetModifierManaBonus() return self:GetAbility():GetSpecialValueFor("mana_per_str") * self:GetParent():GetStrength() end
 function modifier_ogre_magi_dumb_luck_lua:GetModifierConstantManaRegen() return self:GetAbility():GetSpecialValueFor("mana_regen_per_str") * self:GetParent():GetStrength() end
 function modifier_ogre_magi_dumb_luck_lua:GetModifierBonusStats_Intellect()
 	if self.lock then return end
 	self.lock = true
-	local intellect = self:GetParent():GetIntellect()
+	local intellect = self:GetParent():GetIntellect(false)
 	self.lock = false
 	return -intellect
 end

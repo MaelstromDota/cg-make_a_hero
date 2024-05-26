@@ -2,15 +2,12 @@
 #base heroes/techies/hero.txt
 #base heroes/ogre_magi/hero.txt
 #base heroes/tinker/hero.txt
-#base heroes/phantom_assassin/hero.txt
 #base heroes/dark_willow/hero.txt
 #base heroes/slardar/hero.txt
 #base heroes/tidehunter/hero.txt
 #base heroes/meepo/hero.txt
 #base heroes/monkey_king/hero.txt
-#base heroes/legion_commander/hero.txt
 #base heroes/huskar/hero.txt
-#base heroes/lina/hero.txt
 #base heroes/faceless_void/hero.txt
 #base heroes/earthshaker/hero.txt
 #base heroes/obsidian_destroyer/hero.txt
