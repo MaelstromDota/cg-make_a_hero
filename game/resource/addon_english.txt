@@ -93,6 +93,10 @@
 		"DOTA_Tooltip_ability_item_saint_yasha_lua_bonus_agility" "+$agi"
 		"DOTA_Tooltip_ability_item_saint_yasha_lua_bonus_attack_speed" "+$attack"
 		"DOTA_Tooltip_ability_item_saint_yasha_lua_bonus_movement_speed" "%+$move_speed"
+		/// Demons's Claw
+		"DOTA_Tooltip_ability_item_recipe_demons_claw_lua" "Recipe: Demon's Claw"
+		"DOTA_Tooltip_ability_item_demons_claw_lua" "Demon's Claw"
+		"DOTA_Tooltip_ability_item_demons_claw_lua_bonus_damage" "+$damage"
 		// Items
 		"dota_ability_variable_unselected_attrib" "Non-Selected Attributes"
 		"DOTA_Tooltip_modifier_item_desolator_lua_debuff" "Desolator"
@@ -742,6 +746,23 @@
 		"DOTA_Tooltip_ability_item_third_eye_lua_Description" "<h1>Use: Consume</h1> Grants the ability to see invisible units and wards to any allied vision within %radius% range of its carrier for %duration% seconds, can be stacked up to %max_stacks% times.<br><br>Loses stack on death."
 		"DOTA_Tooltip_modifier_item_third_eye_lua" "Third Eye"
 		"DOTA_Tooltip_modifier_item_third_eye_lua_Description" "Provides True Sight"
+		/// Mask of Rage
+		"DOTA_Tooltip_ability_recipe_item_mask_of_rage_lua" "Recipe: Mask of Rage"
+		"DOTA_Tooltip_ability_item_mask_of_rage_lua" "Mask of Rage"
+		"DOTA_Tooltip_ability_item_mask_of_rage_lua_Description" "<h1>Active: Rage</h1>Gives %berserk_bonus_attack_speed% attack speed, %berserk_bonus_movement_speed% movement speed and deals %berserk_hp_leech_percent%%% damage of target's max health, but reduces your armor by %berserk_armor_reduction% and silences you.  Lasts %berserk_duration% seconds.\n\n<h1>Passive: Lifesteal</h1>Heals the attacker for a percentage of attack damage dealt."
+		"DOTA_Tooltip_ability_item_mask_of_rage_lua_Lore" "Once this mask is worn, its bearer becomes an uncontrollable aggressive force."
+		"DOTA_Tooltip_ability_item_mask_of_rage_lua_bonus_attack_speed" "+$attack"
+		"DOTA_Tooltip_ability_item_mask_of_rage_lua_bonus_damage" "+$damage"
+		"DOTA_Tooltip_ability_item_mask_of_rage_lua_lifesteal_percent" "%+$lifesteal"
+		"DOTA_Tooltip_modifier_item_mask_of_rage_active_lua" "Rage"
+		"DOTA_Tooltip_modifier_item_mask_of_rage_active_lua_Description" "Attack speed increased by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and movement speed increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT% but reduces armor by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS% and silences you."
+		/// Demon's Reaper
+		"DOTA_Tooltip_ability_recipe_item_demons_reaper_lua" "Recipe: Mask of Rage"
+		"DOTA_Tooltip_ability_item_demons_reaper_lua" "Mask of Rage"
+		"DOTA_Tooltip_ability_item_demons_reaper_lua_Description" "<h1>Passive: Feast</h1>Attacks deals %hp_leech_percent%%% damage of target's max health.\n\n<h1>Passive: Lifesteal</h1>Heals the attacker for a percentage of attack damage dealt."
+		"DOTA_Tooltip_ability_item_demons_reaper_lua_bonus_attack_speed" "+$attack"
+		"DOTA_Tooltip_ability_item_demons_reaper_lua_bonus_damage" "+$damage"
+		"DOTA_Tooltip_ability_item_demons_reaper_lua_lifesteal_percent" "%+$lifesteal"
 		// Neutral items
 		/// Satchel
 		"DOTA_Tooltip_ability_item_satchel_Description" ""
@@ -864,7 +885,7 @@
 		"DOTA_Tooltip_ability_ogre_magi_multicast_Note0" "Only targeted abilities and items have a chance to be multicast."
 		"DOTA_Tooltip_ability_ogre_magi_multicast_Note1" "Targeted abilities and items apply to additional enemies and neutrals in an AoE around Ogre. Fireblast and Unrefined Fireblast hit the same target multiple times."
 		"DOTA_Tooltip_ability_ogre_magi_dumb_luck_lua" "Dumb Luck"
-		"DOTA_Tooltip_ability_ogre_magi_dumb_luck_lua_description" "Ogre Magi's max Intelligence is 0. He receives mana and mana regeneration from Strength."
+		"DOTA_Tooltip_ability_ogre_magi_dumb_luck_lua_description" "Ogre Magi's max bonuses from Intelligence are 0. He receives mana and mana regeneration from Strength."
 		"DOTA_Tooltip_ability_ogre_magi_dumb_luck_lua_mana_per_str" "MAX MANA PER STRENGTH:"
 		"DOTA_Tooltip_ability_ogre_magi_dumb_luck_lua_mana_regen_per_str" "MANA REGENERATION PER STRENGTH:"
 		"DOTA_Tooltip_Facet_ogre_magi_learning_curve" "Learning Curve (DOES NOT WORK)"

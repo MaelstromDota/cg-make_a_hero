@@ -11,9 +11,9 @@ function modifier_ogre_magi_multicast_lua:OnAbilityFullyCast(kv)
 	if not IsServer() then return end
 	if kv.unit ~= self:GetParent() or kv.unit:PassivesDisabled() or not kv.ability:IsMulticastable() then return end
 	local max_multicast = 0
-	if RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_2_times") then max_multicast = 2
+	if RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_4_times") then max_multicast = 4
 	elseif RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_3_times") then max_multicast = 3
-	elseif RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_4_times") then max_multicast = 4
+	elseif RandomInt(0, 100) <= self:GetAbility():GetSpecialValueFor("multicast_2_times") then max_multicast = 2
 	else return end
 	local multicast = 1
 	local pos = kv.ability:GetCursorPosition()
@@ -59,7 +59,7 @@ function ogre_magi_dumb_luck_lua:GetIntrinsicModifierName() return "modifier_ogr
 modifier_ogre_magi_dumb_luck_lua = modifier_ogre_magi_dumb_luck_lua or class({})
 function modifier_ogre_magi_dumb_luck_lua:IsHidden() return true end
 function modifier_ogre_magi_dumb_luck_lua:IsPurgable() return false end
-function modifier_ogre_magi_dumb_luck_lua:DeclareFunctions() return {MODIFIER_PROPERTY_BECOME_UNIVERSAL, MODIFIER_PROPERTY_STATS_INTELLECT_BONUS, MODIFIER_PROPERTY_MANA_BONUS, MODIFIER_PROPERTY_MANA_REGEN_CONSTANT} end
+function modifier_ogre_magi_dumb_luck_lua:DeclareFunctions() return {MODIFIER_PROPERTY_MANA_BONUS, MODIFIER_PROPERTY_MANA_REGEN_CONSTANT} end
 function modifier_ogre_magi_dumb_luck_lua:OnCreated()
 	if not IsServer() then return end
 	self:GetParent():UpdatePrimaryAttribute(DOTA_ATTRIBUTE_STRENGTH)
@@ -68,12 +68,5 @@ function modifier_ogre_magi_dumb_luck_lua:OnDestroy()
 	if not IsServer() then return end
 	self:GetParent():ResetPrimaryAttribute()
 end
-function modifier_ogre_magi_dumb_luck_lua:GetModifierManaBonus() return self:GetAbility():GetSpecialValueFor("mana_per_str") * self:GetParent():GetStrength() end
-function modifier_ogre_magi_dumb_luck_lua:GetModifierConstantManaRegen() return self:GetAbility():GetSpecialValueFor("mana_regen_per_str") * self:GetParent():GetStrength() end
-function modifier_ogre_magi_dumb_luck_lua:GetModifierBonusStats_Intellect()
-	if self.lock then return end
-	self.lock = true
-	local intellect = self:GetParent():GetIntellect(false)
-	self.lock = false
-	return -intellect
-end
+function modifier_ogre_magi_dumb_luck_lua:GetModifierManaBonus() return self:GetAbility():GetSpecialValueFor("mana_per_str") * self:GetParent():GetStrength() - GetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_INTELLIGENCE_MANA) * self:GetParent():GetIntellect(false) end
+function modifier_ogre_magi_dumb_luck_lua:GetModifierConstantManaRegen() return self:GetAbility():GetSpecialValueFor("mana_regen_per_str") * self:GetParent():GetStrength() - GetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_INTELLIGENCE_MANA_REGEN) * self:GetParent():GetIntellect(false) end

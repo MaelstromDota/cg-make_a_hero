@@ -113,6 +113,8 @@ end
 modifier_slarkling_pounce_lua_debuff = modifier_slarkling_pounce_lua_debuff or class({})
 function modifier_slarkling_pounce_lua_debuff:IsPurgable() return false end
 function modifier_slarkling_pounce_lua_debuff:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
+function modifier_slarkling_pounce_lua_debuff:GetStatusEffectName() return "particles/status_fx/status_effect_frost.vpcf" end
+function modifier_slarkling_pounce_lua_debuff:StatusEffectPriority() return MODIFIER_PRIORITY_NORMAL end
 function modifier_slarkling_pounce_lua_debuff:OnCreated(kv)
 	if not IsServer() then return end
 	self.radius = kv.radius
@@ -124,7 +126,7 @@ function modifier_slarkling_pounce_lua_debuff:OnCreated(kv)
 	end)
 	local fx = ParticleManager:CreateParticle("particles/units/heroes/hero_slark/slark_pounce_ground.vpcf", PATTACH_WORLDORIGIN, self:GetCaster())
 	ParticleManager:SetParticleControlEnt(fx, 0, self:GetCaster(), PATTACH_WORLDORIGIN, "attach_hitloc", Vector(0,0,0), true)
-	ParticleManager:SetParticleControl(fx, 3, self:GetParent():GetOrigin() )
+	ParticleManager:SetParticleControl(fx, 3, self:GetParent():GetOrigin())
 	ParticleManager:SetParticleControl(fx, 4, Vector(self.radius, 0, 0))
 	self:AddParticle(fx, false, false, -1, false, false)
 	self:GetParent():EmitSound("Hero_Slark.Pounce.Leash")
@@ -141,13 +143,10 @@ function modifier_slarkling_pounce_lua_debuff:OnDestroy()
 	self:GetParent():StopSound("Hero_Slark.Pounce.Leash")
 	self:GetParent():EmitSound("Hero_Slark.Pounce.End")
 end
-function modifier_slarkling_pounce_lua_debuff:GetStatusEffectName() return "particles/status_fx/status_effect_frost.vpcf" end
-function modifier_slarkling_pounce_lua_debuff:StatusEffectPriority() return MODIFIER_PRIORITY_NORMAL end
 
 LinkLuaModifier("modifier_slarkling_essence_shift_lua", "abilities/units/slarkling", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_slarkling_essence_shift_lua_debuff", "abilities/units/slarkling", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_slarkling_essence_shift_lua_stack", "abilities/units/slarkling", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_slarkling_essence_shift_lua_stack_buff", "abilities/units/slarkling", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_slarkling_essence_shift_lua_buff", "abilities/units/slarkling", LUA_MODIFIER_MOTION_NONE)
 
 slarkling_essence_shift_lua = slarkling_essence_shift_lua or class(ability_lua_base)
 boss_slarkling_essence_shift_lua = boss_slarkling_essence_shift_lua or slarkling_essence_shift_lua
@@ -157,85 +156,53 @@ modifier_slarkling_essence_shift_lua = modifier_slarkling_essence_shift_lua or c
 function modifier_slarkling_essence_shift_lua:IsHidden() return true end
 function modifier_slarkling_essence_shift_lua:IsPurgable() return false end
 function modifier_slarkling_essence_shift_lua:DeclareFunctions() return {MODIFIER_PROPERTY_PROCATTACK_FEEDBACK} end
-function modifier_slarkling_essence_shift_lua:OnCreated()
-	if not IsServer() then return end
-	self.cache_stacks = self:GetStackCount()
-	self:StartIntervalThink(0.1)
-end
-function modifier_slarkling_essence_shift_lua:OnIntervalThink()
-	if self:GetParent():HasModifier('modifier_slarkling_essence_shift_lua_stack_buff') then
-		self:GetParent():FindModifierByName('modifier_slarkling_essence_shift_lua_stack_buff'):SetStackCount(self:GetStackCount())
-		local durations = {}
-		for _,mod in pairs(self:GetParent():FindAllModifiersByName('modifier_slarkling_essence_shift_lua_stack')) do
-			table.insert(durations,mod:GetDuration())
-		end
-		if table.max(durations) and self.cache_stacks < self:GetStackCount() then
-			self:GetParent():FindModifierByName('modifier_slarkling_essence_shift_lua_stack_buff'):SetDuration(table.max(durations), true)
-		end
-	else
-		self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), 'modifier_slarkling_essence_shift_lua_stack_buff', {})
-	end
-	self.cache_stacks = self:GetStackCount()
-end
 function modifier_slarkling_essence_shift_lua:GetModifierProcAttack_Feedback(kv)
-	if not IsServer() or self:GetParent():PassivesDisabled() or not kv.target:IsHero() or kv.target:IsIllusion() then return end
-	kv.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_slarkling_essence_shift_lua_debuff", {duration = self:GetAbility():GetSpecialValueFor("duration"), stack_duration = self:GetAbility():GetSpecialValueFor("duration")})
-	self:AddStack(duration)
+	if not IsServer() then return end
+	if kv.attacker ~= self:GetParent() or kv.attacker:PassivesDisabled() or not kv.target:IsHero() or kv.target:IsIllusion() then return end
+	kv.target:AddNewModifier(kv.attacker, self:GetAbility(), "modifier_slarkling_essence_shift_lua_debuff", {duration=self:GetAbility():GetSpecialValueFor("duration")})
+	kv.attacker:AddNewModifier(kv.attacker, self:GetAbility(), "modifier_slarkling_essence_shift_lua_buff", {duration=self:GetAbility():GetSpecialValueFor("duration")})
 	local fx = ParticleManager:CreateParticle("particles/units/heroes/hero_slark/slark_essence_shift.vpcf", PATTACH_ABSORIGIN_FOLLOW, kv.target)
-	ParticleManager:SetParticleControl(fx, 1, self:GetParent():GetOrigin() + Vector(0, 0, 64))
+	ParticleManager:SetParticleControl(fx, 1, kv.attacker:GetOrigin() + Vector(0, 0, 64))
 	ParticleManager:ReleaseParticleIndex(fx)
-end
-function modifier_slarkling_essence_shift_lua:AddStack(duration)
-	local mod = self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_slarkling_essence_shift_lua_stack", {duration = self:GetAbility():GetSpecialValueFor("duration")})
-	mod.modifier = self
-	self:IncrementStackCount()
-end
-function modifier_slarkling_essence_shift_lua:RemoveStack()
-	self:DecrementStackCount()
 end
 
 modifier_slarkling_essence_shift_lua_debuff = modifier_slarkling_essence_shift_lua_debuff or class({})
-function modifier_slarkling_essence_shift_lua_debuff:IsDebuff() return true end
 function modifier_slarkling_essence_shift_lua_debuff:IsPurgable() return false end
-function modifier_slarkling_essence_shift_lua_debuff:OnCreated(kv)
-	self.stat_loss = self:GetAbility():GetSpecialValueFor("stat_loss")
-	self.duration = kv.stack_duration
-	if not IsServer() then return end
-	self:AddStack(self.duration)
-end
-function modifier_slarkling_essence_shift_lua_debuff:OnRefresh(kv)
-	self:OnCreated(kv)
-end
 function modifier_slarkling_essence_shift_lua_debuff:DeclareFunctions() return {MODIFIER_PROPERTY_STATS_STRENGTH_BONUS, MODIFIER_PROPERTY_STATS_AGILITY_BONUS, MODIFIER_PROPERTY_STATS_INTELLECT_BONUS} end
-function modifier_slarkling_essence_shift_lua_debuff:GetModifierBonusStats_Strength() return self:GetStackCount() * -self.stat_loss end
-function modifier_slarkling_essence_shift_lua_debuff:GetModifierBonusStats_Agility() return self:GetStackCount() * -self.stat_loss end
-function modifier_slarkling_essence_shift_lua_debuff:GetModifierBonusStats_Intellect() return self:GetStackCount() * -self.stat_loss end
-function modifier_slarkling_essence_shift_lua_debuff:AddStack(duration)
-	local mod = self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_slarkling_essence_shift_lua_stack", {duration = self.duration})
-	mod.modifier = self
-	self:IncrementStackCount()
-end
-function modifier_slarkling_essence_shift_lua_debuff:RemoveStack()
-	self:DecrementStackCount()
-	if self:GetStackCount()<=0 then self:Destroy() end
-end
-
-modifier_slarkling_essence_shift_lua_stack = modifier_slarkling_essence_shift_lua_stack or class({})
-function modifier_slarkling_essence_shift_lua_stack:IsHidden() return true end
-function modifier_slarkling_essence_shift_lua_stack:IsPurgable() return false end
-function modifier_slarkling_essence_shift_lua_stack:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
-function modifier_slarkling_essence_shift_lua_stack:OnRemoved()
+function modifier_slarkling_essence_shift_lua_debuff:OnCreated()
+	self.stat_loss = self:GetAbility():GetSpecialValueFor("stat_loss")
 	if not IsServer() then return end
-	self.modifier:RemoveStack()
+	self:IncrementStackCount()
+	Timers:CreateTimer({endTime=self:GetDuration(), callback=function()
+		if not self or self:IsNull() then return end
+		self:DecrementStackCount()
+	end}, nil, self)
 end
+function modifier_slarkling_essence_shift_lua_debuff:OnRefresh()
+	self:OnCreated()
+end
+function modifier_slarkling_essence_shift_lua_debuff:GetModifierBonusStats_Strength() return -self.stat_loss * self:GetStackCount() end
+function modifier_slarkling_essence_shift_lua_debuff:GetModifierBonusStats_Agility() return -self.stat_loss * self:GetStackCount() end
+function modifier_slarkling_essence_shift_lua_debuff:GetModifierBonusStats_Intellect() return -self.stat_loss * self:GetStackCount() end
 
-modifier_slarkling_essence_shift_lua_stack_buff = modifier_slarkling_essence_shift_lua_stack_buff or class({})
-function modifier_slarkling_essence_shift_lua_stack_buff:IsHidden() return self:GetStackCount() < 1 end
-function modifier_slarkling_essence_shift_lua_stack_buff:IsPurgable() return false end
-function modifier_slarkling_essence_shift_lua_stack_buff:DeclareFunctions() return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE, MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT} end
-function modifier_slarkling_essence_shift_lua_stack_buff:GetModifierPreAttack_BonusDamage() return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("agi_gain") * 1 end
-function modifier_slarkling_essence_shift_lua_stack_buff:GetModifierPhysicalArmorBonus() return math.floor(self:GetStackCount() * self:GetAbility():GetSpecialValueFor("agi_gain") * 0.167, 2) end
-function modifier_slarkling_essence_shift_lua_stack_buff:GetModifierAttackSpeedBonus_Constant() return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("agi_gain") * 1 end
+modifier_slarkling_essence_shift_lua_buff = modifier_slarkling_essence_shift_lua_buff or class({})
+function modifier_slarkling_essence_shift_lua_buff:IsPurgable() return false end
+function modifier_slarkling_essence_shift_lua_buff:DeclareFunctions() return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE, MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT} end
+function modifier_slarkling_essence_shift_lua_buff:OnCreated()
+	self.agi_gain = self:GetAbility():GetSpecialValueFor("agi_gain")
+	if not IsServer() then return end
+	self:IncrementStackCount()
+	Timers:CreateTimer({endTime=self:GetDuration(), callback=function()
+		if not self or self:IsNull() then return end
+		self:DecrementStackCount()
+	end}, nil, self)
+end
+function modifier_slarkling_essence_shift_lua_buff:OnRefresh()
+	self:OnCreated()
+end
+function modifier_slarkling_essence_shift_lua_buff:GetModifierPreAttack_BonusDamage() return self.agi_gain * self:GetStackCount() * GetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_DAMAGE) end
+function modifier_slarkling_essence_shift_lua_buff:GetModifierPhysicalArmorBonus() return math.floor(self.agi_gain * self:GetStackCount() * GetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR), 2) end
+function modifier_slarkling_essence_shift_lua_buff:GetModifierAttackSpeedBonus_Constant() return self.agi_gain * self:GetStackCount() * GetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED) end
 
 LinkLuaModifier("modifier_slarkling_depth_shroud_lua", "abilities/units/slarkling", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_slarkling_depth_shroud_lua_thinker", "abilities/units/slarkling", LUA_MODIFIER_MOTION_NONE)

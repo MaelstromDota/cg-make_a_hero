@@ -163,8 +163,8 @@
 					{
 						"items"
 						{
-							"item_ring_of_the_void_lua"		"50"
-							"item_angels_sword_lua"			"75"
+							"item_angels_sword_lua"			"50"
+							"item_demons_claw_lua"			"75"
 							"item_angels_armor_lua"			"50"
 							"item_cursed_sange_lua"			"50"
 							"item_spellshop_sell_lua"		"100"

@@ -9,7 +9,7 @@
 		"ItemShopTags"					"damage;magic block"
 		"ItemQuality"					"component"
 		"ItemAliases"					"angels sword"
-		"ItemCost"						"1000"
+		"ItemCost"						"5000"
 		"ShouldBeSuggested"				"1"
 		"ItemPurchasable"				"0"
 		"AbilityCooldown"				"22"

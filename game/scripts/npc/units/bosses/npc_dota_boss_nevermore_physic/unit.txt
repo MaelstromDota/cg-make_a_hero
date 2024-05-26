@@ -174,7 +174,7 @@
 						{
 							"item_angels_sword_lua"			"50"
 							"item_blessed_essence_lua"		"75"
-							"item_angels_armor_lua"			"50"
+							"item_demons_claw_lua"			"50"
 							"item_saint_yasha_lua"			"50"
 							"item_spellshop_sell_lua"		"100"
 						}

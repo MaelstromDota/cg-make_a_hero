@@ -93,6 +93,8 @@
 		"item"		"item_oblivion_staff"
 		"item"		"item_pers"
  		"item"		"item_mask_of_madness"
+ 		"item"		"item_mask_of_rage_lua"
+ 		"item"		"item_demons_reaper_lua"
 		"item"		"item_hand_of_midas"
  		"item"		"item_helm_of_the_dominator_lua"
 		"item"		"item_travel_boots"
@@ -149,6 +151,7 @@
 		"item"		"item_ultimate_scepter"
 		"item"		"item_refresher"
 		"item"		"item_octarine_core"
+		"item"		"item_meteor_hammer"
 		"item"		"item_refresher_core_lua"
 		"item"		"item_sheepstick"
 		"item"		"item_gungir"
@@ -157,6 +160,8 @@
  		"item"		"item_static_amulet_lua"
 		"item"		"item_heart_of_alaron_lua"
  		"item"		"item_polar_spear_lua"
+		"item"		"item_plague_staff_lua"
+		"item"		"item_kaya_2_lua"
 	}
 	"defense"
 	{
@@ -183,7 +188,6 @@
 	"weapons"
 	{
 		"item"		"item_lesser_crit"
-		"item"		"item_meteor_hammer"
 		"item"		"item_armlet"
 		"item"		"item_basher"
 		"item"		"item_invis_sword"
@@ -198,7 +202,6 @@
 		// "item"		"item_blaze_lance_lua"
 		// "item"		"item_blaze_lance_2_lua"
 		// "item"		"item_demons_lance_lua"
-		"item"		"item_kaya_2_lua"
 		"item"		"item_nullifier"
 		"item"		"item_monkey_king_bar_lua"
 		"item"		"item_butterfly"
@@ -216,7 +219,6 @@
 		"item"		"item_disperser"
  		"item"		"item_war_axe_lua"
  		"item"		"item_piercing_blade_lua"
- 		"item"		"item_plague_staff_lua"
 	}
 	"artifacts"
 	{

@@ -1,5 +1,4 @@
 LinkLuaModifier("modifier_item_ring_of_the_void_lua", "items/boss/ring_of_the_void", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_item_ring_of_the_void_debuff_lua", "items/boss/ring_of_the_void", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_item_ring_of_the_void_debuff_stack_lua", "items/boss/ring_of_the_void", LUA_MODIFIER_MOTION_NONE)
 
 item_ring_of_the_void_lua = item_ring_of_the_void_lua or class(ability_lua_base)
@@ -24,7 +23,6 @@ function modifier_item_ring_of_the_void_lua:TriggerDebuff(unit, ability)
 			self.block_trigger[tostring(ability:entindex().."_"..unit:entindex())] = nil
 		end
 	end}, nil, self)
-	unit:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_item_ring_of_the_void_debuff_lua", {duration=self:GetAbility():GetSpecialValueFor("duration")})
 	unit:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_item_ring_of_the_void_debuff_stack_lua", {duration=self:GetAbility():GetSpecialValueFor("duration")})
 end
 function modifier_item_ring_of_the_void_lua:OnTakeDamage(kv)
@@ -38,24 +36,26 @@ function modifier_item_ring_of_the_void_lua:OnModifierAdded(kv)
 	self:TriggerDebuff(kv.unit, kv.added_buff:GetAbility())
 end
 
-modifier_item_ring_of_the_void_debuff_lua = modifier_item_ring_of_the_void_debuff_lua or class({})
-function modifier_item_ring_of_the_void_debuff_lua:IsHidden() return true end
-function modifier_item_ring_of_the_void_debuff_lua:IsPurgable() return true end
-function modifier_item_ring_of_the_void_debuff_lua:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
-
 modifier_item_ring_of_the_void_debuff_stack_lua = modifier_item_ring_of_the_void_debuff_stack_lua or class({})
 function modifier_item_ring_of_the_void_debuff_stack_lua:IsPurgable() return true end
-function modifier_item_ring_of_the_void_debuff_stack_lua:DestroyOnExpire() return false end
 function modifier_item_ring_of_the_void_debuff_stack_lua:GetStatusEffectName() return "particles/status_fx/status_effect_stickynapalm.vpcf" end
 function modifier_item_ring_of_the_void_debuff_stack_lua:DeclareFunctions() return {MODIFIER_EVENT_ON_TAKEDAMAGE} end
 function modifier_item_ring_of_the_void_debuff_stack_lua:OnCreated()
-	self.damage_pct = self:GetAbility():GetSpecialValueFor("damage_pct")
-	self.max_stacks = self:GetAbility():GetSpecialValueFor("max_stacks")
+	self:OnRefresh()
 	if not IsServer() then return end
 	self.fx = ParticleManager:CreateParticleForTeam("particles/units/heroes/hero_batrider/batrider_stickynapalm_stack.vpcf", PATTACH_OVERHEAD_FOLLOW, self:GetParent(), self:GetCaster():GetTeamNumber())
 	ParticleManager:SetParticleControl(self.fx, 1, Vector(math.floor(self:GetStackCount() / 10), self:GetStackCount() % 10, 0))
 	self:AddParticle(self.fx, false, false, -1, false, false)
-	self:StartIntervalThink(0.1)
+end
+function modifier_item_ring_of_the_void_debuff_stack_lua:OnRefresh()
+	self.max_stacks = self:GetAbility():GetSpecialValueFor("max_stacks")
+	self.damage_pct = self:GetAbility():GetSpecialValueFor("damage_pct")
+	if not IsServer() then return end
+	self:IncrementStackCount()
+	Timers:CreateTimer({endTime=self:GetDuration(), callback=function()
+		if not self or self:IsNull() then return end
+		self:DecrementStackCount()
+	end}, nil, self)
 end
 function modifier_item_ring_of_the_void_debuff_stack_lua:OnStackCountChanged(iStackCount)
 	if not IsServer() then return end
@@ -63,24 +63,10 @@ function modifier_item_ring_of_the_void_debuff_stack_lua:OnStackCountChanged(iSt
 		ParticleManager:SetParticleControl(self.fx, 1, Vector(math.floor(self:GetStackCount() / 10), self:GetStackCount() % 10, 0))
 	end
 end
-function modifier_item_ring_of_the_void_debuff_stack_lua:OnIntervalThink()
-	local debuffs = self:GetParent():FindAllModifiersByName("modifier_item_ring_of_the_void_debuff_lua")
-	if #debuffs > 0 then
-		local duration = table.max(table.map(debuffs, function(_, mod) return mod:GetRemainingTime() end))
-		if self:GetRemainingTime() ~= duration then
-			self:SetDuration(duration, true)
-		end
-		if #debuffs ~= self:GetStackCount() then
-			self:SetStackCount(math.min(#debuffs, self.max_stacks))
-		end
-	else
-		self:Destroy()
-	end
-end
 function modifier_item_ring_of_the_void_debuff_stack_lua:OnTakeDamage(kv)
 	if not IsServer() then return end
 	if kv.attacker ~= self:GetCaster() or kv.unit ~= self:GetParent() or kv.inflictor == nil or kv.inflictor == self:GetAbility() then return end
 	local fx = ParticleManager:CreateParticle("particles/units/heroes/hero_batrider/batrider_napalm_damage_debuff.vpcf", PATTACH_ABSORIGIN, kv.unit)
 	ParticleManager:ReleaseParticleIndex(fx)
-	ApplyDamage({attacker=kv.attacker, victim=kv.unit, damage=kv.unit:GetHealth()*(self.damage_pct*self:GetStackCount() / 100), damage_type=DAMAGE_TYPE_MAGICAL, damage_flags=DOTA_DAMAGE_FLAG_NONE, ability=self:GetAbility()})
+	ApplyDamage({attacker=kv.attacker, victim=kv.unit, damage=kv.unit:GetHealth()*(self.damage_pct*math.min(self.max_stacks, self:GetStackCount()) / 100), damage_type=DAMAGE_TYPE_MAGICAL, damage_flags=DOTA_DAMAGE_FLAG_NONE, ability=self:GetAbility()})
 end

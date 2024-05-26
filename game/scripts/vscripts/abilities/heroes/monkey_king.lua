@@ -211,6 +211,7 @@ function modifier_monkey_king_wukongs_command_thinker_lua:CreateMonkeys(radius, 
 	end
 end
 function modifier_monkey_king_wukongs_command_thinker_lua:RemoveMonkeys()
+	if self:GetAbility() == nil then return end
 	for _, clone in pairs(self:GetAbility():GetMonkeys(self:GetName())) do
 		clone.ring = nil
 		self:GetAbility():HideMonkey(clone)

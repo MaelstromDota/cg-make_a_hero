@@ -175,7 +175,7 @@
 							"item_angels_blood_lua"			"75"
 							"item_icarus_lua"				"50"
 							"item_dead_boots_lua"			"75"
-							"item_cursed_sange_lua"			"50"
+							"item_saint_yasha_lua"			"50"
 							"item_spellshop_sell_lua"		"100"
 						}
 						"chance"							"50"

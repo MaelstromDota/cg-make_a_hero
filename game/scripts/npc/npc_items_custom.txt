@@ -9,6 +9,7 @@
 #base items/boss/icarus.txt
 #base items/boss/saint_yasha.txt
 #base items/boss/cursed_sange.txt
+#base items/boss/demons_claw.txt
 #base items/neutral/mechanical_arm.txt
 #base items/spellshop_sell.txt
 #base items/might_treads.txt
@@ -65,6 +66,8 @@
 #base items/tome_of_stats.txt
 #base items/third_eye.txt
 #base items/helm_of_tyranth.txt
+#base items/mask_of_rage.txt
+#base items/demons_reaper.txt
 
 "DOTAAbilities"
 {

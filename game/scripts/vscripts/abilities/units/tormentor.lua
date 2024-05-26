@@ -32,7 +32,7 @@ end
 function modifier_tormentor_reflecting_shield_lua:GetModifierIncomingDamageConstant(kv)
 	if not IsServer() then return self.shield end
 	if kv.target ~= self:GetParent() then return end
-	if bit.band(kv.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION) ~= DOTA_DAMAGE_FLAG_REFLECTION and UnitFilter(kv.attacker, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD + DOTA_UNIT_TARGET_FLAG_INVULNERABLE, kv.target:GetTeamNumber()) == UF_SUCCESS then
+	if bit.band(kv.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION) ~= DOTA_DAMAGE_FLAG_REFLECTION and UnitFilter(kv.attacker, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_OTHER, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD + DOTA_UNIT_TARGET_FLAG_INVULNERABLE, kv.target:GetTeamNumber()) == UF_SUCCESS then
 		local heroes = FindUnitsInRadius(kv.target:GetTeamNumber(), kv.target:GetAbsOrigin(), nil, self:GetAbility():GetEffectiveCastRange(kv.target:GetAbsOrigin(), kv.target), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS, FIND_ANY_ORDER, false)
 		local enemies = FindUnitsInRadius(kv.target:GetTeamNumber(), kv.target:GetAbsOrigin(), nil, self:GetAbility():GetEffectiveCastRange(kv.target:GetAbsOrigin(), kv.target), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 		if not table.contains(enemies, kv.attacker) then table.insert(enemies, kv.attacker) end
