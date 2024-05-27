@@ -37,10 +37,10 @@ function modifier_obsidian_destroyer_equilibrium_lua:OnTakeDamage(kv)
 	if kv.attacker ~= self:GetParent() then return end
 	local active = kv.attacker:HasModifier("modifier_obsidian_destroyer_equilibrium_lua_buff")
 	if not active then
-		if GameRules:GetGameTime()-self.self.mana_steal_cooldown_value < self.mana_steal_cooldown then
+		if GameRules:GetGameTime()-self.mana_steal_cooldown_value < self.mana_steal_cooldown then
 			return
 		else
-			self.mana_steal_cooldown_value = self.mana_steal_cooldown
+			self.mana_steal_cooldown_value = GameRules:GetGameTime()
 		end
 	end
 	if kv.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then

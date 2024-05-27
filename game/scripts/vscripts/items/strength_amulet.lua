@@ -2,7 +2,7 @@ LinkLuaModifier("modifier_item_strength_amulet_lua", "items/strength_amulet", LU
 LinkLuaModifier("modifier_item_strength_amulet_active_lua", "items/strength_amulet", LUA_MODIFIER_MOTION_NONE)
 
 item_strength_amulet_lua = item_strength_amulet_lua or class(ability_lua_base)
-function item_strength_amulet_lua:OnPurchased()
+function item_strength_amulet_lua:Spawn()
 	if not IsServer() then return end
 	Timers:CreateTimer({endTime=FrameTime(), callback=function()
 		if self:IsNull() then return end

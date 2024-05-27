@@ -1,7 +1,7 @@
 LinkLuaModifier("modifier_item_mystic_amulet_lua", "items/mystic_amulet", LUA_MODIFIER_MOTION_NONE)
 
 item_mystic_amulet_lua = item_mystic_amulet_lua or class(ability_lua_base)
-function item_mystic_amulet_lua:OnPurchased()
+function item_mystic_amulet_lua:Spawn()
 	if not IsServer() then return end
 	Timers:CreateTimer({endTime=FrameTime(), callback=function()
 		if self:IsNull() then return end
