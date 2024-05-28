@@ -131,10 +131,6 @@
 	{
 		"AbilityTextureName"			"override/assassins_dagger"
 	}
-	"item_satchel"
-	{
-		"AbilityTextureName"			"override/satchel"
-	}
 	"item_light_robes"
 	{
 		"AbilityTextureName"			"override/light_robes"
@@ -155,10 +151,6 @@
 	{
 		"AbilityTextureName"			"override/icarus_wings"
 	}
-	"item_venom_gland"
-	{
-		"AbilityTextureName"			"override/venom_gland"
-	}
 	"item_warhammer"
 	{
 		"AbilityTextureName"			"override/warhammer"
@@ -170,5 +162,9 @@
 	"item_star_mace"
 	{
 		"AbilityTextureName"			"override/star_mace"
+	}
+	"item_blighted_spirit"
+	{
+		"AbilityTextureName"			"override/blighted_spirit"
 	}
 }

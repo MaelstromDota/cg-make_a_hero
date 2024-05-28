@@ -101,6 +101,7 @@ function modifier_invisible_lua:OnCreated(kv)
 	self:SetHasCustomTransmitterData(true)
 	self:SendBuffRefreshToClients()
 	Timers:CreateTimer({endTime = math.max(self.delay - 0.5, FrameTime()), callback = function()
+		if self:IsNull() then return end
 		local fx = ParticleManager:CreateParticle("particles/generic_hero_status/status_invisibility_start.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 		ParticleManager:ReleaseParticleIndex(fx)
 	end}, nil, self)

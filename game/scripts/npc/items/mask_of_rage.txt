@@ -25,6 +25,8 @@
 		"ItemQuality"					"artifact"
 		"ItemAliases"					"mor;mask of rage"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AbilityCooldown"				"9"
+		"AbilityManaCost"				"25"
 		"AbilityTextureName"			"item_mask_of_rage"
 		"AbilityValues"
 		{

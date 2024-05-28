@@ -757,8 +757,8 @@
 		"DOTA_Tooltip_modifier_item_mask_of_rage_active_lua" "Rage"
 		"DOTA_Tooltip_modifier_item_mask_of_rage_active_lua_Description" "Attack speed increased by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and movement speed increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT% but reduces armor by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS% and silences you."
 		/// Demon's Reaper
-		"DOTA_Tooltip_ability_recipe_item_demons_reaper_lua" "Recipe: Mask of Rage"
-		"DOTA_Tooltip_ability_item_demons_reaper_lua" "Mask of Rage"
+		"DOTA_Tooltip_ability_recipe_item_demons_reaper_lua" "Recipe: Demon's Reaper"
+		"DOTA_Tooltip_ability_item_demons_reaper_lua" "Demon's Reaper"
 		"DOTA_Tooltip_ability_item_demons_reaper_lua_Description" "<h1>Passive: Feast</h1>Attacks deals %hp_leech_percent%%% damage of target's max health.\n\n<h1>Passive: Lifesteal</h1>Heals the attacker for a percentage of attack damage dealt."
 		"DOTA_Tooltip_ability_item_demons_reaper_lua_bonus_attack_speed" "+$attack"
 		"DOTA_Tooltip_ability_item_demons_reaper_lua_bonus_damage" "+$damage"
@@ -801,6 +801,15 @@
 		"DOTA_Tooltip_ability_item_mechanical_arm_lua" "Mechanical Arm"
 		"DOTA_Tooltip_ability_item_mechanical_arm_lua_Description" "<h1>Passive: Bash</h1>Grants a %stun_chance%%% chance on hit to stun the target for %stun_duration% seconds."
 		"DOTA_Tooltip_ability_item_mechanical_arm_lua_bat" "BASE ATTACK TIME:"
+		/// Manacle's Power
+		"DOTA_Tooltip_ability_item_manacles_of_power" "Manacle's Power"
+		"DOTA_Tooltip_ability_item_manacles_of_power_Description" "<h1>Active: Catch</h1>Binds caster with enemy and most strongest drags other.<br><br>Duration: %duration% seconds.\n\n<h1>Passive: Manacle's Collector</h1>Owner gains +%bonus_strength_per_kill% strength per kill."
+		"DOTA_Tooltip_ability_item_manacles_of_power_bonus_strength" "+$str"
+		/// Barricade
+		"DOTA_Tooltip_ability_item_barricade" "Barricade"
+		"DOTA_Tooltip_ability_item_barricade_Description" "<h1>Active: Barricade</h1>Builds wall with length %length% that blocks %max_hits% ranged hits.<br><br>Duration: %duration% seconds."
+		"DOTA_Tooltip_ability_item_barricade_bonus_health" "+$health"
+		"DOTA_Tooltip_ability_item_barricade_bonus_armor" "+$armor"
 
 		// Heroes
 		/// Techies

@@ -24,3 +24,4 @@ LinkLuaModifier("modifier_item_third_eye_lua", "items/third_eye", LUA_MODIFIER_M
 
 require("lib/client")
 require("lib/abilities")
+require("main/vars")

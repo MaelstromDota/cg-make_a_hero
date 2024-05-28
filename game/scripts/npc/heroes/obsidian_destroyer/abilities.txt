@@ -15,7 +15,7 @@
 		"AbilityValues"
 		{
 			"mana_steal"				"16 24 32 40"
-			"mana_steal_cap_pct"		"8"
+			"mana_steal_cap_pct"		"15"
 			"mana_steal_active"
 			{
 				"value"					"80 115 150 185"
@@ -36,7 +36,6 @@
 				"value"					"5.5"
 				"RequiresScepter"		"1"
 			}
-			"mana_steal_cooldown"		"0.25 0.2 0.15 0.1"
 			"mana_increase_chance"
 			{
 				"value"					"0"

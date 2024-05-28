@@ -26,8 +26,6 @@ function modifier_obsidian_destroyer_equilibrium_lua:OnCreated()
 	self.mana_steal_active = self:GetAbility():GetSpecialValueFor("mana_steal_active")
 	self.slow_duration = self:GetAbility():GetSpecialValueFor("slow_duration")
 	self.mana_increase_duration = self:GetAbility():GetSpecialValueFor("mana_increase_duration")
-	self.mana_steal_cooldown = self:GetAbility():GetSpecialValueFor("mana_steal_cooldown")
-	self.mana_steal_cooldown_value = 0
 end
 function modifier_obsidian_destroyer_equilibrium_lua:OnRefresh()
 	self:OnCreated()
@@ -36,13 +34,6 @@ function modifier_obsidian_destroyer_equilibrium_lua:OnTakeDamage(kv)
 	if not IsServer() then return end
 	if kv.attacker ~= self:GetParent() then return end
 	local active = kv.attacker:HasModifier("modifier_obsidian_destroyer_equilibrium_lua_buff")
-	if not active then
-		if GameRules:GetGameTime()-self.mana_steal_cooldown_value < self.mana_steal_cooldown then
-			return
-		else
-			self.mana_steal_cooldown_value = GameRules:GetGameTime()
-		end
-	end
 	if kv.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
 		local steal = active and self.mana_steal_active or self.mana_steal
 		local mana = kv.damage * steal / 100

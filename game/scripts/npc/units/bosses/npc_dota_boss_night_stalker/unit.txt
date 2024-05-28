@@ -107,9 +107,9 @@
 				{
 					"Item"				"item_abyssal_blade"
 				}
-				"HeartOfTarrasque"
+				"Radiance"
 				{
-					"Item"				"item_heart"
+					"Item"				"item_radiance"
 				}
 			}
 			"OffensiveAbilities"

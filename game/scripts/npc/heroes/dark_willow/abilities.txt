@@ -38,7 +38,7 @@
 			"max_attacks"
 			{
 				"value"					"1"
-				"special_bonus_scepter"	"+3"
+				"special_bonus_scepter"	"+5"
 			}
 			"aura_radius"
 			{

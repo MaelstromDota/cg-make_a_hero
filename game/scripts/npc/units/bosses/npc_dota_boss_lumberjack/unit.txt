@@ -109,9 +109,9 @@
 				{
 					"Item"				"item_echo_sabre"
 				}
-				"HeartOfTarrasque"
+				"Skadi"
 				{
-					"Item"				"item_heart"
+					"Item"				"item_skadi"
 				}
 			}
 			"DefensiveAbilities"

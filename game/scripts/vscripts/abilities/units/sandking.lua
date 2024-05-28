@@ -1,39 +1,27 @@
-LinkLuaModifier("modifier_boss_sandking_burrowstrike_lua", "abilities/units/sandking", LUA_MODIFIER_MOTION_NONE)
-
 boss_sandking_burrowstrike_lua = boss_sandking_burrowstrike_lua or class(ability_lua_base)
 function boss_sandking_burrowstrike_lua:OnSpellStart()
 	local point = self:GetCursorTarget() ~= nil and self:GetCursorTarget():GetAbsOrigin() or self:GetCursorPosition()
 	local projectile_direction = (point-self:GetCaster():GetAbsOrigin())
 	projectile_direction.z = 0
 	projectile_direction = projectile_direction:Normalized()
-	ProjectileManager:CreateLinearProjectile({Source = self:GetCaster(), Ability = self, vSpawnOrigin = self:GetCaster():GetAbsOrigin(), bDeleteOnHit = false, iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY, iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE, iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, fDistance = (point-self:GetCaster():GetAbsOrigin()):Length2D(), fStartRadius = self:GetSpecialValueFor("burrow_width"), fEndRadius = self:GetSpecialValueFor("burrow_width"), vVelocity = projectile_direction * self:GetSpecialValueFor("burrow_speed")})
-	self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_boss_sandking_burrowstrike_lua", {duration = self:GetSpecialValueFor("burrow_anim_time"), pos_x = point.x, pos_y = point.y, pos_z = point.z})
+	ProjectileManager:CreateLinearProjectile({Source=self:GetCaster(), Ability=self, vSpawnOrigin=self:GetCaster():GetAbsOrigin(), bDeleteOnHit=false, iUnitTargetTeam=DOTA_UNIT_TARGET_TEAM_ENEMY, iUnitTargetFlags=DOTA_UNIT_TARGET_FLAG_NONE, iUnitTargetType=DOTA_UNIT_TARGET_BASIC+DOTA_UNIT_TARGET_HERO, fDistance=(point-self:GetCaster():GetAbsOrigin()):Length2D(), fStartRadius=self:GetSpecialValueFor("burrow_width"), fEndRadius=self:GetSpecialValueFor("burrow_width"), vVelocity=projectile_direction*self:GetSpecialValueFor("burrow_speed")})
+	self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_stunned", {duration=self:GetSpecialValueFor("burrow_anim_time")})
+	Timers:CreateTimer({endTime=self:GetSpecialValueFor("burrow_anim_time")/2, callback=function()
+		if self:IsNull() then return end
+		FindClearSpaceForUnit(self:GetCaster(), point, true)
+	end}, nil, self)
 	local fx = ParticleManager:CreateParticle("particles/units/heroes/hero_sandking/sandking_burrowstrike.vpcf", PATTACH_WORLDORIGIN, self:GetCaster())
 	ParticleManager:SetParticleControl(fx, 0, self:GetCaster():GetAbsOrigin())
 	ParticleManager:SetParticleControl(fx, 1, point)
 	ParticleManager:ReleaseParticleIndex(fx)
 	self:GetCaster():EmitSound("Ability.SandKing_BurrowStrike")
 end
-
 function boss_sandking_burrowstrike_lua:OnProjectileHit(target, location)
 	if not target then return end
 	if target:TriggerSpellAbsorb(self) then return end
 	target:AddNewModifier(self:GetCaster(), self, "modifier_stunned", {duration = self:GetSpecialValueFor("burrow_duration")})
 	target:Knockback(self:GetCaster(), self, 0.52, {stun=true, height=350})
 	ApplyDamage({victim=target, attacker=self:GetCaster(), damage=self:GetAbilityDamage(), damage_type=self:GetAbilityDamageType(), ability=self})
-end
-
-modifier_boss_sandking_burrowstrike_lua = modifier_boss_sandking_burrowstrike_lua or class({})
-function modifier_boss_sandking_burrowstrike_lua:IsHidden() return true end
-function modifier_boss_sandking_burrowstrike_lua:IsPurgable() return false end
-function modifier_boss_sandking_burrowstrike_lua:CheckState() return {[MODIFIER_STATE_STUNNED] = true} end
-function modifier_boss_sandking_burrowstrike_lua:OnCreated(kv)
-	if not IsServer() then return end
-	self.point = Vector(kv.pos_x, kv.pos_y, kv.pos_z)
-	self:StartIntervalThink(self:GetDuration()/2)
-end
-function modifier_boss_sandking_burrowstrike_lua:OnIntervalThink()
-	FindClearSpaceForUnit(self:GetParent(), self.point, true)
 end
 
 LinkLuaModifier("modifier_boss_sandking_sand_storm_lua", "abilities/units/sandking", LUA_MODIFIER_MOTION_NONE)
@@ -113,9 +101,9 @@ function modifier_boss_sandking_caustic_finale_lua:GetModifierProcAttack_Feedbac
 	if self:GetParent():PassivesDisabled() or UnitFilter(kv.target, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, self:GetParent():GetTeamNumber()) ~= UF_SUCCESS then return end
 	kv.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_boss_sandking_caustic_finale_lua_debuff", {duration=self:GetAbility():GetSpecialValueFor("caustic_finale_delay")})
 end
+
 modifier_boss_sandking_caustic_finale_lua_debuff = modifier_boss_sandking_caustic_finale_lua_debuff or class({})
 function modifier_boss_sandking_caustic_finale_lua_debuff:IsPurgable() return true end
-function modifier_boss_sandking_caustic_finale_lua_debuff:DestroyOnExpire() return false end
 function modifier_boss_sandking_caustic_finale_lua_debuff:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
 function modifier_boss_sandking_caustic_finale_lua_debuff:GetEffectName() return "particles/units/heroes/hero_sandking/sandking_caustic_finale_debuff.vpcf" end
 function modifier_boss_sandking_caustic_finale_lua_debuff:GetEffectAttachType() return PATTACH_ABSORIGIN_FOLLOW end
@@ -124,21 +112,15 @@ function modifier_boss_sandking_caustic_finale_lua_debuff:OnCreated()
 	self.damage = self:GetAbility():GetSpecialValueFor("caustic_finale_damage_base")
 	self.damage_pct = self:GetAbility():GetSpecialValueFor("caustic_finale_damage_pct")
 	self.stun_duration = self:GetAbility():GetSpecialValueFor("caustic_finale_stun_duration")
-	if not IsServer() then return end
-    self:StartIntervalThink(self:GetDuration())
 end
-function modifier_boss_sandking_caustic_finale_lua_debuff:OnIntervalThink()
-	self:GetParent():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_stunned", {duration = self.stun_duration})
+function modifier_boss_sandking_caustic_finale_lua_debuff:OnDestroy()
+	self:GetParent():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_stunned", {duration=self.stun_duration})
 	for _,enemy in pairs(FindUnitsInRadius(self:GetCaster():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)) do
-		if not enemy:HasModifier(self:GetName()) then
-            enemy:AddNewModifier(self:GetCaster(), self:GetAbility(), self:GetName(), {duration = self:GetDuration()})
-        end
 		ApplyDamage({attacker = self:GetCaster(), victim = enemy, damage = self.damage + (self:GetParent():GetMaxHealth() * self.damage_pct / 100), damage_type = self:GetAbility():GetAbilityDamageType(), ability = self:GetAbility()})
 	end
 	local fx = ParticleManager:CreateParticle("particles/units/heroes/hero_sandking/sandking_caustic_finale_explode.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 	ParticleManager:ReleaseParticleIndex(fx)
 	self:GetParent():EmitSound("Ability.SandKing_CausticFinale")
-	self:Destroy()
 end
 
 LinkLuaModifier("modifier_boss_sandking_epicenter_lua", "abilities/units/sandking", LUA_MODIFIER_MOTION_NONE)

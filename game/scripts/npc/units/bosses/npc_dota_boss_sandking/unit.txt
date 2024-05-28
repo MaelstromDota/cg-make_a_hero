@@ -95,9 +95,9 @@
 				{
 					"Item"				"item_kaya_and_sange"
 				}
-				"EternalShroud"
+				"Pipe"
 				{
-					"Item"				"item_eternal_shroud"
+					"Item"				"item_pipe"
 				}
 				"AssaultCuirass"
 				{
@@ -107,9 +107,9 @@
 				{
 					"Item"				"item_shivas_guard"
 				}
-				"HeartOfTarrasque"
+				"Radiance"
 				{
-					"Item"				"item_heart"
+					"Item"				"item_radiance"
 				}
 			}
 			"OffensiveAbilities"

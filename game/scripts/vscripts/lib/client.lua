@@ -609,6 +609,9 @@ if IsClient() then
 		return self:GetCaster():GetCursorPosition()
 	end
 end
+function DOTABaseAbility:GetLastCursorTarget()
+	return self:GetCaster():GetLastCursorCastTarget()
+end
 
 -- items
 local DOTABaseItem = IsServer() and CDOTA_Item or C_DOTA_Item
@@ -677,6 +680,9 @@ if IsClient() then
 	function DOTABaseNPC:GetCursorPosition()
 		return self._cast_position or Vector(0, 0, 0)
 	end
+end
+function DOTABaseNPC:GetLastCursorCastTarget()
+	return self._last_cast_target ~= -1 and EntIndexToHScript(self._last_cast_target) or nil
 end
 if not inited then
 	DOTABaseNPC.IsBoss = function(self)

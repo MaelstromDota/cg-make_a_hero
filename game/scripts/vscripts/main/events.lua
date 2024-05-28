@@ -6,11 +6,11 @@ function CustomHeroArenaEvents:Init()
 		{"npc_spawned", "OnNPCSpawned"},
 		{"entity_killed", "OnEntityKilled"},
 		{"entity_hurt", "OnEntityHurt"},
-		{"dota_player_used_ability", "OnPlayerUsedAbility"},
-		{"dota_non_player_used_ability", "OnNonPlayerUsedAbility"},
 		{"player_chat", "OnPlayerChat"},
 		{"dota_rune_activated_server", "OnRuneActivated"},
 		{"dota_ability_channel_finished", "OnAbilityChannelFinished"},
+		{"dota_player_used_ability", "OnAbilityUsed"},
+		{"dota_non_player_used_ability", "OnAbilityUsed"},
 	}
 	local events_manager = {
 		{"spellshop_spell_buy", "OnSpellBuy", CustomHeroArenaSpellShop},
@@ -101,6 +101,11 @@ function CustomHeroArenaEvents:OnNPCSpawned(event)
 					meepo:RespawnHero(false, false)
 				end
 			end
+		end
+	end
+	if IsInToolsMode() then
+		if npc:IsHero() then
+			npc:AddNewModifier(npc, nil, "modifier_global_override_lua", {})
 		end
 	end
 	if IsValidEntity(playerOwnerEntity) and playerOwnerEntity ~= nil and npc ~= playerOwnerEntity and npc:GetUnitName() == playerOwnerEntity:GetUnitName() then
@@ -211,34 +216,6 @@ function CustomHeroArenaEvents:OnEntityHurt(event)
 	end
 end
 
-function CustomHeroArenaEvents:OnAbilityUsed(ability)
-	local caster = ability:GetCaster()
-	local target = ability:GetCursorTarget() or caster:GetCursorCastTarget()
-	local point = ability:GetCursorPosition() or caster:GetCursorPosition()
-	if target ~= nil and target:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not target:IsBoss() and target:AI() ~= nil then
-		target:AI():OnAbilityCast(caster, ability)
-	end
-end
-
-function CustomHeroArenaEvents:OnPlayerUsedAbility(event)
-	if not event["caster_entindex"] then return end
-	local playerID = event["PlayerID"]
-	local npc = EntIndexToHScript(event["caster_entindex"])
-	local abilityname = event["abilityname"]
-	local ability = npc:FindAbilityByName(abilityname)
-	if ability == nil then return end
-	self:OnAbilityUsed(ability)
-end
-
-function CustomHeroArenaEvents:OnNonPlayerUsedAbility(event)
-	if not event["caster_entindex"] then return end
-	local npc = EntIndexToHScript(event["caster_entindex"])
-	local abilityname = event["abilityname"]
-	local ability = npc:FindAbilityByName(abilityname)
-	if ability == nil then return end
-	self:OnAbilityUsed(ability)
-end
-
 function CustomHeroArenaEvents:OnPlayerChat(event)
 	local playerID = event["playerid"]
 	local teamonly = event["teamonly"]
@@ -288,6 +265,7 @@ function CustomHeroArenaEvents:OnAbilityChannelFinished(event)
 	local interrupted = event["interrupted"] == 1
 	local caster = event["caster_entindex"] ~= nil and EntIndexToHScript(event["caster_entindex"]) or nil
 	if caster == nil or abilityname == nil then return end
+	local ability = caster:FindAbilityByName(abilityname)
 	local target = caster:GetCursorCastTarget()
 	if not interrupted then
 		if abilityname == "ability_pluck_famango" then
@@ -295,6 +273,21 @@ function CustomHeroArenaEvents:OnAbilityChannelFinished(event)
 		elseif abilityname == "ability_lamp_use" then
 			caster:TriggerAbilitiesCustomCallback("OnWatcherCaptured", target, target ~= nil and target:GetTeamNumber() ~= DOTA_TEAM_NEUTRALS)
 		end
+	end
+end
+
+function CustomHeroArenaEvents:OnAbilityUsed(event)
+	local playerID = event["PlayerID"]
+	local abilityname = event["abilityname"]
+	local caster = event["caster_entindex"] ~= nil and EntIndexToHScript(event["caster_entindex"]) or nil
+	if caster == nil or abilityname == nil then return end
+	local ability = caster:FindAbilityByName(abilityname) or caster:GetItemsByName({abilityname}, true)[1]
+	if not ability then return end
+	local target = caster:GetCursorCastTarget()
+	local point = ability:GetCursorPosition() or caster:GetCursorPosition()
+	caster._last_cast_target = target ~= nil and target:entindex() or -1
+	if IsValidEntity(target) and target:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not target:IsBoss() and target:AI() ~= nil then
+		target:AI():OnAbilityCast(caster, ability)
 	end
 end
 

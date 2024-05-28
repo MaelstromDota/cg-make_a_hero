@@ -22,7 +22,7 @@
 		"Ability7"					""
 		"Ability8"					""
 		"ArmorPhysical"				"400"
-		"MagicalResistance"			"85"
+		"MagicalResistance"			"60"
 		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
 		"BountyXP"					"0"
 		"BountyGoldMin"				"0"
@@ -58,13 +58,13 @@
 				{
 					"Item"				"item_heart"
 				}
-				"EternalShroud"
+				"Pipe"
 				{
-					"Item"				"item_eternal_shroud"
+					"Item"				"item_pipe"
 				}
-				"LinkenSphere"
+				"Daedalus"
 				{
-					"Item"				"item_sphere"
+					"Item"				"item_greater_crit"
 				}
 				"Butterfly"
 				{
