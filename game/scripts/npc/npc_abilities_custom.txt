@@ -110,4 +110,72 @@
 			"initial_cooldown"			"30"
 		}
 	}
+	"rattletrap_armor_power"
+	{
+		"AbilityValues"
+		{
+			"damage_per_armor_limit"	"180"
+		}
+	}
+	"death_prophet_witchcraft"
+	{
+		"AbilityValues"
+		{
+			"movement_speed_pct_per_level_limit" "20"
+			"cooldown_reduction_pct_per_level_limit" "60"
+		}
+	}
+	"drow_ranger_trueshot"
+	{
+		"AbilityValues"
+		{
+			"trueshot_agi_bonus_self_limit" "50"
+			"trueshot_agi_bonus_allies_limit" "25"
+		}
+	}
+	"leshrac_defilement"
+	{
+		"AbilityValues"
+		{
+			"aoe_per_int_limit"			"150"
+		}
+	}
+	"lycan_apex_predator"
+	{
+		"AbilityValues"
+		{
+			"damage_amp_per_level_limit" "75"
+		}
+	}
+	"phantom_assassin_immaterial"
+	{
+		"AbilityValues"
+		{
+			"evasion_per_level_limit"	"50"
+		}
+	}
+	"razor_unstable_current"
+	{
+		"AbilityValues"
+		{
+			"movespeed_per_level_pct_limit" "40"
+		}
+	}
+	"razor_dynamo"
+	{
+		"AbilityValues"
+		{
+			"spell_amp_mult_limit"		"80"
+		}
+	}
+	"rubick_might_and_magus"
+	{
+		"AbilityValues"
+		{
+			"bonus_damage_pct_limit"	"5000"
+			"bonus_damage_pct_tooltip_limit" "50"
+			"magic_resist_pct_limit"	"2500"
+			"magic_resist_pct_tooltip_limit" "25"
+		}
+	}
 }

@@ -588,6 +588,23 @@ function DOTABaseAbility:IsInnateAbility()
 	local ability_kv = GetAbilityKeyValuesByName(self:GetAbilityName())
 	return tostring(ability_kv["Innate"]) == "1"
 end
+function DOTABaseAbility:IsFacetAbility()
+	local caster = self:GetCaster()
+	if not caster:IsHero() then return false end
+	local unit_kv = GetUnitKeyValuesByName(caster:GetUnitName())
+	if unit_kv["Facets"] == nil then return false end
+	local ability_name = self:GetAbilityName()
+	for facet_name, facet in pairs(unit_kv["Facets"]) do
+		if facet["Abilities"] ~= nil then
+			for _, ability_info in pairs(facet["Abilities"]) do
+				if ability_info["AbilityName"] == ability_name then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
 function OrderToBehavior(order)
 	if order == DOTA_UNIT_ORDER_CAST_NO_TARGET then return DOTA_ABILITY_BEHAVIOR_NO_TARGET
 	elseif order == DOTA_UNIT_ORDER_CAST_TARGET then return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
@@ -682,7 +699,7 @@ if IsClient() then
 	end
 end
 function DOTABaseNPC:GetLastCursorCastTarget()
-	return self._last_cast_target ~= -1 and EntIndexToHScript(self._last_cast_target) or nil
+	return self._last_cast_target ~= -1 and self._last_cast_target ~= nil and EntIndexToHScript(self._last_cast_target) or nil
 end
 if not inited then
 	DOTABaseNPC.IsBoss = function(self)
