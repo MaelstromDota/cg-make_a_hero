@@ -28,12 +28,8 @@
 		"AbilityTextureName"			"item_damned_swords"
 		"AbilityValues"
 		{
-			"bonus_agility"				"56"
-			"bonus_attack_speed"		"56"
-			"bonus_movement_speed"		"22"
-			"bonus_strength"			"56"
-			"status_resistance"			"20"
-			"hp_regen_amp"				"50"
+			"bonus_agility"				"70"
+			"bonus_strength"			"70"
 		}
 	}
 }

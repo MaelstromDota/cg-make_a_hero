@@ -35,7 +35,6 @@
 			"bonus_health_regen"		"13"
 			"bonus_mana_regen"			"10"
 			"bonus_cooldown"			"25"
-			"cast_range_bonus"			"225"
 			"bonus_health"				"675"
 			"bonus_mana"				"725"
 			"bonus_damage"				"50"

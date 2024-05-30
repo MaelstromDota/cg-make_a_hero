@@ -15,9 +15,7 @@
 		"AbilityTextureName"			"item_cursed_sange"
 		"AbilityValues"
 		{
-			"bonus_strength"			"56"
-			"status_resistance"			"20"
-			"hp_regen_amp"				"50"
+			"bonus_strength"			"65"
 		}
 	}
 }

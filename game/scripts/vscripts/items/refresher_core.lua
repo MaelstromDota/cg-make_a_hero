@@ -42,7 +42,7 @@ function modifier_item_refresher_core_lua:GetModifierPreAttack_BonusDamage() ret
 modifier_item_refresher_core_cooldown_lua = modifier_item_refresher_core_cooldown_lua or class({})
 function modifier_item_refresher_core_cooldown_lua:IsHidden() return true end
 function modifier_item_refresher_core_cooldown_lua:IsPurgable() return false end
-function modifier_item_refresher_core_cooldown_lua:DeclareFunctions() return {MODIFIER_PROPERTY_CAST_RANGE_BONUS_STACKING, MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE, MODIFIER_EVENT_ON_ABILITY_FULLY_CAST} end
+function modifier_item_refresher_core_cooldown_lua:DeclareFunctions() return {MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE, MODIFIER_EVENT_ON_ABILITY_FULLY_CAST} end
 function modifier_item_refresher_core_cooldown_lua:OnAbilityFullyCast(kv)
 	if not IsServer() then return end
 	if kv.unit ~= self:GetParent() or not kv.ability:IsMulticastable() then return end
@@ -50,7 +50,6 @@ function modifier_item_refresher_core_cooldown_lua:OnAbilityFullyCast(kv)
 	kv.ability:EndCooldown()
 	kv.unit:AddNewModifier(kv.unit, self:GetAbility(), "modifier_item_refresher_core_recharge_lua", {duration=self:GetAbility():GetSpecialValueFor("instant_recharge_duration")})
 end
-function modifier_item_refresher_core_cooldown_lua:GetModifierCastRangeBonusStacking() return self:GetAbility():GetSpecialValueFor("cast_range_bonus") end
 function modifier_item_refresher_core_cooldown_lua:GetModifierPercentageCooldown() if not self:GetParent():HasModifier("modifier_item_octarine_core") then return self:GetAbility():GetSpecialValueFor("bonus_cooldown") end end
 
 modifier_item_refresher_core_recharge_lua = modifier_item_refresher_core_recharge_lua or class({})

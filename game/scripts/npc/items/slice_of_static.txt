@@ -11,7 +11,7 @@
 		"AbilityTextureName"			"item_recipe"
 		"ItemRequirements"
 		{
-			"01"						"item_null_talisman_lua;item_mystic_staff;item_chainmail"
+			"01"						"item_null_talisman;item_mystic_staff;item_chainmail"
 		}
 	}
 	"item_slice_of_static_lua"

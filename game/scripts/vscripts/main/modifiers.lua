@@ -96,7 +96,7 @@ function modifier_global_override_lua:GetModifierOverrideAbilitySpecialValue(kv)
 		}
 		local abilityname_stackers = {
 			["razor_dynamo"] = {
-				["spell_amp_mult"] = function() return caster:GetAverageTrueAttackDamage(nil) end,
+				["spell_amp_mult"] = function() return caster:GetBonusAttackDamage() end,
 			},
 		}
 		local divisors = {

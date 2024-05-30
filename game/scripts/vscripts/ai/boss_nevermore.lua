@@ -51,7 +51,7 @@ function AiThink()
 end
 function CanCastCombo()
 	local requiem = thisEntity:GetAbilityByIndex(5)
-	local ethereal = table.values(thisEntity:GetItemsByName({"item_kaya_2_lua"}))[1]
+	local ethereal = table.values(thisEntity:GetItemsByName({"item_ethereal_blade"}))[1]
 	local blink = table.values(thisEntity:GetItemsByName({"item_blink", "item_arcane_blink", "item_swift_blink", "item_overwhelming_blink"}))[1]
 	local eul = table.values(thisEntity:GetItemsByName({"item_cyclone", "item_wind_waker"}))[1]
 	return requiem:IsCooldownReady() and ethereal:IsCooldownReady() and eul:IsCooldownReady()
@@ -61,7 +61,7 @@ function CastCombo(target, repeating)
 	local has_linken = target:HasSpellAbsorb()
 	local razes = {thisEntity:GetAbilityByIndex(0), thisEntity:GetAbilityByIndex(1), thisEntity:GetAbilityByIndex(2)}
 	local requiem = thisEntity:GetAbilityByIndex(5)
-	local ethereal = table.values(thisEntity:GetItemsByName({"item_kaya_2_lua"}))[1]
+	local ethereal = table.values(thisEntity:GetItemsByName({"item_ethereal_blade"}))[1]
 	local blink = table.values(thisEntity:GetItemsByName({"item_blink", "item_arcane_blink", "item_swift_blink", "item_overwhelming_blink"}))[1]
 	local bkb = table.values(thisEntity:GetItemsByName({"item_black_king_bar"}))[1]
 	local refresher = table.values(thisEntity:GetItemsByName({"item_refresher"}))[1]

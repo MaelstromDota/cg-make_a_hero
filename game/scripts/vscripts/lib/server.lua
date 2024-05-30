@@ -545,6 +545,9 @@ end
 function CDOTA_BaseNPC:AI()
 	return self.hAI
 end
+function CDOTA_BaseNPC:GetBonusAttackDamage()
+	return self:GetAverageTrueAttackDamage(nil) - self:GetAttackDamage()
+end
 function CDOTA_BaseNPC:TriggerAbilitiesCustomCallback(name, ...)
 	for i=0, DOTA_MAX_ABILITIES-1 do
 		local ability = self:GetAbilityByIndex(i)

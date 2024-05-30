@@ -105,9 +105,9 @@
 				{
 					"Item"				"item_black_king_bar"
 				}
-				"Kaya2Lvl"
+				"EtherealBlade"
 				{
-					"Item"				"item_kaya_2_lua"
+					"Item"				"item_ethereal_blade"
 				}
 				"RefresherOrb"
 				{

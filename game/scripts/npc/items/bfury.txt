@@ -36,7 +36,6 @@
 			"bonus_mana_regen"			"2.25"
 			"cleave_damage_percent"		"20"
 			"quelling_bonus"			"9"
-			"quelling_bonus_ranged"		"4"
 			"cleave_starting_width"		"120"
 			"cleave_ending_width"		"300"
 			"cleave_distance"			"450"
@@ -86,7 +85,6 @@
 			"bonus_mana_regen"			"2.75"
 			"cleave_damage_percent"		"50"
 			"quelling_bonus"			"10"
-			"quelling_bonus_ranged"		"5"
 			"cleave_starting_width"		"150"
 			"cleave_ending_width"		"360"
 			"cleave_distance"			"650"
@@ -104,7 +102,7 @@
 		"AbilityTextureName"			"item_recipe"
 		"ItemRequirements"
 		{
-			"01"						"item_bfury_lua;item_sange;item_yasha"
+			"01"						"item_bfury_lua;item_ultimate_orb"
 		}
 	}
 	"item_bfury_2_lua"
@@ -132,16 +130,10 @@
 			"bonus_mana_regen"			"8"
 			"cleave_damage_percent"		"80"
 			"quelling_bonus"			"30"
-			"quelling_bonus_ranged"		"12"
 			"cleave_starting_width"		"150"
 			"cleave_ending_width"		"360"
 			"cleave_distance"			"650"
-			"bonus_agility"				"20"
-			"bonus_attack_speed"		"20"
-			"movement_speed_percent_bonus"	"16"
-			"bonus_strength"			"20"
-			"status_resistance"			"15"
-			"hp_regen_amp"				"25"
+			"bonus_all_stats"			"20"
 			"chop_radius"				"200"
 		}
 	}

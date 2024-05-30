@@ -15,9 +15,7 @@
 		"AbilityTextureName"			"item_saint_yasha"
 		"AbilityValues"
 		{
-			"bonus_agility"				"56"
-			"bonus_attack_speed"		"56"
-			"bonus_movement_speed"		"22"
+			"bonus_agility"				"65"
 		}
 	}
 }

@@ -11,7 +11,7 @@
 		"AbilityTextureName"			"item_recipe"
 		"ItemRequirements"
 		{
-			"01"						"item_veil_of_discord;item_null_talisman_lua;item_energy_booster"
+			"01"						"item_veil_of_discord;item_null_talisman;item_energy_booster"
 		}
 	}
 	"item_plague_staff_lua"

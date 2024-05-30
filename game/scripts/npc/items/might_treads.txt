@@ -11,7 +11,7 @@
 		"AbilityTextureName"			"item_recipe"
 		"ItemRequirements"
 		{
-			"01"						"item_power_treads_lua;item_bracer_lua;item_wraith_band_lua;item_null_talisman_lua"
+			"01"						"item_power_treads_lua;item_bracer;item_wraith_band;item_null_talisman"
 		}
 	}
 	"item_might_treads_lua"

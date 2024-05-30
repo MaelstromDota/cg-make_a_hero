@@ -13,9 +13,6 @@
 #base items/neutral/mechanical_arm.txt
 #base items/spellshop_sell.txt
 #base items/might_treads.txt
-#base items/bracer.txt
-#base items/wraith_band.txt
-#base items/null_talisman.txt
 #base items/falcon_boots.txt
 #base items/leaf_buckler.txt
 #base items/heart_of_alaron.txt
@@ -24,10 +21,6 @@
 #base items/piercing_blade.txt
 #base items/aeon_greaves.txt
 #base items/monkey_king_bar.txt
-#base items/sange.txt
-#base items/yasha.txt
-#base items/kaya.txt
-#base items/sange_yasha_kaya.txt
 #base items/slice_of_static.txt
 #base items/static_amulet.txt
 #base items/charons_scepter.txt
@@ -35,8 +28,6 @@
 #base items/polar_spear.txt
 #base items/amulet_of_chronos.txt
 #base items/void_blink.txt
-#base items/aether_eye.txt
-#base items/eye_of_angel.txt
 #base items/helm_of_the_dominator.txt
 #base items/helm_of_the_overlord.txt
 #base items/shiva_armageddon.txt
@@ -68,17 +59,29 @@
 #base items/helm_of_tyranth.txt
 #base items/mask_of_rage.txt
 #base items/demons_reaper.txt
+#base items/spiked_armor.txt
 
 "DOTAAbilities"
 {
-	"item_bfury"
+	"item_bracer"
 	{
-		"MaxUpgradeLevel"				"3"
-		"ItemBaseLevel"					"1"
+		"ItemLevelByGameTime"			"10"
+	}
+	"item_wraith_band"
+	{
+		"ItemLevelByGameTime"			"10"
+	}
+	"item_null_talisman"
+	{
+		"ItemLevelByGameTime"			"10"
 	}
 	"item_refresher"
 	{
 		"AbilitySharedCooldown"			"refresher"
+	}
+	"item_blade_mail"
+	{
+		"AbilitySharedCooldown"			"blade_mail"
 	}
 	"item_gem"
 	{
