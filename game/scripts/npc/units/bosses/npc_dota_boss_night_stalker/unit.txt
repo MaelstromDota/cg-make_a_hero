@@ -20,7 +20,7 @@
 		"Ability2"					"boss_night_stalker_crippling_fear_lua"
 		"Ability3"					"boss_night_stalker_hunter_in_the_night_lua"
 		"Ability4"					"boss_ability"
-		"Ability5"					"generic_hidden"
+		"Ability5"					"idle_stone"
 		"Ability6"					"boss_night_stalker_darkness_lua"
 		"ArmorPhysical"				"68"
 		"MagicalResistance"			"60"

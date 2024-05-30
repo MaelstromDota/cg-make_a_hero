@@ -59,7 +59,7 @@ function modifier_item_angels_desolator_lua:GetModifierPreAttack_BonusDamage() r
 LinkLuaModifier("modifier_item_burning_blades_lua", "items/desolator", LUA_MODIFIER_MOTION_NONE)
 
 item_burning_blades_lua = item_burning_blades_lua or class(item_desolator_lua)
-function item_burning_blades_lua:GetIntrinsicModifierName() return "modifier_item_burning_blades_lua" end
+function item_burning_blades_lua:GetIntrinsicModifiers() return {"modifier_item_burning_blades_lua"} end
 
 modifier_item_burning_blades_lua = modifier_item_burning_blades_lua or class(modifier_item_angels_desolator_lua)
 function modifier_item_burning_blades_lua:DeclareFunctions() return {MODIFIER_PROPERTY_STATS_STRENGTH_BONUS, MODIFIER_PROPERTY_STATS_AGILITY_BONUS, MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE, MODIFIER_EVENT_ON_ATTACK_LANDED, MODIFIER_EVENT_ON_HERO_KILLED, MODIFIER_PROPERTY_PROJECTILE_NAME, MODIFIER_PROPERTY_HEALTH_BONUS, MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT} end

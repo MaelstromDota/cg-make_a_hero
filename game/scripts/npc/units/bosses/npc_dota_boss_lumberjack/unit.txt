@@ -20,7 +20,7 @@
 		"Ability2"					"boss_lumberjack_vampiric_aura_lua"
 		"Ability3"					"boss_lumberjack_mortal_strike_lua"
 		"Ability4"					"boss_ability"
-		"Ability5"					"generic_hidden"
+		"Ability5"					"idle_stone"
 		"Ability6"					"boss_lumberjack_reincarnation_lua"
 		"ArmorPhysical"				"164"
 		"MagicalResistance"			"90"

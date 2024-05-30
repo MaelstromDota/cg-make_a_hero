@@ -22,6 +22,7 @@
 		"Ability4"					"boss_slarkling_depth_shroud_lua"
 		"Ability5"					"boss_ability"
 		"Ability6"					"boss_slarkling_shadow_dance_lua"
+		"Ability7"					"idle_stone"
 		"ArmorPhysical"				"74"
 		"MagicalResistance"			"60"
 		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"

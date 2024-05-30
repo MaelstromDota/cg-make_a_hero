@@ -66,14 +66,26 @@
 	"item_bracer"
 	{
 		"ItemLevelByGameTime"			"10"
+		"AbilityValues"
+		{
+			"clock_time"				"10"
+		}
 	}
 	"item_wraith_band"
 	{
 		"ItemLevelByGameTime"			"10"
+		"AbilityValues"
+		{
+			"clock_time"				"10"
+		}
 	}
 	"item_null_talisman"
 	{
 		"ItemLevelByGameTime"			"10"
+		"AbilityValues"
+		{
+			"clock_time"				"10"
+		}
 	}
 	"item_refresher"
 	{

@@ -20,7 +20,7 @@
 		"Ability2"					"boss_bounty_huntling_jinada_lua"
 		"Ability3"					"boss_bounty_huntling_wind_walk_lua"
 		"Ability4"					"boss_ability"
-		"Ability5"					"generic_hidden"
+		"Ability5"					"idle_stone"
 		"Ability6"					"boss_bounty_huntling_track_lua"
 		"ArmorPhysical"				"140"
 		"MagicalResistance"			"75"

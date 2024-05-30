@@ -23,6 +23,7 @@
 		"Ability5"					"boss_nevermore_magic_dark_lord_lua"
 		"Ability6"					"boss_nevermore_magic_requiem_lua"
 		"Ability7"					"boss_ability"
+		"Ability8"					"idle_stone"
 		"ArmorPhysical"				"74"
 		"MagicalResistance"			"70"
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"

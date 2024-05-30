@@ -5,7 +5,7 @@ function Spawn(entityKeyValues)
 end
 function AiThink()
 	if not thisEntity:IsAlive() or thisEntity:IsControllableByAnyPlayer() then return -1 end
-	if GameRules:IsGamePaused() or thisEntity:IsChanneling() then return AI_UPDATE end
+	if GameRules:IsGamePaused() or thisEntity:IsChanneling() or thisEntity:HasModifier("modifier_idle_stone_active") then return AI_UPDATE end
 	if not thisEntity.bInitialized then
 		thisEntity.vInitialSpawnPos = thisEntity:GetAbsOrigin()
 		thisEntity.iAggro = 0

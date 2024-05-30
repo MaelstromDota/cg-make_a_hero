@@ -20,7 +20,7 @@
 		"Ability2"					"boss_doomling_scorched_earth_lua"
 		"Ability3"					"boss_doomling_infernal_blade_lua"
 		"Ability4"					"boss_ability"
-		"Ability5"					"generic_hidden"
+		"Ability5"					"idle_stone"
 		"Ability6"					"boss_doomling_doom_lua"
 		"ArmorPhysical"				"120"
 		"MagicalResistance"			"75"

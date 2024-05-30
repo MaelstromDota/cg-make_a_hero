@@ -71,11 +71,11 @@ item_tarrasque_amulet_lua = item_tarrasque_amulet_lua or class(item_strength_amu
 function item_tarrasque_amulet_lua:GetIntrinsicModifierName() return "modifier_item_tarrasque_amulet_lua" end
 
 modifier_item_tarrasque_amulet_lua = modifier_item_tarrasque_amulet_lua or class(modifier_item_strength_amulet_lua)
-function modifier_item_tarrasque_amulet_lua:DeclareFunctions() return {MODIFIER_PROPERTY_STATS_STRENGTH_BONUS, MODIFIER_PROPERTY_STATS_AGILITY_BONUS, MODIFIER_PROPERTY_STATS_INTELLECT_BONUS, MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS, MODIFIER_PROPERTY_HEALTH_BONUS, MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT} end
+function modifier_item_tarrasque_amulet_lua:DeclareFunctions() return {MODIFIER_PROPERTY_STATS_STRENGTH_BONUS, MODIFIER_PROPERTY_STATS_AGILITY_BONUS, MODIFIER_PROPERTY_STATS_INTELLECT_BONUS, MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS, MODIFIER_PROPERTY_HEALTH_BONUS, MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE_UNIQUE, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT} end
 function modifier_item_tarrasque_amulet_lua:GetModifierBonusStats_Strength() return self:GetAbility():GetSpecialValueFor("bonus_all_stats") + self:GetAbility():GetSpecialValueFor("bonus_strength") + (self:GetAbility():GetSpecialValueFor("bonus_strength_per_charge") * self:GetAbility():GetCurrentCharges()) end
 function modifier_item_tarrasque_amulet_lua:GetModifierBonusStats_Agility() return self:GetAbility():GetSpecialValueFor("bonus_all_stats") end
 function modifier_item_tarrasque_amulet_lua:GetModifierBonusStats_Intellect() return self:GetAbility():GetSpecialValueFor("bonus_all_stats") end
 function modifier_item_tarrasque_amulet_lua:GetModifierPhysicalArmorBonus() return self:GetAbility():GetSpecialValueFor("bonus_armor") + self:GetAbility():GetSpecialValueFor("bonus_armor_per_charge") * self:GetAbility():GetCurrentCharges() end
 function modifier_item_tarrasque_amulet_lua:GetModifierHealthBonus() return self:GetAbility():GetSpecialValueFor("bonus_health") + self:GetAbility():GetSpecialValueFor("bonus_health_per_charge") * self:GetAbility():GetCurrentCharges() end
 function modifier_item_tarrasque_amulet_lua:GetModifierAttackSpeedBonus_Constant() return self:GetAbility():GetSpecialValueFor("bonus_attack_speed") end
-function modifier_item_tarrasque_amulet_lua:GetModifierHealthRegenPercentage() return self:GetAbility():GetSpecialValueFor("health_regen_pct") end
+function modifier_item_tarrasque_amulet_lua:GetModifierHealthRegenPercentageUnique() return self:GetAbility():GetSpecialValueFor("health_regen_pct") end

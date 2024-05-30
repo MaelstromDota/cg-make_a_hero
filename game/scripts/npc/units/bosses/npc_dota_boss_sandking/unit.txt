@@ -20,7 +20,7 @@
 		"Ability2"					"boss_sandking_sand_storm_lua"
 		"Ability3"					"boss_sandking_caustic_finale_lua"
 		"Ability4"					"boss_ability"
-		"Ability5"					"generic_hidden"
+		"Ability5"					"idle_stone"
 		"Ability6"					"boss_sandking_epicenter_lua"
 		"ArmorPhysical"				"79"
 		"MagicalResistance"			"65"
