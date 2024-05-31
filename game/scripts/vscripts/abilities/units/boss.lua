@@ -49,8 +49,10 @@ function modifier_idle_stone:OnRefresh()
 	self.fade_delay = self:GetAbility():GetSpecialValueFor("fade_delay")
 end
 function modifier_idle_stone:OnIntervalThink()
-	self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_idle_stone_active", {})
-	self:StartIntervalThink(-1)
+	if self:GetParent():GetAggroTarget() == nil and self:GetParent().combotarget == nil then
+		self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_idle_stone_active", {})
+		self:StartIntervalThink(-1)
+	end
 end
 
 modifier_idle_stone_active = modifier_idle_stone_active or class({})
