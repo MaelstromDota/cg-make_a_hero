@@ -794,10 +794,7 @@
 		"DOTA_Tooltip_ability_meepo_divided_we_stand_lua_Lore" "Do I know you?"
 		"DOTA_Tooltip_ability_meepo_divided_we_stand_lua_Note0" "Clones can't use Arcane Boots, Guardian Greaves."
 		"DOTA_Tooltip_ability_meepo_divided_we_stand_lua_tooltip_clones" "NUMBER OF MEEPOES:"
-		"DOTA_Tooltip_ability_meepo_divided_we_stand_lua_tooltip_clones_multiplicity" "NUMBER OF MEEPOES:"
 		"DOTA_Tooltip_ability_meepo_divided_we_stand_lua_magic_resist" "%BONUS MAGIC RESIST:"
-		"DOTA_Tooltip_ability_meepo_divided_we_stand_lua_fling_damage" "DAMAGE:"
-		"DOTA_Tooltip_ability_meepo_divided_we_stand_lua_movement_slow" "%MOVEMENT SLOW:"
 		/// Monkey King
 		"DOTA_Tooltip_ability_monkey_king_wukongs_command_lua" "Wukong's Command"
 		"DOTA_Tooltip_ability_monkey_king_wukongs_command_lua_Description" "Monkey King creates a circular formation of soldiers that spread out from his position. If Monkey King leaves the area his soldiers disperse. The soldiers have Monkey King's attack and only target heroes. Monkey King is granted bonus armor for the spell's duration."

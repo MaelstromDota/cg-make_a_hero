@@ -93,3 +93,9 @@ end
 -- 		print(i, ability:GetAbilityName(), ability:IsHidden())
 -- 	end
 -- end
+
+-- for _, unit in pairs(FindUnitsInRadius(DOTA_TEAM_NEUTRALS, Vector(0, 0, 0), nil, -1, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)) do
+-- 	if unit:GetUnitName() == "npc_dota_boss_nevermore_magic" then
+-- 		unit:ForceKill(false)
+-- 	end
+-- end

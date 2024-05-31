@@ -40,7 +40,6 @@ function idle_stone:GetIntrinsicModifierName() return "modifier_idle_stone" end
 modifier_idle_stone = modifier_idle_stone or class({})
 function modifier_idle_stone:IsHidden() return true end
 function modifier_idle_stone:IsPurgable() return false end
-function modifier_idle_stone:DeclareFunctions() return {MODIFIER_EVENT_ON_UNIT_MOVED} end
 function modifier_idle_stone:OnCreated()
 	self:OnRefresh()
 	if not IsServer() then return end
@@ -53,17 +52,12 @@ function modifier_idle_stone:OnIntervalThink()
 	self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_idle_stone_active", {})
 	self:StartIntervalThink(-1)
 end
-function modifier_idle_stone:OnUnitMoved(kv)
-	if not IsServer() then return end
-	if kv.unit ~= self:GetParent() then return end
-	self:StartIntervalThink(self.fade_delay)
-end
 
 modifier_idle_stone_active = modifier_idle_stone_active or class({})
 function modifier_idle_stone_active:IsPurgable() return false end
 function modifier_idle_stone_active:GetStatusEffectName() return "particles/status_fx/status_effect_earth_spirit_petrify.vpcf" end
 function modifier_idle_stone_active:StatusEffectPriority() return MODIFIER_PRIORITY_ULTRA end
-function modifier_idle_stone_active:CheckState() return {[MODIFIER_STATE_STUNNED] = true, [MODIFIER_STATE_FROZEN] = true, [MODIFIER_STATE_LOW_ATTACK_PRIORITY] = true, [MODIFIER_STATE_CANNOT_BE_MOTION_CONTROLLED] = true} end
+function modifier_idle_stone_active:CheckState() return {[MODIFIER_STATE_DISARMED] = true, [MODIFIER_STATE_SILENCED] = true, [MODIFIER_STATE_MUTED] = true, [MODIFIER_STATE_BLOCK_DISABLED] = true, [MODIFIER_STATE_EVADE_DISABLED] = true, [MODIFIER_STATE_NO_HEALTH_BAR] = true, [MODIFIER_STATE_NO_UNIT_COLLISION] = true, [MODIFIER_STATE_STUNNED] = true, [MODIFIER_STATE_FROZEN] = true, [MODIFIER_STATE_LOW_ATTACK_PRIORITY] = true, [MODIFIER_STATE_CANNOT_BE_MOTION_CONTROLLED] = true} end
 function modifier_idle_stone_active:DeclareFunctions() return {MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL, MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL, MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE, MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE} end
 function modifier_idle_stone_active:OnCreated()
 	self:OnRefresh()
