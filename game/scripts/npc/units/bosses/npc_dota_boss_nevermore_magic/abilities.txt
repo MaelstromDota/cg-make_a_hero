@@ -106,6 +106,10 @@
 	}
 	"boss_nevermore_magic_requiem_lua"
 	{
+		"precache"
+		{
+			"soundfile"					"soundevents/units/boss/nevermore.vsndevts"
+		}
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"abilities/units/nevermore"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"

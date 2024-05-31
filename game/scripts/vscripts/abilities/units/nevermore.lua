@@ -224,8 +224,8 @@ function modifier_nevermore_unit_requiem_lua:OnCreated()
 	self.slow = self:GetAbility():GetSpecialValueFor("requiem_reduction_ms")
 	self.magic_resist = self:GetAbility():GetSpecialValueFor("requiem_reduction_mres")
 	if not IsServer() then return end
-	local fx = ParticleManager:CreateParticleForPlayer("particles/units/nevermore/screen_requiem_indicator.vpcf", PATTACH_EYES_FOLLOW, self:GetParent(), self:GetParent():GetPlayerOwner())
-	self:AddParticle(fx, false, false, -1, false, false)
+	-- local fx = ParticleManager:CreateParticleForPlayer("particles/units/nevermore/screen_requiem_indicator.vpcf", PATTACH_EYES_FOLLOW, self:GetParent(), self:GetParent():GetPlayerOwner())
+	-- self:AddParticle(fx, false, false, -1, false, false)
 end
 function modifier_nevermore_unit_requiem_lua:OnRefresh()
 	if not IsServer() then return end
