@@ -18,10 +18,11 @@ function modifier_item_tome_of_strength_lua:OnCreated()
 	self.strength_bonus = self:GetAbility():GetSpecialValueFor("strength_bonus")
 	self.agility_bonus = self:GetAbility():GetSpecialValueFor("agility_bonus")
 	self.intellect_bonus = self:GetAbility():GetSpecialValueFor("intellect_bonus")
-end
-function modifier_item_tome_of_strength_lua:OnRefresh()
 	if not IsServer() then return end
 	self:IncrementStackCount()
+end
+function modifier_item_tome_of_strength_lua:OnRefresh()
+	self:OnCreated()
 end
 function modifier_item_tome_of_strength_lua:OnStackCountChanged(iStackCount)
 	if not IsServer() then return end

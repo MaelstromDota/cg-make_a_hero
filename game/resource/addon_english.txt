@@ -73,7 +73,7 @@
 		/// Ring of the Void
 		"DOTA_Tooltip_ability_item_recipe_ring_of_the_void_lua" "Recipe: Ring of the Void"
 		"DOTA_Tooltip_ability_item_ring_of_the_void_lua" "Ring of the Void"
-		"DOTA_Tooltip_ability_item_ring_of_the_void_lua_Description" "<h1>Passive: Void Energy</h1> Each applied debuff or dealed spell damage causes enemy to stack up to %max_stacks% stacks of void energy. Every void energy stack deals current health %damage_pct%%% damage when enemy takes spell damage."
+		"DOTA_Tooltip_ability_item_ring_of_the_void_lua_Description" "<h1>Passive: Void Energy</h1> Each applied debuff or dealed spell damage causes enemy to stack up to %max_stacks% stacks of void energy. Every void energy stack deals increases spell damage to enemy by %damage_pct%%%."
 		"DOTA_Tooltip_modifier_item_ring_of_the_void_debuff_stack_lua" "Void Energy stack"
 		/// Icarus
 		"DOTA_Tooltip_ability_item_recipe_icarus_lua" "Recipe: Icarus"
@@ -266,7 +266,7 @@
 		/// Void Blink
 		"DOTA_Tooltip_ability_item_recipe_void_blink_lua" "Recipe: Void Blink"
 		"DOTA_Tooltip_ability_item_void_blink_lua" "Void Blink"
-		"DOTA_Tooltip_ability_item_void_blink_lua_Description" "<h1>Active: Void Blink</h1> Teleport to a target point up to %blink_range% units away and pulls enemies to chosen direction in %pull_radius% radius and deals %pull_damage% damage to pulled enemies. <br><br>Blink Dagger cannot be used for %blink_damage_cooldown% seconds after taking damage from an enemy hero or Roshan.\n<h1>Passive: Void Energy</h1> Each applied debuff or dealed spell damage causes enemy to stack up to %max_stacks% stacks of void energy. Every void energy stack deals current health %damage_pct%%% damage when enemy takes spell damage."
+		"DOTA_Tooltip_ability_item_void_blink_lua_Description" "<h1>Active: Void Blink</h1> Teleport to a target point up to %blink_range% units away and pulls enemies to chosen direction in %pull_radius% radius and deals %pull_damage% damage to pulled enemies. <br><br>Blink Dagger cannot be used for %blink_damage_cooldown% seconds after taking damage from an enemy hero or Roshan.\n<h1>Passive: Void Energy</h1> Each applied debuff or dealed spell damage causes enemy to stack up to %max_stacks% stacks of void energy. Every void energy stack deals increases spell damage to enemy by %damage_pct%%%."
 		"DOTA_Tooltip_ability_item_void_blink_lua_Note0" "Self-casting will cause you to teleport in the direction of your team's fountain."
 		"DOTA_Tooltip_ability_item_void_blink_lua_Note1" "If you used Blink to teleport to a distance over the maximum range, you'll be teleported 4/5 of the maximum range instead."
 		"DOTA_Tooltip_modifier_item_void_blink_pull_lua" "Pulling"
@@ -353,7 +353,7 @@
 		/// Tarrasque Amulet
 		"DOTA_Tooltip_ability_item_recipe_tarrasque_amulet_lua" "Recipe: Tarrasque Amulet"
 		"DOTA_Tooltip_ability_item_tarrasque_amulet_lua" "Tarrasque Amulet"
-		"DOTA_Tooltip_ability_item_tarrasque_amulet_lua_Description" "<h1>Active: Tarrasque Power</h1>Increase your strength by %active_strength_multiplier%%% for next %active_duration% seconds.\n<h1>Passive: Tarrasque Collector</h1>Grants one charge for every activated rune, two charges for every picked up lotus, one charge per every captured watcher. Every charge increases strength by %bonus_strength_per_charge%, armor by %bonus_armor_per_charge%, health by %bonus_health_per_charge%.<br><br>Max charges: %max_charges%<br>Loses half charges on death."
+		"DOTA_Tooltip_ability_item_tarrasque_amulet_lua_Description" "<h1>Active: Tarrasque Power</h1>Increase your strength by %active_strength_multiplier%%% for next %active_duration% seconds.\n<h1>Passive: Tarrasque Collector</h1>Grants one charge for every activated rune, two charges for every picked up lotus, one charge per every captured watcher. Every charge increases strength by %bonus_strength_per_charge%, armor by %bonus_armor_per_charge%, health by %bonus_health_per_charge%.<br><br>Max charges: %max_charges%<br>Loses all charges on death."
 		"DOTA_Tooltip_ability_item_tarrasque_amulet_lua_bonus_strength" "+$str"
 		"DOTA_Tooltip_ability_item_tarrasque_amulet_lua_bonus_all_stats" "+$all"
 		"DOTA_Tooltip_ability_item_tarrasque_amulet_lua_bonus_armor" "+$armor"
@@ -365,7 +365,7 @@
 		/// Might Amulet
 		"DOTA_Tooltip_ability_item_recipe_might_amulet_lua" "Recipe: Might Amulet"
 		"DOTA_Tooltip_ability_item_might_amulet_lua" "Might Amulet"
-		"DOTA_Tooltip_ability_item_might_amulet_lua_Description" "<h1>Active: Amulet Blast</h1> Stun every enemy within the radius for %stun_per_charge% seconds per charge, cannot be higher than %max_stun% seconds. Also heals caster for %heal% + %heal_per_charge% per charge health.\n<h1>Passive: Corruption Might</h1> Your attacks reduce the target's armor by %armor_reduction% + %armor_reduction_per_charge% per charge for %armor_reduction_duration% seconds.\n<h1>Passive: Might Collector</h1>Grants one charge for every activated rune, two charges for every picked up lotus, one charge per every captured watcher. Every charge increases attack damage by %bonus_damage_per_charge%.<br><br>Max charges: %max_charges%<br>Loses half charges on death."
+		"DOTA_Tooltip_ability_item_might_amulet_lua_Description" "<h1>Active: Amulet Blast</h1> Stun every enemy within the radius for %stun_per_charge% seconds per charge, cannot be higher than %max_stun% seconds. Also heals caster for %heal% + %heal_per_charge% per charge health.\n<h1>Passive: Corruption Might</h1> Your attacks reduce the target's armor by %armor_reduction% + %armor_reduction_per_charge% per charge for %armor_reduction_duration% seconds.\n<h1>Passive: Might Collector</h1>Grants one charge for every activated rune, two charges for every picked up lotus, one charge per every captured watcher. Every charge increases attack damage by %bonus_damage_per_charge%.<br><br>Max charges: %max_charges%<br>Loses all charges on death."
 		"DOTA_Tooltip_ability_item_might_amulet_lua_bonus_damage" "+$damage"
 		"DOTA_Tooltip_ability_item_might_amulet_lua_bonus_health_regen" "+$hp_regen"
 		"DOTA_Tooltip_modifier_item_might_amulet_debuff_lua" "Power Amulet"
@@ -373,7 +373,7 @@
 		/// Alaron Amulet
 		"DOTA_Tooltip_ability_item_recipe_alaron_amulet_lua" "Recipe: Alaron Amulet"
 		"DOTA_Tooltip_ability_item_alaron_amulet_lua" "Alaron Amulet"
-		"DOTA_Tooltip_ability_item_alaron_amulet_lua_Description" "<h1>Active: Alaron Release</h1>Deal %active_damage% + %active_damage_pct%%% per charge damage to every nearby enemy. Damage depends on the max health and cannot be higher than %max_active_damage_pct%%%.\n<h1>Passive: Alaron Collector</h1>Grants one charge for every activated rune, two charges for every picked up lotus, one charge per every captured watcher. Every charge increases intellect by %bonus_intellect_per_charge%.<br><br>Max charges: %max_charges%<br>Loses half charges on death."
+		"DOTA_Tooltip_ability_item_alaron_amulet_lua_Description" "<h1>Active: Alaron Release</h1>Deal %active_damage% + %active_damage_pct%%% per charge damage to every nearby enemy. Damage depends on the max health and cannot be higher than %max_active_damage_pct%%%.\n<h1>Passive: Alaron Collector</h1>Grants one charge for every activated rune, two charges for every picked up lotus, one charge per every captured watcher. Every charge increases intellect by %bonus_intellect_per_charge%.<br><br>Max charges: %max_charges%<br>Loses all charges on death."
 		"DOTA_Tooltip_ability_item_alaron_amulet_lua_bonus_intellect" "+$int"
 		"DOTA_Tooltip_ability_item_alaron_amulet_lua_bonus_all_stats" "+$all"
 		"DOTA_Tooltip_ability_item_alaron_amulet_lua_bonus_mana" "+$mana"

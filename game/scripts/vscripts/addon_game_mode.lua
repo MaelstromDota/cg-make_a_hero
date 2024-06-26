@@ -86,7 +86,7 @@ function CustomHeroArena:InitFountains()
 end
 
 -- local hero = PlayerResource:GetSelectedHeroEntity(0)
--- hero:ModifyIntellect(-500)
+-- -- hero:ModifyIntellect(-500)
 -- for i=0, DOTA_MAX_ABILITIES-1 do
 -- 	local ability = hero:GetAbilityByIndex(i)
 -- 	if ability then

@@ -88,17 +88,6 @@ function CastCombo(target, repeating)
 	Timers:CreateTimer({endTime=math.max(eul:GetSpecialValueFor("cyclone_duration")-requiem:GetCastTime(), 0)+FrameTime()*5, callback=function()
 		if target:IsAlive() then
 			CastAbility(requiem, target)
-			Timers:CreateTimer({endTime=requiem:GetCastTime()*2/3, callback=function()
-				EmitGlobalSound("Boss.Nevermore.zxc")
-				GameRules:SendCustomMessage("let me die", 0, 0)
-				GameRules:SendCustomMessage("1000-7?", 0, 0)
-				GameRules:SendCustomMessage("???", 0, 0)
-				Timers:CreateTimer({endTime=3, useGameTime=false, callback=function()
-					PauseGame(false)
-					GameRules:SendCustomMessage("livai musor", 0, 0)
-				end}, nil, self)
-				PauseGame(true)
-			end}, nil, self)
 			Timers:CreateTimer({endTime=requiem:GetCastTime()+FrameTime(), callback=function()
 				if not requiem:IsCooldownReady() and target:IsAlive() then
 					if not thisEntity.razecombing and thisEntity.requiemcombing and RazeCombo(target) then

@@ -60,6 +60,9 @@ function modifier_item_mystic_amulet_lua:GetModifierBonusStats_Intellect() retur
 LinkLuaModifier("modifier_item_alaron_amulet_lua", "items/mystic_amulet", LUA_MODIFIER_MOTION_NONE)
 
 item_alaron_amulet_lua = item_alaron_amulet_lua or class(item_mystic_amulet_lua)
+function item_alaron_amulet_lua:OnDeath()
+	self:SetCurrentCharges(0)
+end
 
 modifier_item_alaron_amulet_lua = modifier_item_alaron_amulet_lua or class(modifier_item_mystic_amulet_lua)
 function modifier_item_alaron_amulet_lua:DeclareFunctions() return {MODIFIER_PROPERTY_STATS_INTELLECT_BONUS, MODIFIER_PROPERTY_STATS_STRENGTH_BONUS, MODIFIER_PROPERTY_STATS_AGILITY_BONUS, MODIFIER_PROPERTY_HEALTH_BONUS, MODIFIER_PROPERTY_MANA_BONUS, MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE} end

@@ -2,6 +2,7 @@
 {
 	"npc_dota_hero_techies"
 	{
+		"override_hero"	"npc_dota_hero_techies"
 		"Model"		"models/heroes/techies/techies.vmdl"
 		"IdleExpression"		"scenes/techies/techies_exp_idle_01.vcd"
 		"ModelScale"		"0.600000"
@@ -51,6 +52,41 @@
 			"Ability2"		"techies_stasis_trap_lua"
 			"Ability3"		"techies_suicide_lua"
 			"Ability4"		"techies_remote_mines_lua"
+		}
+		"Facets"
+		{
+			"techies_atk_range"
+			{
+				"Icon"				"range"
+				"Color"				"Gray"
+				"GradientID"		"0"
+				"Abilities"
+				{
+					"Ability1"
+					{
+						"AbilityName"	"techies_squees_scope"
+					}
+				}
+			}
+			"techies_spleens_secret_sauce"
+			{
+				"Icon"				"nuke"
+				"Color"				"Red"
+				"GradientID"		"0"
+			}
+			"techies_backpack"
+			{
+				"Icon"				"item"
+				"Color"				"Blue"
+				"GradientID"		"1"
+				"Abilities"
+				{
+					"Ability1"
+					{
+						"AbilityName"	"techies_spoons_stash"
+					}
+				}
+			}
 		}
 		"ArmorPhysical"		"5"
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"

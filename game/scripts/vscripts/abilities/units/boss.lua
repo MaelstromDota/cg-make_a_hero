@@ -49,7 +49,7 @@ function modifier_idle_stone:OnRefresh()
 	self.fade_delay = self:GetAbility():GetSpecialValueFor("fade_delay")
 end
 function modifier_idle_stone:OnIntervalThink()
-	if self:GetParent():GetAggroTarget() == nil and self:GetParent().combotarget == nil then
+	if self:GetParent():GetAggroTarget() == nil and self:GetParent().combotarget == nil and (self:GetParent().spawnpos == nil or CalculateDistance(self:GetParent().spawnpos, self:GetParent():GetAbsOrigin()) < 100) then
 		self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_idle_stone_active", {})
 		self:StartIntervalThink(-1)
 	end

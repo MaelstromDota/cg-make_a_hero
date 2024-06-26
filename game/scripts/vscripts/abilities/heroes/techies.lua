@@ -254,7 +254,7 @@ function techies_suicide_lua:BlowUp()
 	local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), self:GetCaster():GetOrigin(), self:GetCaster(), self:GetSpecialValueFor("radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, 0, false)
 	for _, enemy in pairs(enemies) do
 		enemy:AddNewModifier(self:GetCaster(), self, "modifier_silence", {duration = self:GetSpecialValueFor("silence_duration")})
-		ApplyDamage({victim = enemy, attacker = self:GetCaster(), ability = self, damage = self:GetSpecialValueFor("damage"), damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NONE})
+		ApplyDamage({victim = enemy, attacker = self:GetCaster(), ability = self, damage = self:GetSpecialValueFor("damage") + (enemy:GetHealth()*self:GetSpecialValueFor("hp_dmg")/100), damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NONE})
 		if self:GetCaster():HasShard() then
 			enemy:AddNewModifier(self:GetCaster(), self, "modifier_stunned", {duration = self:GetSpecialValueFor("shard_stun_duration")})
 		end

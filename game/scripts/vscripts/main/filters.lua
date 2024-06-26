@@ -6,6 +6,7 @@ function CustomHeroArenaFilters:Init()
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter(Dynamic_Wrap(self, "OrderFilter"), self)
 	GameRules:GetGameModeEntity():SetModifyExperienceFilter(Dynamic_Wrap(self, "ExperienceFilter"), self)
 	GameRules:GetGameModeEntity():SetModifyGoldFilter(Dynamic_Wrap(self, "GoldFilter"), self)
+	GameRules:GetGameModeEntity():SetItemAddedToInventoryFilter(Dynamic_Wrap(self, "InventoryFilter"), self)
 end
 
 local function ProcessOrderFilter(fc, event, unit, ...)
@@ -141,15 +142,22 @@ local function OrderSlotFilter(event, unit)
 			local tp_slot_item = unit:GetItemInSlot(DOTA_ITEM_TP_SCROLL)
 			if (ability == nil or (not ability:IsNeutralDrop() and not ability:IsDropsOnDeath())) and (other_slot_item == nil or (not other_slot_item:IsNeutralDrop() and not other_slot_item:IsDropsOnDeath())) then
 				if event.entindex_target == DOTA_ITEM_TP_SCROLL then
+					ability.__order_filter_can_be_used_out_of_inventory = ability:CanBeUsedOutOfInventory()
 					ability:SetCanBeUsedOutOfInventory(true)
 					if tp_slot_item ~= nil then
-						tp_slot_item:SetCanBeUsedOutOfInventory(false)
+						if tp_slot_item.__order_filter_can_be_used_out_of_inventory ~= nil then
+							tp_slot_item:SetCanBeUsedOutOfInventory(tp_slot_item.__order_filter_can_be_used_out_of_inventory)
+							tp_slot_item.__order_filter_can_be_used_out_of_inventory = nil
+						end
 					end
 				elseif ability:GetItemSlot() == DOTA_ITEM_TP_SCROLL then
 					if tp_slot_item ~= nil then
+						tp_slot_item.__order_filter_can_be_used_out_of_inventory = tp_slot_item:CanBeUsedOutOfInventory()
 						tp_slot_item:SetCanBeUsedOutOfInventory(true)
 					end
-					ability:SetCanBeUsedOutOfInventory(false)
+					if ability.__order_filter_can_be_used_out_of_inventory ~= nil then
+						ability:SetCanBeUsedOutOfInventory(ability.__order_filter_can_be_used_out_of_inventory)
+					end
 				end
 				unit:SwapItems(event.entindex_target, ability:GetItemSlot())
 			else
@@ -435,6 +443,19 @@ function CustomHeroArenaFilters:GoldFilter(event)
 					event["gold"] = event["gold"] + bonus_gold
 				end
 			end
+		end
+	end
+	return true
+end
+
+function CustomHeroArenaFilters:InventoryFilter(event)
+	local parent = event["inventory_parent_entindex_const"] ~= nil and EntIndexToHScript(event["inventory_parent_entindex_const"]) or nil
+	local item_parent = event["item_parent_entindex_const"] ~= nil and EntIndexToHScript(event["item_parent_entindex_const"]) or nil
+	local item = event["item_entindex_const"] ~= nil and EntIndexToHScript(event["item_entindex_const"]) or nil
+	local suggested_slot = event["suggested_slot"]
+	if event["suggested_slot"] == -1 and not parent:HasAnyAvailableInventorySpace() then
+		if parent:GetItemInSlot(DOTA_ITEM_TP_SCROLL) == nil then
+			event["suggested_slot"] = DOTA_ITEM_TP_SCROLL
 		end
 	end
 	return true

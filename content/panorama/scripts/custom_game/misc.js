@@ -24,10 +24,11 @@ CustomNetTables.SubscribeNetTableListener("encrypted", function(tableName, keyNa
 				break;
 		}
 	} catch (err) {}
-	GameEvents.SubscribeEvent("CreateIngameErrorMessage", function(event) {
-		GameEvents.SendEventLocal("dota_hud_error_message", {"splitscreenplayer": 0, "reason": event.reason || 80, "message": event.message});
-	}, "custom_error");
 });
+
+GameEvents.SubscribeEvent("CreateIngameErrorMessage", function(event) {
+	GameEvents.SendEventLocal("dota_hud_error_message", {"splitscreenplayer": 0, "reason": event.reason || 80, "message": event.message});
+}, "custom_error");
 
 function HidePickScreen() {
 	if (!Game.GameStateIsAfter(DOTA_GameState.DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP)) {

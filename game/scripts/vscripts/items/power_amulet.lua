@@ -69,3 +69,6 @@ end
 function modifier_item_power_amulet_debuff_lua:GetModifierPhysicalArmorBonus() return self.armor_reduction end
 
 item_might_amulet_lua = item_might_amulet_lua or class(item_power_amulet_lua)
+function item_might_amulet_lua:OnDeath()
+	self:SetCurrentCharges(0)
+end

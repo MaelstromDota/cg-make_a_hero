@@ -68,6 +68,9 @@ end
 LinkLuaModifier("modifier_item_tarrasque_amulet_lua", "items/strength_amulet", LUA_MODIFIER_MOTION_NONE)
 
 item_tarrasque_amulet_lua = item_tarrasque_amulet_lua or class(item_strength_amulet_lua)
+function item_tarrasque_amulet_lua:OnDeath()
+	self:SetCurrentCharges(0)
+end
 function item_tarrasque_amulet_lua:GetIntrinsicModifierName() return "modifier_item_tarrasque_amulet_lua" end
 
 modifier_item_tarrasque_amulet_lua = modifier_item_tarrasque_amulet_lua or class(modifier_item_strength_amulet_lua)

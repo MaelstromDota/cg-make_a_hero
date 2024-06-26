@@ -645,6 +645,17 @@ function CDOTA_BaseNPC_Hero:CopyAbilities()
 		end
 	end
 end
+function CDOTA_BaseNPC:HasAnyAvailableInventorySlot()
+	for _, i in pairs(table.combine(INVENTORY_SLOTS, BACKPACK_SLOTS)) do
+		if i ~= DOTA_ITEM_NEUTRAL_SLOT then
+			local item = self:GetItemInSlot(i)
+			if item == nil then
+				return true
+			end
+		end
+	end
+	return false
+end
 function CDOTA_BaseNPC:FindModifiersByAbility(ability)
 	return table.values(table.filter(self:FindAllModifiers(), function(_, mod) return mod:GetAbility() == ability end))
 end

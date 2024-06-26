@@ -75,7 +75,7 @@ function CustomHeroArenaEvents:OnNPCSpawned(event)
 			for i=0, DOTA_MAX_ABILITIES-1 do
 				local ability = npc:GetAbilityByIndex(i)
 				local remove_exceptions = {"abyssal_underlord_portal_warp", "twin_gate_portal_warp", "ability_pluck_famango", "ability_capture", "ability_lamp_use"}
-				if ability ~= nil and not ability:IsInnateAbility() and ((not string.startswith(ability:GetAbilityName(), "special_bonus_") and not table.contains(remove_exceptions, ability:GetAbilityName())) or ability:GetAbilityName() == "special_bonus_attributes") then -- TODO: remove talent check
+				if ability ~= nil and not ability:IsInnateAbility() and not ability:IsFacetAbility() and ((not string.startswith(ability:GetAbilityName(), "special_bonus_") and not table.contains(remove_exceptions, ability:GetAbilityName())) or ability:GetAbilityName() == "special_bonus_attributes") then -- TODO: remove talent check
 					ability:RemoveSelf()
 				end
 			end
@@ -269,7 +269,9 @@ function CustomHeroArenaEvents:OnAbilityChannelFinished(event)
 	local target = caster:GetCursorCastTarget()
 	if not interrupted then
 		if abilityname == "ability_pluck_famango" then
-			caster:TriggerAbilitiesCustomCallback("OnLotusPickup", target)
+			if table.values(caster:GetItemsByName({"item_famango"}, true, false))[1] ~= nil or caster:HasAnyAvailableInventorySlot() then
+				caster:TriggerAbilitiesCustomCallback("OnLotusPickup", target)
+			end
 		elseif abilityname == "ability_lamp_use" then
 			caster:TriggerAbilitiesCustomCallback("OnWatcherCaptured", target, target ~= nil and target:GetTeamNumber() ~= DOTA_TEAM_NEUTRALS)
 		end
