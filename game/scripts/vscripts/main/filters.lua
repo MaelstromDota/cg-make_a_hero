@@ -453,7 +453,7 @@ function CustomHeroArenaFilters:InventoryFilter(event)
 	local item_parent = event["item_parent_entindex_const"] ~= nil and EntIndexToHScript(event["item_parent_entindex_const"]) or nil
 	local item = event["item_entindex_const"] ~= nil and EntIndexToHScript(event["item_entindex_const"]) or nil
 	local suggested_slot = event["suggested_slot"]
-	if event["suggested_slot"] == -1 and not parent:HasAnyAvailableInventorySpace() then
+	if event["suggested_slot"] == -1 and not parent:HasAnyAvailableInventorySlot(true) then
 		if parent:GetItemInSlot(DOTA_ITEM_TP_SCROLL) == nil then
 			event["suggested_slot"] = DOTA_ITEM_TP_SCROLL
 		end

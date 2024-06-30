@@ -645,7 +645,16 @@ function CDOTA_BaseNPC_Hero:CopyAbilities()
 		end
 	end
 end
-function CDOTA_BaseNPC:HasAnyAvailableInventorySlot()
+function CDOTA_BaseNPC:HasAnyAvailableInventorySlot(exclude_additional)
+	if not self:IsHero() or exclude_additional then
+		for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9 do
+			local item = self:GetItemInSlot(i)
+			if item == nil then
+				return true
+			end
+		end
+		return false
+	end
 	for _, i in pairs(table.combine(INVENTORY_SLOTS, BACKPACK_SLOTS)) do
 		if i ~= DOTA_ITEM_NEUTRAL_SLOT then
 			local item = self:GetItemInSlot(i)
