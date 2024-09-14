@@ -3,7 +3,7 @@ LinkLuaModifier("modifier_medical_tractate_lua", "items/medical_tractate", LUA_M
 item_medical_tractate_lua = item_medical_tractate_lua or class(ability_lua_base)
 function item_medical_tractate_lua:OnSpellStart()
 	self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_medical_tractate_lua", {})
-	self:SpendCharge()
+	self:SpendCharge(0)
 end
 
 modifier_medical_tractate_lua = modifier_medical_tractate_lua or class({})

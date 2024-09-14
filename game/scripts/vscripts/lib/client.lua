@@ -354,12 +354,6 @@ function DOTABaseAbility:HasSpecialValue(key)
 	local kv = self:GetAbilityKeyValues()
 	if kv["AbilityValues"] ~= nil then
 		return kv["AbilityValues"][key] ~= nil
-	elseif kv["AbilitySpecial"] ~= nil then
-		for num, info in pairs(kv["AbilitySpecial"]) do
-			if info[key] ~= nil then
-				return true
-			end
-		end
 	end
 	return false
 end
@@ -367,12 +361,6 @@ function HasSpecialValue(abilityname, key)
 	local kv = GetAbilityKeyValuesByName(abilityname)
 	if kv["AbilityValues"] ~= nil then
 		return kv["AbilityValues"][key] ~= nil
-	elseif kv["AbilitySpecial"] ~= nil then
-		for num, info in pairs(kv["AbilitySpecial"]) do
-			if info[key] ~= nil then
-				return true
-			end
-		end
 	end
 	return false
 end
@@ -382,13 +370,6 @@ function GetSpecialValueFor(abilityname, key, lvl)
 		if kv["AbilityValues"][key] ~= nil then
 			values = string.split(kv["AbilityValues"][key], " ")
 			return tonumber(values[lvl ~= nil and math.min(lvl, #values) or (kv["ItemBaseLevel"] ~= nil and math.min(kv["ItemBaseLevel"], #values) or #values)])
-		end
-	elseif kv["AbilitySpecial"] ~= nil then
-		for num, info in pairs(kv["AbilitySpecial"]) do
-			if info[key] ~= nil then
-				values = string.split(info[key], " ")
-				return tonumber(values[lvl ~= nil and math.min(lvl, #values) or (kv["ItemBaseLevel"] ~= nil and math.min(kv["ItemBaseLevel"], #values) or #values)])
-			end
 		end
 	end
 	return 0

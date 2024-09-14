@@ -220,13 +220,13 @@ end
 function CustomHeroArenaSpellShop:OnSpellSell(event)
 	if GameRules:IsGamePaused() then return end
 	local hero = PlayerResource:GetSelectedHeroEntity(event["PlayerID"])
-	local coctails = table.values(hero:GetItemsByName({"item_spellshop_sell_lua"}, true, true))
-	if hero:HasAbility(event["spell"]) and (table.length(coctails) > 0 or GameRules:IsCheatMode()) then
+	local cocktails = table.values(hero:GetItemsByName({"item_spellshop_sell_lua"}, true, true))
+	if hero:HasAbility(event["spell"]) and (table.length(cocktails) > 0 or GameRules:IsCheatMode() or GameRules:GetOptionValue("free_sell") == 1) then
 		local ability = hero:FindAbilityByName(event["spell"])
 		local info = CustomHeroArenaSpellShop:RemoveSpell(hero, ability)
 		if info == -1 then return end
-		if not GameRules:IsCheatMode() then
-			coctails[1]:SpendCharge()
+		if not GameRules:IsCheatMode() and GameRules:GetOptionValue("free_sell") ~= 1 then
+			cocktails[1]:SpendCharge(0)
 		end
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(event["PlayerID"]), "spellpoints_update", {})
 		hero.abilities = hero.abilities ~= nil and table.filter(hero.abilities, function(k, v) return not table.contains(info, v) end) or {}

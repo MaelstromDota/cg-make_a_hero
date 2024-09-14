@@ -6,7 +6,7 @@ LinkLuaModifier("modifier_item_tome_of_gods_lua", "items/tome_of_stats", LUA_MOD
 item_tome_of_strength_lua = item_tome_of_strength_lua or class(ability_lua_base)
 function item_tome_of_strength_lua:OnSpellStart()
 	self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_"..self:GetName(), {})
-	self:SpendCharge()
+	self:SpendCharge(0)
 end
 
 modifier_item_tome_of_strength_lua = modifier_item_tome_of_strength_lua or class({})

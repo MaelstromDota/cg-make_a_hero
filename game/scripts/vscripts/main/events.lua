@@ -32,10 +32,12 @@ function CustomHeroArenaEvents:OnStateChanged()
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
 	elseif GameRules:State_Get() == DOTA_GAMERULES_STATE_HERO_SELECTION then
 		CustomHeroArenaSpellShop:Init()
-		local kill_limit = GameRules.GetOptionValue("kill_limit")
+		local kill_limit = GameRules:GetOptionValue("kill_limit")
 		if kill_limit == 0 then kill_limit = "∞" end
+		local free_sell = GameRules:GetOptionValue("free_sell")
 		Timers:CreateTimer({endTime=1, callback=function()
 			GameRules:SendCustomMessage(tostring("KILL LIMIT: "..kill_limit), 0, 0)
+			GameRules:SendCustomMessage("FREE SPELLS SELL: "..(free_sell == 1 and "yes" or "no"), 0, 0)
 		end}, nil, self)
 	elseif GameRules:State_Get() == DOTA_GAMERULES_STATE_STRATEGY_TIME then
 		for i=0, DOTA_MAX_TEAM_PLAYERS do
@@ -193,7 +195,7 @@ function CustomHeroArenaEvents:OnEntityKilled(event)
 			end
 		end
 	end
-	local kill_limit = GameRules.GetOptionValue("kill_limit")
+	local kill_limit = GameRules:GetOptionValue("kill_limit")
 	if npc:GetUnitName() == "npc_dota_boss_tormentor" then
 		GameRules:SetGameWinner(attacker:GetTeamNumber())
 	elseif kill_limit ~= 0 and GetTeamHeroKills(attacker:GetTeamNumber()) >= kill_limit then
@@ -301,6 +303,7 @@ function CustomHeroArenaEvents:OnChooseOption(event)
 	local option = event["option"]
 	local value = event["value"]
 	if OPTIONS[option] == nil then return end
+	if not table.contains(OPTIONS[option]["values"], value) then return end
 	if OPTIONS[option]["host_only"] and not is_host then return end
 	if OPTIONS[option]["state"] ~= nil and GameRules:State_Get() ~= OPTIONS[option]["state"] then return end
 	local t = CustomNetTables:GetTableValue("options", "options") or {}

@@ -1,4 +1,4 @@
-GameRules.GetOptionValue = function(option)
+GameRules.GetOptionValue = function(self, option)
 	local t = CustomNetTables:GetTableValue("options", "options") or {}
 	if t[option] ~= nil then
 		return t[option]

@@ -46,17 +46,18 @@
 
 #HostVotingPanel {
 	position: 100px 300px 0;
+	flow-children: down-wrap;
 }
 
-#HostVotingPanel #KillLimit {
+#HostVotingPanel .Vote {
 	flow-children: down;
 	background-color: #1111116c;
-	/* background-color: red; */
 	padding: 10px;
 	border-radius: 10%;
+	width: 300px;
 }
 
-#HostVotingPanel #KillLimit #Title {
+#HostVotingPanel .Vote #Title {
 	text-transform: uppercase;
 	color: white;
 	font-weight: bold;
@@ -65,22 +66,22 @@
 	text-align: center;
 }
 
-#HostVotingPanel #KillLimit #Options {
+#HostVotingPanel .Vote #Options {
 	width: 100%;
 	flow-children: down;
 }
 
-#HostVotingPanel #KillLimit #Options ToggleButton {
+#HostVotingPanel .Vote #Options ToggleButton {
 	horizontal-align: center;
 }
 
-#HostVotingPanel #KillLimit #Options ToggleButton Label {
+#HostVotingPanel .Vote #Options ToggleButton Label {
 	font-size: 20px;
 	font-family: monospaceNumbers;
 	text-align: center;
 	horizontal-align: center;
 }
 
-#HostVotingPanel #KillLimit #Options ToggleButton:selected Label {
+#HostVotingPanel .Vote #Options ToggleButton:selected Label {
 	color: white;
 }

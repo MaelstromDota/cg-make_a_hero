@@ -17,11 +17,7 @@
 		"AbilityTextureName"			"meepo_divided_we_stand"
 		"AbilityValues"
 		{
-			"tooltip_clones"
-			{
-				"value"					"1 2 3"
-				"special_bonus_unique_meepo_5"		"+1"
-			}
+			"tooltip_clones"			"1 2 3 4"
 			"magic_resist"				"10 15 20"
 			"required_level"
 			{

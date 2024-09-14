@@ -154,7 +154,7 @@
 		/// Spellshop Sell
 		"DOTA_Tooltip_ability_item_recipe_spellshop_sell_lua" "Recipe: Spellshop Cocktail"
 		"DOTA_Tooltip_ability_item_spellshop_sell_lua" "Spellshop Cocktail"
-		"DOTA_Tooltip_ability_item_spellshop_sell_lua_Description" "Allows you to sell ability in spell shop. Losts charges"
+		"DOTA_Tooltip_ability_item_spellshop_sell_lua_Description" "Allows you to sell ability in spell shop. Losts charges<br><br>Does not required if \"Free Sells\" enabled"
 		/// Leaf Buckler
 		"DOTA_Tooltip_ability_item_recipe_leaf_buckler_lua" "Recipe: Leaf Buckler"
 		"DOTA_Tooltip_ability_item_leaf_buckler_lua" "Leaf Buckler"

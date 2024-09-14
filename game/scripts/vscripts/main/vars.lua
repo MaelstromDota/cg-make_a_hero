@@ -196,5 +196,14 @@ _G.OPTIONS = {
 		validating = function(value) return tonumber(value) end,
 		state = DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP,
 		default = 100,
-	}
+	},
+	["free_sell"] = {
+		values = {
+			"0", "1",
+		},
+		host_only = true,
+		validating = function(value) return tonumber(value) end,
+		state = DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP,
+		default = 0,
+	},
 }

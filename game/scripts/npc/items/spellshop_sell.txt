@@ -8,7 +8,7 @@
 		"Model"							"models/props_gameplay/red_box.vmdl"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemAliases"					"spellshop;coctail"
+		"ItemAliases"					"spellshop;cocktail"
 		"ItemStackable"					"1"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
@@ -20,6 +20,6 @@
 		"ItemPurchasable"				"1"
 		"ItemSellable"					"0"
 		"ItemCost"						"10000"
-		"AbilityTextureName"			"item_coctail_spellshop_sell"
+		"AbilityTextureName"			"item_cocktail_spellshop_sell"
 	}
 }

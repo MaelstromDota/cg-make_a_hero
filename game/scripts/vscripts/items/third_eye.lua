@@ -1,7 +1,7 @@
 item_third_eye_lua = item_third_eye_lua or class(ability_lua_base)
 function item_third_eye_lua:OnSpellStart()
 	self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_item_third_eye_lua", {duration=nil, _duration=self:GetSpecialValueFor("duration")})
-	self:SpendCharge()
+	self:SpendCharge(0)
 end
 
 modifier_item_third_eye_lua = modifier_item_third_eye_lua or class({})

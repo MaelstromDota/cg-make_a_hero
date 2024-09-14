@@ -16,8 +16,8 @@
 			"chance_pct"				"12 16 20 24"
 			"bonus_damage"
 			{
-				"value"					"10 15 20 25"
-				"LinkedSpecialBonus"	"special_bonus_unique_faceless_void_3"
+				"value"					"12 18 24 30"
+				"special_bonus_unique_faceless_void_3" "+30"
 			}
 			"delay"						"0.4"
 		}

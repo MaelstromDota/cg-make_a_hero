@@ -65,17 +65,6 @@
 			"creep_level"			"5 15 50 100"
 		}
 	}
-	"enigma_demonic_conversion"
-	{
-		"AbilitySpecial"
-		{
-			"06"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"creep_max_level"		"5 15 50 100"
-			}
-		}
-	}
 	"storm_spirit_ball_lightning"
 	{
 		"AbilityCooldown"				"15 10 5"

@@ -13,8 +13,12 @@
 			<DOTAUserName id="DeveloperName" accountid="178516379" hittest="true" hittestchildren="true"/>
 		</Panel>
 		<Panel id="HostVotingPanel" hittest="false" class="HostOnly AfterAllLoading">
-			<Panel id="KillLimit" hittest="false">
+			<Panel id="KillLimit" class="Vote" hittest="false">
 				<Label id="Title" text="Choose kill limit" hittest="false" />
+				<Panel id="Options" hittest="false" />
+			</Panel>
+			<Panel id="FreeSell" class="Vote" hittest="false">
+				<Label id="Title" text="Free spells sell" hittest="false" />
 				<Panel id="Options" hittest="false" />
 			</Panel>
 		</Panel>
